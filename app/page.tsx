@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import { LocalNotifications } from '@capacitor/local-notifications';
+import MetricsDashboard from './metrics_dash/page';
 
 
 const checkPermissions = async () => {
@@ -41,9 +42,16 @@ const scheduleNotification = async () => {
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <div>
+      <MetricsDashboard/>
+      <main className={styles.main}>
+      
     <button onClick={scheduleNotification}>hello im a button </button>
+    
     <button> im another button</button>
+    
     </main>
+    </div>
+    
   )
 }
