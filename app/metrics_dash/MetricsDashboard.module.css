@@ -1,0 +1,350 @@
+.dashboardContainer {
+  position: relative; 
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  padding: 40px 30px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -10px;
+  width: 40px;
+  height: 2px;
+  background-color: #ccc;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: 400;
+  color: #333;
+  margin-top: 10px;
+}
+
+/*
+.progressContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
+.progressCircle {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+
+.progressCircle svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.progressBackground {
+  fill: none;
+  stroke: #e8e8e8;
+  stroke-width: 20;
+}
+
+.progressBar {
+  fill: none;
+  stroke: #3d4fd1;
+  stroke-width: 20;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s ease-in-out;
+}
+
+.progressText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32px;
+  font-weight: 500;
+  color: #333;
+}
+*/
+
+/* Progress Bar */
+.progressBarContainer {
+  width: 100%;
+  background-color: #e8e8e8;
+  border-radius: 12px;
+  height: 40px;              
+  margin: 25px 0;
+  position: relative;        
+  overflow: hidden;
+}
+
+.progressBarFill {  
+  height: 100%;
+  background-color: #22c55e;
+  width: 0%;                 
+  transition: width 0.5s ease-in-out;
+}
+
+.progressText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: 16px;
+  color: #000;               
+}
+
+/* ========================= */
+/* Sidebar + Overlay Styles  */
+/* ========================= */
+
+.menuButton {
+  position: absolute;
+  top: 20px;
+  right: 20px; 
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 5;
+  color: black;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 9;
+}
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.sidebarItem {
+  background: none;
+  border: none;
+  padding: 20px;
+  text-align: left;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: black; 
+}
+
+.sidebarItem:hover {
+  background-color: #f2f2f2; 
+}
+
+.active {
+  background-color: #d1d5db; 
+  pointer-events: none;       
+  color: black;              
+}
+
+.divider {
+  height: 1px;
+  background-color: #ddd;
+  margin: 0 20px;
+}
+
+.logsContainer {
+  padding-top: 20px;
+}
+
+.logsContainer h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.logsList {
+  color: black;
+  max-height: 400px;
+  overflow-y: auto;
+  border-top: 1px solid #eee;
+}
+
+.logItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 16px;
+}
+
+.logItem span:first-child {
+  color: black;
+  font-weight: 500; 
+}
+
+.logsHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.clearButtonWrapper {
+  display: flex;
+  justify-content: center;  
+  margin: 15px 0;           
+}
+
+.clearLogsButton {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.clearLogsButton:hover {
+  background-color: #ff7875;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: gray;
+}
+
+.metrics {
+  margin-bottom: 50px;
+}
+
+.metricRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.metricRow:last-child {
+  border-bottom: none;
+}
+
+.metricLabel {
+  font-size: 18px;
+  color: #333;
+  font-weight: 400;
+}
+
+.metricValue {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.metricValue.heat {
+  color: #22c55e;
+}
+
+.metricValue.ph {
+  color: #22c55e;
+}
+
+.metricValue.rpm {
+  color: #22c55e;
+}
+
+.metricValue.forward {
+  color: #22c55e; /* green */
+  font-weight: bold;
+}
+
+.metricValue.disconnected {
+  color: #ef4444; /* red */
+  font-weight: bold;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.controlButton {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.controlButton:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.controlButton:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.controlButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.startButton {
+  background-color: #22c55e;
+}
+
+.stopButton {
+  background-color: #ef4444;
+}
+
+.controlButton svg {
+  width: 35px;
+  height: 35px;
+  fill: white;
+}
+
+@media (max-width: 480px) {
+  .dashboardContainer {
+    padding: 30px 20px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .progressCircle {
+    width: 150px;
+    height: 150px;
+  }
+
+  .progressText {
+    font-size: 28px;
+  }
+}
