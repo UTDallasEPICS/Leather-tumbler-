@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[90484,[],"ViewportBoundary"]
+3:I[90484,[],"MetadataBoundary"]
+4:"$Sreact.suspense"
+5:I[86869,[],"IconMark"]
+0:{"buildId":"xC7gHAXGGaykg8ImlOdab","rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"}],["$","meta","2",{"name":"theme-color","content":"#1a1a2e"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"SensorHub - Industrial Monitoring"}],["$","meta","1",{"name":"description","content":"Real-time sensor monitoring dashboard for industrial processes"}],["$","link","2",{"rel":"manifest","href":"/manifest.json"}],["$","link","3",{"rel":"icon","href":"/icon-192.jpg"}],["$","link","4",{"rel":"apple-touch-icon","href":"/icon-512.jpg"}],["$","$L5","5",{}]]}]}]}],null]}],"loading":null,"isPartial":false}

@@ -1,0 +1,10 @@
+1:"$Sreact.fragment"
+2:I[49628,["497","static/chunks/497-0cbd6203d54d382d.js","862","static/chunks/862-3c49b6d049847ffa.js","177","static/chunks/app/layout-8d964760ad73aa11.js"],"DashboardProvider"]
+3:I[95131,["497","static/chunks/497-0cbd6203d54d382d.js","862","static/chunks/862-3c49b6d049847ffa.js","177","static/chunks/app/layout-8d964760ad73aa11.js"],"DashboardShell"]
+4:I[57121,[],""]
+5:I[74581,[],""]
+6:I[53291,["497","static/chunks/497-0cbd6203d54d382d.js","862","static/chunks/862-3c49b6d049847ffa.js","177","static/chunks/app/layout-8d964760ad73aa11.js"],"ServiceWorkerRegister"]
+7:I[30282,["497","static/chunks/497-0cbd6203d54d382d.js","862","static/chunks/862-3c49b6d049847ffa.js","177","static/chunks/app/layout-8d964760ad73aa11.js"],"Analytics"]
+:HL["/_next/static/css/905eaaffa52c5281.css","style"]
+:HL["/_next/static/css/c9da7dc9b728c8ca.css","style"]
+0:{"buildId":"xC7gHAXGGaykg8ImlOdab","rsc":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/905eaaffa52c5281.css","precedence":"next"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/css/c9da7dc9b728c8ca.css","precedence":"next"}]],["$","html",null,{"lang":"en","children":[["$","head",null,{"children":[["$","meta",null,{"name":"theme-color","content":"#1a1a2e"}],["$","meta",null,{"name":"apple-mobile-web-app-capable","content":"yes"}],["$","meta",null,{"name":"apple-mobile-web-app-status-bar-style","content":"black-translucent"}],["$","link",null,{"rel":"apple-touch-icon","href":"/icon-512.png"}],["$","link",null,{"rel":"manifest","href":"/manifest.json"}]]}],["$","body",null,{"className":"font-sans antialiased","children":[["$","$L2",null,{"children":["$","$L3",null,{"children":["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]}]}],["$","$L6",null,{}],["$","$L7",null,{}]]}]]}]]}],"loading":null,"isPartial":false}
