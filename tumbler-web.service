@@ -1,0 +1,16 @@
+[Unit]
+Description=Tumbler Next.js Web App
+After=network.target tumbler-api.service
+
+[Service]
+ExecStart=/bin/bash -c 'source /home/tumbler/.nvm/nvm.sh && node /home/tumbler/tumbler-app/web/.next/standalone/server.js'
+WorkingDirectory=/home/tumbler/tumbler-app/web
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=HOSTNAME=0.0.0.0
+Restart=always
+RestartSec=5
+User=tumbler
+
+[Install]
+WantedBy=multi-user.target

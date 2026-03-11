@@ -1,0 +1,13 @@
+[Unit]
+Description=Temperature Sensor Reader
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/tumbler/tumbler-app/sensor_reader.py
+WorkingDirectory=/home/tumbler/tumbler-app
+Restart=always
+RestartSec=5
+User=tumbler
+
+[Install]
+WantedBy=multi-user.target

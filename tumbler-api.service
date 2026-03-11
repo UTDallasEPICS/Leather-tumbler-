@@ -1,0 +1,13 @@
+[Unit]
+Description=Tumbler FastAPI Server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/uvicorn api:app --host 0.0.0.0 --port 8000
+WorkingDirectory=/home/tumbler/tumbler-app
+Restart=always
+RestartSec=5
+User=tumbler
+
+[Install]
+WantedBy=multi-user.target
