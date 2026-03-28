@@ -1,0 +1,7 @@
+{
+    "gpio_pin": 4,
+    "shelly_ip": "",
+    "server_port": 8765,
+    "server_host": "0.0.0.0",
+    "mock": false
+}
