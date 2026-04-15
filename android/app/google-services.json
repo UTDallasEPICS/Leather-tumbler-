@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "601703429173",
+    "project_id": "leather-tumbler",
+    "storage_bucket": "leather-tumbler.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601703429173:android:6788dfae8265c5dbdbed7c",
+        "android_client_info": {
+          "package_name": "com.LeatherTumbler.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALK0-R62qqqdiopDCVmgCT1qn8ijC2DZ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

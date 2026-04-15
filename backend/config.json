@@ -1,0 +1,17 @@
+{
+    "gpio_pin": 4,
+    "shelly_ip": "",
+    "server_port": 8765,
+    "server_host": "0.0.0.0",
+    "mock": false,
+    "otp": {
+        "mode": "mock"
+    },
+    "twilio": {
+        "account_sid": "",
+        "auth_token": "",
+        "from_phone": "",
+        "otp_ttl_seconds": 300,
+        "otp_length": 6
+    }
+}
