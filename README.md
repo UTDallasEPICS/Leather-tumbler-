@@ -72,7 +72,7 @@ Opens `http://localhost:3000`. `next-pwa` is disabled in dev mode (per [next.con
 
 ## Settings, IP, and PIN
 
-The Server IP **defaults to whatever hostname the page was loaded from** (see [lib/settings.ts](lib/settings.ts)). When the PWA is served from `http://192.168.4.71:8080`, the default Server IP is `192.168.4.71` — you do not type anything.
+The Server IP **defaults to whatever hostname the page was loaded from** (see [lib/settings.ts](lib/settings.ts)). When the PWA is served from `http://192.168.4.71:8080`, the default Server IP is `192.168.4.71` — you do not type anything. One thing to clarify the relay fallback only works if the app is ran via a compiled apk as although the PWA is served and recommneded, inorder for the feature to work the app must be individual from the raspberry pi.
 
 Caveat: any value you Save in Settings is written to `localStorage` under the key `sensorhub-settings` and overrides the auto-detected default. If a phone ever saved `localhost`, it stays `localhost` even after the Pi's IP changes. Two ways to clear:
 
