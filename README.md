@@ -1,4 +1,4 @@
-# DAVA Leather Tumbler
+# UTDallas EPICS DAVA Leather Tumbler Project
 
 Controller for a leather-tumbler rig. A Raspberry Pi reads a DS18B20 temperature probe and an ADS1115-fed pH sensor, drives a Shelly Pro 2 relay, and exposes a FastAPI backend. A Next.js static-export PWA — served from the same Pi — is opened on a phone or tablet on the workshop LAN.
 
