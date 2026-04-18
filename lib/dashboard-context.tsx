@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useRef, useCallback, useEffect } from "react"
 import { getSettings, getWebSocketUrl } from "@/lib/settings"
 import { getSendFcmUrl } from "@/lib/push-api"
+import * as api from "@/lib/api"
 import {
   sendLocalNotification,
   startBackgroundWarningAlert,
@@ -11,6 +12,11 @@ import {
 } from "@/lib/local-notifications"
 // 1. IMPORT PUSH NOTIFICATIONS
 import { PushNotifications } from '@capacitor/push-notifications'
+
+const genId = (): string =>
+  typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+    ? genId()
+    : `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`
 
 export interface LogEntry {
   id: string
@@ -234,7 +240,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
           (notification) => {
             setNotificationLogs(prev => [
               {
-                id: crypto.randomUUID(),
+                id: genId(),
                 timestamp: new Date(),
                 title: notification.title || "Notification",
                 body: notification.body || ""
@@ -245,7 +251,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
           (action) => {
             setNotificationLogs(prev => [
               {
-                id: crypto.randomUUID(),
+                id: genId(),
                 timestamp: new Date(),
                 title: `[Clicked] ${action.notification.title || "Notification"}`,
                 body: action.notification.body || ""
@@ -262,12 +268,6 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     }
 
     initPush()
-  }, [])
-
-  const sendMessage = useCallback((data: object) => {
-    if (wsRef.current?.readyState === 1) {
-      wsRef.current.send(JSON.stringify(data))
-    }
   }, [])
 
   // Helper to send push notifications
@@ -297,7 +297,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const notifyUser = useCallback((msg: string) => {
     setNotificationLogs(prev => [
       {
-        id: crypto.randomUUID(),
+        id: genId(),
         timestamp: new Date(),
         title: "Tumbler Notification",
         body: msg,
@@ -387,9 +387,9 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
       setIsRunning(false)
       setStatus("Disconnected")
     } else {
-      sendMessage({ type: "stop" })
+      void api.stopSystem().catch((err) => console.error("stopSystem failed:", err))
     }
-  }, [notifyUser, sendMessage])
+  }, [notifyUser])
 
   const handleMessage = useCallback((data: any) => {
     switch (data.type) {
@@ -400,7 +400,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
         maybeApplyKillSwitch(data.value, phRef.current, false)
         setLogs(prev => [
           {
-            id: data.id?.toString() || crypto.randomUUID(),
+            id: data.id?.toString() || genId(),
             timestamp: new Date(data.timestamp),
             temperature: data.value,
             ph: phRef.current,
@@ -415,7 +415,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
         maybeApplyKillSwitch(heatRef.current, data.value, false)
         setLogs(prev => [
           {
-            id: data.id?.toString() || crypto.randomUUID(),
+            id: data.id?.toString() || genId(),
             timestamp: new Date(data.timestamp),
             temperature: heatRef.current,
             ph: data.value,
@@ -423,60 +423,14 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
           ...prev.slice(0, 99),
         ])
         break
-      // ... rest of your handleMessage cases
-      case "history":
-        setLogs((data.readings || []).map((r: any) => ({
-          id: r.id?.toString() || crypto.randomUUID(),
-          timestamp: new Date(r.timestamp),
-          temperature: r.temperature,
-          ph: typeof r.ph === "number" ? r.ph : 7,
-        })))
-        break
-      case "ph_history":
-        setLogs((prev) => {
-          const phReadings: Array<{ id: string; timestamp: Date; ph: number }> = (data.readings || []).map((r: any) => ({
-            id: r.id?.toString() || crypto.randomUUID(),
-            timestamp: new Date(r.timestamp),
-            ph: typeof r.ph === "number" ? r.ph : 7,
-          }))
-
-          if (prev.length === 0) {
-            return phReadings.map((r: { id: string; timestamp: Date; ph: number }) => ({
-              id: r.id,
-              timestamp: r.timestamp,
-              temperature: 0,
-              ph: r.ph,
-            }))
-          }
-
-          return prev.map((log, index) => ({
-            ...log,
-            ph: phReadings[index]?.ph ?? log.ph,
-          }))
-        })
-        break
       case "system_state":
         setIsRunning(data.active); setCycles(data.cycles ?? 0); setStatus(data.active ? "Forward" : "Disconnected")
         break
-      case "relay_ack":
-        if (data.action === "start" && data.success) {
-          setIsRunning(true)
-          setStatus("Forward")
-          notifyUser("Tumbler started")
-        } else if (data.action === "stop" && data.success) {
-          setIsRunning(false)
-          setStatus("Disconnected")
-          setHeat(0)
-          setPh(7)
-          setHeatWarningActive(false)
-          setPhWarningActive(false)
-          phRef.current = 7
-          heatRef.current = 0
-          notifyUser("Tumbler stopped")
-        }
+      case "logs_cleared":
+        setLogs([])
         break
     }
-  }, [notifyUser, maybeNotifyOverheat, maybeNotifyPhRange, maybeApplyKillSwitch])
+  }, [maybeNotifyOverheat, maybeNotifyPhRange, maybeApplyKillSwitch])
 
   // --- Demo mode ---
 
@@ -524,7 +478,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
       maybeNotifyPhRange(phValue)
       maybeApplyKillSwitch(temp, phValue, true)
       setLogs(prev => [
-        { id: crypto.randomUUID(), timestamp: new Date(), temperature: temp, ph: phValue },
+        { id: genId(), timestamp: new Date(), temperature: temp, ph: phValue },
         ...prev.slice(0, 99),
       ])
 
@@ -554,7 +508,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
       return
     }
     wsRef.current = ws
-    ws.onopen = () => { setConnectionStatus("connected"); reconnectAttemptRef.current = 0; ws.send(JSON.stringify({ type: "get_history", limit: 100 })) }
+    ws.onopen = () => { setConnectionStatus("connected"); reconnectAttemptRef.current = 0 }
     ws.onmessage = (event) => { try { handleMessage(JSON.parse(event.data)) } catch {}}
     ws.onclose = () => { setConnectionStatus("disconnected"); if (getSettings().demoMode) return; const delay = Math.min(RECONNECT_BASE_DELAY * Math.pow(2, reconnectAttemptRef.current), RECONNECT_MAX_DELAY); reconnectAttemptRef.current += 1; reconnectTimeoutRef.current = setTimeout(connect, delay) }
   }, [handleMessage])
@@ -563,17 +517,52 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => { if (getSettings().demoMode) startDemo(); else connect(); return () => { stopDemo(); if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current); if (wsRef.current) wsRef.current.close() } }, [connect, startDemo, stopDemo])
 
+  // Hydrate log history once from REST (live readings stream arrives over /ws).
+  useEffect(() => {
+    if (getSettings().demoMode) return
+    let cancelled = false
+    void api.getHistory(100)
+      .then(({ temperature, ph }) => {
+        if (cancelled) return
+        const byId = new Map<number, { id: string; timestamp: Date; temperature: number; ph: number }>()
+        for (const t of temperature) {
+          byId.set(t.id, {
+            id: t.id.toString(),
+            timestamp: new Date(t.timestamp),
+            temperature: t.temperature,
+            ph: 7,
+          })
+        }
+        for (const p of ph) {
+          const existing = byId.get(p.id)
+          if (existing) existing.ph = p.ph
+          else byId.set(p.id, {
+            id: p.id.toString(),
+            timestamp: new Date(p.timestamp),
+            temperature: 0,
+            ph: p.ph,
+          })
+        }
+        const merged = Array.from(byId.values()).sort(
+          (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
+        )
+        setLogs(merged)
+      })
+      .catch((err) => console.error("getHistory failed:", err))
+    return () => { cancelled = true }
+  }, [])
+
   useEffect(() => {
     if (isRunning && config.numCycles > 0 && cycles >= config.numCycles) {
-      if (getSettings().demoMode) { 
-        setIsRunning(false); 
+      if (getSettings().demoMode) {
+        setIsRunning(false);
         setStatus("Disconnected");
         notifyUser("Batch complete: Tumbler stopped")
       }
-      else { sendMessage({ type: "stop" }) }
+      else { void api.stopSystem().catch((err) => console.error("stopSystem failed:", err)) }
       alert("BATCH COMPLETE: Target rotations reached.")
     }
-  }, [cycles, isRunning, config.numCycles, sendMessage, notifyUser])
+  }, [cycles, isRunning, config.numCycles, notifyUser])
 
   const shellyDirectOn = useCallback(async (): Promise<boolean> => {
     const settings = getSettings(); if (!settings.shellyIp) return false
@@ -600,21 +589,30 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     killSwitchTriggeredRef.current = false
     setHeatWarningActive(false)
     setPhWarningActive(false)
-    if (getSettings().demoMode) { 
-      setIsRunning(true); 
-      setStatus("Forward"); 
+    if (getSettings().demoMode) {
+      setIsRunning(true);
+      setStatus("Forward");
       notifyUser("Tumbler started");
-      return 
+      return
     }
-    if (wsRef.current?.readyState === 1) sendMessage({ type: "start" })
-    else {
-      const settings = getSettings()
-      if (settings.shellyDirectEnabled && settings.shellyIp) {
-        const ok = await shellyDirectOn()
-        if (ok) notifyUser("Tumbler started")
+    try {
+      const response = await api.startSystem()
+      if (response.success) {
+        setIsRunning(true)
+        setStatus("Forward")
+        setCycles(response.state.cycles)
+        notifyUser("Tumbler started")
+        return
       }
+    } catch (err) {
+      console.error("startSystem failed:", err)
     }
-  }, [sendMessage, shellyDirectOn, notifyUser])
+    const settings = getSettings()
+    if (settings.shellyDirectEnabled && settings.shellyIp) {
+      const ok = await shellyDirectOn()
+      if (ok) notifyUser("Tumbler started")
+    }
+  }, [shellyDirectOn, notifyUser])
 
   const stop = useCallback(async () => {
     overheatWarnedRef.current = false
@@ -623,36 +621,53 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     killSwitchTriggeredRef.current = false
     setHeatWarningActive(false)
     setPhWarningActive(false)
-    if (getSettings().demoMode) { 
-      setIsRunning(false); 
-      setStatus("Disconnected"); 
+    if (getSettings().demoMode) {
+      setIsRunning(false);
+      setStatus("Disconnected");
       setPh(7)
       phRef.current = 7
       heatRef.current = 0
       notifyUser("Tumbler stopped");
-      return 
+      return
     }
-    if (wsRef.current?.readyState === 1) sendMessage({ type: "stop" })
-    else {
-      const settings = getSettings()
-      if (settings.shellyDirectEnabled && settings.shellyIp) {
-        const ok = await shellyDirectOff()
-        if (ok) notifyUser("Tumbler stopped")
+    try {
+      const response = await api.stopSystem()
+      if (response.success) {
+        setIsRunning(false)
+        setStatus("Disconnected")
+        setHeat(0)
+        setPh(7)
+        phRef.current = 7
+        heatRef.current = 0
+        setCycles(response.state.cycles)
+        notifyUser("Tumbler stopped")
+        return
       }
+    } catch (err) {
+      console.error("stopSystem failed:", err)
     }
-  }, [sendMessage, shellyDirectOff, notifyUser])
+    const settings = getSettings()
+    if (settings.shellyDirectEnabled && settings.shellyIp) {
+      const ok = await shellyDirectOff()
+      if (ok) notifyUser("Tumbler stopped")
+    }
+  }, [shellyDirectOff, notifyUser])
 
   const resetCycles = useCallback(() => {
     if (getSettings().demoMode) { setCycles(0); demoCycleCounterRef.current = 0; return }
-    sendMessage({ type: "reset_cycles" })
-  }, [sendMessage])
+    void api.resetCycles()
+      .then((response) => { if (response.success) setCycles(response.state.cycles) })
+      .catch((err) => console.error("resetCycles failed:", err))
+  }, [])
 
   const clearLogs = useCallback(() => {
     if (window.confirm("Are you sure?")) {
       if (getSettings().demoMode) { setLogs([]); return }
-      sendMessage({ type: "clear_logs" })
+      void api.clearLogs()
+        .then((response) => { if (response.success) setLogs([]) })
+        .catch((err) => console.error("clearLogs failed:", err))
     }
-  }, [sendMessage])
+  }, [])
 
   const clearNotificationLogs = useCallback(() => { setNotificationLogs([]) }, [])
 

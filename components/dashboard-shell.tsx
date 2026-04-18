@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { DEFAULT_PIN, getStoredPin, isValidPin, updateStoredPin, verifyPin } from "@/lib/pin-auth"
-import { sendRecoveryRequest } from "@/lib/pin-recovery-client"
+import { requestPinResetOtp, verifyPinResetOtp } from "@/lib/api"
 
 function PinLockScreen({ onUnlock }: { onUnlock: () => void }) {
   const [pinInput, setPinInput] = useState("")
@@ -43,13 +43,13 @@ function PinLockScreen({ onUnlock }: { onUnlock: () => void }) {
 
     setIsSubmitting(true)
     try {
-      const response = await sendRecoveryRequest("request_pin_reset_otp", { phone: phone.trim() })
+      const response = await requestPinResetOtp(phone.trim())
       if (!response.success) {
-        setError((response.message as string) || "Failed to send OTP.")
+        setError(response.message || "Failed to send OTP.")
         return
       }
       setLocalMockOtp(null)
-      const delivery = (response.delivery as string) || "sms"
+      const delivery = response.delivery || "sms"
       if (delivery === "mock" && typeof response.debugCode === "string") {
         setInfo(`SMS provider not configured. Test OTP: ${response.debugCode}`)
       } else {
@@ -100,12 +100,9 @@ function PinLockScreen({ onUnlock }: { onUnlock: () => void }) {
         return
       }
 
-      const response = await sendRecoveryRequest("verify_pin_reset_otp", {
-        phone: phone.trim(),
-        otp: otp.trim(),
-      })
+      const response = await verifyPinResetOtp(phone.trim(), otp.trim())
       if (!response.success) {
-        setError((response.message as string) || "Invalid OTP.")
+        setError(response.message || "Invalid OTP.")
         return
       }
       updateStoredPin(newPin)

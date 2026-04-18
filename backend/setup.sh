@@ -25,16 +25,14 @@ echo -e "${NC}"
 # --------------------------------------------------
 # 0. Clean up previous installation (safe re-run)
 # --------------------------------------------------
-if systemctl list-unit-files | rg -q "sensorhub\.service|sensorhub-pwa\.service"; then
-    echo -e "${YELLOW}Existing SensorHub services found. Cleaning up old service files...${NC}"
-    sudo systemctl stop "$SERVICE_NAME" 2>/dev/null || true
-    sudo systemctl stop "$PWA_SERVICE_NAME" 2>/dev/null || true
-    sudo systemctl disable "$SERVICE_NAME" 2>/dev/null || true
-    sudo systemctl disable "$PWA_SERVICE_NAME" 2>/dev/null || true
-    sudo rm -f "/etc/systemd/system/${SERVICE_NAME}.service"
-    sudo rm -f "/etc/systemd/system/${PWA_SERVICE_NAME}.service"
-    sudo systemctl daemon-reload
-fi
+echo -e "${YELLOW}Stopping any existing SensorHub services for a clean re-install...${NC}"
+sudo systemctl stop "$SERVICE_NAME" 2>/dev/null || true
+sudo systemctl stop "$PWA_SERVICE_NAME" 2>/dev/null || true
+sudo systemctl disable "$SERVICE_NAME" 2>/dev/null || true
+sudo systemctl disable "$PWA_SERVICE_NAME" 2>/dev/null || true
+sudo rm -f "/etc/systemd/system/${SERVICE_NAME}.service"
+sudo rm -f "/etc/systemd/system/${PWA_SERVICE_NAME}.service"
+sudo systemctl daemon-reload
 
 # --------------------------------------------------
 # 1. System update
@@ -70,17 +68,17 @@ echo -e "Using GPIO ${GREEN}${GPIO_PIN}${NC}"
 echo -e "${BOLD}[4/10] Configuring 1-Wire and I2C...${NC}"
 OVERLAY_LINE="dtoverlay=w1-gpio,gpiopin=${GPIO_PIN}"
 
-if rg -q "dtoverlay=w1-gpio" "$CONFIG_FILE"; then
+if grep -q "dtoverlay=w1-gpio" "$CONFIG_FILE"; then
     sudo sed -i "s|dtoverlay=w1-gpio.*|${OVERLAY_LINE}|" "$CONFIG_FILE"
 else
     echo "$OVERLAY_LINE" | sudo tee -a "$CONFIG_FILE" > /dev/null
 fi
 
-if ! rg -q "dtparam=i2c_arm=on" "$CONFIG_FILE"; then
+if ! grep -q "dtparam=i2c_arm=on" "$CONFIG_FILE"; then
     echo "dtparam=i2c_arm=on" | sudo tee -a "$CONFIG_FILE" > /dev/null
 fi
 
-if ! groups | rg -qw i2c; then
+if ! groups | grep -qw i2c; then
     sudo usermod -aG i2c "$(whoami)"
     echo -e "${YELLOW}Added $(whoami) to i2c group. Re-login/reboot required for group change.${NC}"
 fi
@@ -136,8 +134,8 @@ echo -n "DS18B20 sensor: "
 if ls /sys/bus/w1/devices/28-* 1>/dev/null 2>&1; then
     SENSOR_PATH=$(ls -d /sys/bus/w1/devices/28-* | head -1)
     READING=$(cat "${SENSOR_PATH}/w1_slave" 2>/dev/null || echo "")
-    if echo "$READING" | rg -q "YES"; then
-        TEMP_RAW=$(echo "$READING" | rg -o "t=[0-9-]*" | cut -d= -f2)
+    if echo "$READING" | grep -q "YES"; then
+        TEMP_RAW=$(echo "$READING" | grep -o "t=[0-9-]*" | cut -d= -f2)
         TEMP_C=$(echo "scale=2; ${TEMP_RAW}/1000" | bc 2>/dev/null || echo "?")
         echo -e "${GREEN}Detected (${TEMP_C} C)${NC}"
     else
@@ -159,7 +157,7 @@ else
 fi
 
 echo -n "ADS1115 (pH): "
-ADS_FOUND=$(sudo i2cdetect -y 1 2>/dev/null | rg -cw "48" || true)
+ADS_FOUND=$(sudo i2cdetect -y 1 2>/dev/null | grep -cw "48" || true)
 if [ "$ADS_FOUND" -gt 0 ]; then
     echo -e "${GREEN}Detected at 0x48${NC}"
 else
@@ -236,10 +234,10 @@ SVC
 
 sudo systemctl daemon-reload
 sudo systemctl enable "$SERVICE_NAME"
-sudo systemctl start "$SERVICE_NAME"
+sudo systemctl restart "$SERVICE_NAME"
 if [ "$PWA_ENABLED" -eq 1 ]; then
     sudo systemctl enable "$PWA_SERVICE_NAME"
-    sudo systemctl start "$PWA_SERVICE_NAME"
+    sudo systemctl restart "$PWA_SERVICE_NAME"
 fi
 
 # --------------------------------------------------

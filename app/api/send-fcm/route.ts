@@ -2,13 +2,12 @@
 import { NextResponse } from 'next/server';
 import admin from 'firebase-admin';
 
-// Initialize Firebase Admin (Only once)
-if (!admin.apps.length) {
+function ensureFirebaseApp() {
+  if (admin.apps.length) return;
   admin.initializeApp({
     credential: admin.credential.cert({
       projectId: process.env.FIREBASE_PROJECT_ID,
       clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      // This line fixes common formatting issues with the private key
       privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
     }),
   });
@@ -16,6 +15,7 @@ if (!admin.apps.length) {
 
 export async function POST(req: Request) {
   try {
+    ensureFirebaseApp();
     const { token, message } = await req.json();
 
     const payload = {

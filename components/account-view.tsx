@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { getStoredPin, isValidPin, updateStoredPin } from "@/lib/pin-auth"
-import { sendRecoveryRequest } from "@/lib/pin-recovery-client"
+import { getRecoveryPhone, registerRecoveryPhone } from "@/lib/api"
 
 export function AccountView() {
   const [oldPin, setOldPin] = useState("")
@@ -29,7 +29,7 @@ export function AccountView() {
     const loadRecoveryPhone = async () => {
       try {
         setIsLoadingPhone(true)
-        const response = await sendRecoveryRequest("get_recovery_phone", {})
+        const response = await getRecoveryPhone()
         if (response.success && typeof response.phone === "string") {
           setRecoveryPhone(response.phone)
         }
@@ -83,13 +83,13 @@ export function AccountView() {
 
     setIsSavingPhone(true)
     try {
-      const response = await sendRecoveryRequest("register_recovery_phone", { phone: normalized })
+      const response = await registerRecoveryPhone(normalized)
       if (response.success) {
         const returnedPhone = typeof response.phone === "string" ? response.phone : normalized
         setRecoveryPhone(returnedPhone)
         setRecoveryStatus("Recovery phone registered.")
       } else {
-        setRecoveryStatus((response.message as string) || "Failed to register phone.")
+        setRecoveryStatus(response.message || "Failed to register phone.")
       }
     } catch (err) {
       setRecoveryStatus(err instanceof Error ? err.message : "Failed to register phone.")

@@ -10,22 +10,31 @@ export interface Settings {
   demoMode: boolean
 }
 
-const DEFAULTS: Settings = {
-  serverIp: "localhost",
-  serverPort: 8765,
-  shellyIp: "",
-  shellyDirectEnabled: false,
-  demoMode: true,
+function inferServerIp(): string {
+  if (typeof window === "undefined") return "localhost"
+  const host = window.location.hostname
+  return host && host !== "" ? host : "localhost"
+}
+
+function getDefaults(): Settings {
+  return {
+    serverIp: inferServerIp(),
+    serverPort: 8765,
+    shellyIp: "",
+    shellyDirectEnabled: false,
+    demoMode: true,
+  }
 }
 
 export function getSettings(): Settings {
-  if (typeof window === "undefined") return DEFAULTS
+  const defaults = getDefaults()
+  if (typeof window === "undefined") return defaults
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
-    if (!raw) return DEFAULTS
-    return { ...DEFAULTS, ...JSON.parse(raw) }
+    if (!raw) return defaults
+    return { ...defaults, ...JSON.parse(raw) }
   } catch {
-    return DEFAULTS
+    return defaults
   }
 }
 
@@ -36,7 +45,12 @@ export function saveSettings(settings: Settings): void {
 
 export function getWebSocketUrl(): string {
   const { serverIp, serverPort } = getSettings()
-  return `ws://${serverIp}:${serverPort}`
+  return `ws://${serverIp}:${serverPort}/ws`
+}
+
+export function getApiBaseUrl(): string {
+  const { serverIp, serverPort } = getSettings()
+  return `http://${serverIp}:${serverPort}/api`
 }
 
 export function getShellyBaseUrl(): string | null {
