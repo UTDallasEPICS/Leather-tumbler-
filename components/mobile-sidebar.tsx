@@ -3,7 +3,7 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Activity, BarChart3, FileText, Grid3X3, Menu, Settings, UserRound, Wifi, X } from "lucide-react"
+import { Activity, BarChart3, FileText, Grid3X3, Menu, Settings, UserRound, Wifi, X, Wrench } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useDashboard } from "@/lib/dashboard-context"
 import { Badge } from "@/components/ui/badge"
@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 
 const navItems = [
   { href: "/", label: "Metrics", icon: Activity },
+  { href: "/setup", label: "Setup", icon: Wrench },
   { href: "/logs", label: "Logs", icon: FileText },
   { href: "/configure", label: "Configure", icon: Settings },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
