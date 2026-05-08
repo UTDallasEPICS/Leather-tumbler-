@@ -1,6 +1,18 @@
 # UTDallas EPICS DAVA Leather Tumbler Project
 
-Controller for a leather-tumbler rig. A Raspberry Pi reads a DS18B20 temperature probe and an ADS1115-fed pH sensor, drives a Shelly Pro 2 relay, and exposes a FastAPI backend. A Next.js static-export PWA — served from the same Pi — is opened on a phone or tablet on the workshop LAN.
+Controller for a Leather Tumbler rig. A Raspberry Pi reads a DS18B20 temperature probe and an ADS1115-fed pH sensor, drives a Shelly Pro 2 relay, and exposes a FastAPI backend. A Next.js staticcally exported PWA that is served from the same Pi, which is opened on a phone or tablet on the workshop LAN.
+
+#**Our Goal**
+
+The client will be able to view various data metric recorded from the tumbler while in operation. The current implementation inclues a 1 wire Digital Temperature sensor and a analog Ph sensor, this set of sensors covers the crucial needs of the client where this data can indicate whether the leather may get damaged or glaring issues in the leather curing process.
+
+#**Functional Requirements**
+
+Firstly the homepage presents the user with a direct control button to the tumbler, and it also shows a Ph gauge as well as a Temperature wheel. The app will react with sounds and alarms according to configs in the settings page. The analytics page for Ph and temperature repectively have graphs and visual showing records being produced live. This helps the client realize sudden spikes that may occure in the proccess. The settings page is fuly configureation oriented with fields to input the ip of the Pi and the shelly (this will only acutally work properly on the apk compiled version).
+
+#Third Party Integrations
+
+There is code written for for using Firebase cloud messaging for the login method, thats it everything else local.
 
 ## Architecture
 
@@ -36,14 +48,16 @@ The script is **idempotent** — it stops, disables, and removes any prior `sens
 
 1. `apt update && apt upgrade`, install `python3 python3-pip python3-venv curl i2c-tools python3-smbus`.
 2. Ask for the DS18B20 GPIO (default 4) and write `dtoverlay=w1-gpio,gpiopin=N` plus `dtparam=i2c_arm=on` into `/boot/firmware/config.txt`. Adds you to the `i2c` group.
-3. Ask for the Shelly Pro 2 IP — leave blank for mock relay mode.
+3. Ask for the Shelly Pro 2 IP — leave blank for mock relay mode. (currently ip is static to 10.3.141.50 via RaspAp
 4. Ask for the backend port (default `8765`).
 5. Write `backend/config.json`, create `backend/venv`, install `backend/requirements.txt`.
 6. Probe hardware: DS18B20 (reads a temperature), ADS1115 at `0x48`, Shelly RPC.
 7. Optionally create the PWA static service (`python3 -m http.server 8080 --directory ../out`). **Say y here** if you want phones to open the app.
-8. Optionally install `cloudflared` and print remote-tunnel commands.
+8. Optionally install `cloudflared` and print remote-tunnel commands. (Purely demo purposes only, will cause issues with internal data routing so UI wont work sometimes)
 
 Reboot if 1-Wire didn't pick up the sensor on the probe step (`sudo reboot`).
+
+One big thing to remember due to RaspAp the network is configured in a way where the Pi will only recieve internet via ethernet, this is because wlan0 is reserved for the local hotpost netowrk Tumbler-Iot. So if you need internet to install packages or anything use a ethernet cable to some device that tethers internet via RJ45. Any issues in the setup.sh that include the python venv env is ok if the script runs with an already built venv env predisposed to the script in the folder.
 
 After setup:
 
@@ -53,6 +67,9 @@ journalctl -u sensorhub -f
 ```
 
 ## Build and deploy the PWA from your laptop
+
+Before you try this i recomend development of anything backend related to be tested on the Pi it makes things very easy (this is very obvious though).
+Also make sure you Node.js, if you the run the command it'll show a curl script in the terminal just put that in.
 
 ```
 pnpm install
@@ -72,7 +89,7 @@ Opens `http://localhost:3000`. `next-pwa` is disabled in dev mode (per [next.con
 
 ## Settings, IP, and PIN
 
-The Server IP **defaults to whatever hostname the page was loaded from** (see [lib/settings.ts](lib/settings.ts)). When the PWA is served from `http://192.168.4.71:8080`, the default Server IP is `192.168.4.71` — you do not type anything. One thing to clarify the relay fallback only works if the app is ran via a compiled apk as although the PWA is served and recommneded, inorder for the feature to work the app must be individual from the raspberry pi.
+The Server IP **defaults to whatever hostname the page was loaded from** (see [lib/settings.ts](lib/settings.ts)). When the PWA is served from `http://192.168.4.71:8080`, the default Server IP is `192.168.4.71` — you do not type anything. One thing to clarify the relay fallback only works if the app is ran via a compiled apk as although the PWA is served and recommneded, inorder for the feature to work the app must be individual from the raspberry pi. 
 
 Caveat: any value you Save in Settings is written to `localStorage` under the key `sensorhub-settings` and overrides the auto-detected default. If a phone ever saved `localhost`, it stays `localhost` even after the Pi's IP changes. Two ways to clear:
 
@@ -101,7 +118,7 @@ Other defaults:
 | `crypto.randomUUID is not a function` in browser console | `crypto.randomUUID` only exists in secure contexts (HTTPS or `localhost`). The code falls back to `genId()` in [lib/dashboard-context.tsx](lib/dashboard-context.tsx) — make sure you're on the latest build. |
 | Two backends fighting on port 8765 / dashboard shows stale data after re-clone | Re-run `bash setup.sh` (it wipes prior units). Or manually: `sudo systemctl stop sensorhub sensorhub-pwa && sudo rm /etc/systemd/system/sensorhub*.service && sudo systemctl daemon-reload`. |
 | Backend won't start after a fresh `git pull` | New Python deps. `cd backend && source venv/bin/activate && pip install -r requirements.txt`, then `sudo systemctl restart sensorhub`. |
-| `pnpm build` fails with `Service account object must contain a string "project_id" property` | [app/api/send-fcm/route.ts](app/api/send-fcm/route.ts) regressed to top-level `admin.initializeApp()`. Move it back into a function called from inside the POST handler so it runs at request time, not at build time. |
+| `pnpm build` fails with `Service account object must contain a string "project_id" property` | [app/api/send-fcm/route.ts](app/api/send-fcm/route.ts) regressed to top-level `admin.initializeApp()`. Move it back into a function called from inside the POST handler so it runs at request time, not at build time. | The network Tumbler-Iot won't turn on so run "sudo systemctl restart hostapd@wlan0" without quotes, this restart the system level service that I put in to start the local network on boot|
 
 ## Useful one-liners
 
@@ -134,4 +151,4 @@ Should print `{"type":"system_state","active":false,"cycles":0}`.
 ## Stack
 
 Frontend: Next.js 16 (webpack, `output: 'export'`), React 19, Tailwind v4, shadcn/Radix, `next-pwa@5.6`, Recharts/Chart.js, Capacitor.
-Backend: Python 3.13, FastAPI, uvicorn, aiosqlite, httpx, `adafruit-circuitpython-ads1x15`, `lgpio`.
+Backend: Python 3.13, FastAPI, uvicorn, aiosqlite, httpx, `adafruit-circuitpython-ads1x15`, `lgpio`, RaspAp.
