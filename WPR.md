@@ -1,15 +1,16 @@
-# Week of lab_day
+## Week of 9/2
+
 
 ## Team Members' Progress
 
 _Explanation and increasing resolution of the weekly student engagement._
 
-1. Team member 1 - Completed task X, working on task Y | blocked by …
+1. Anthony D - Researched tumbler barrels for purchase.
 2. Team member 2 - 50% on task Z
 3. …
 
 ## Project Progress
-
+Researched the barrel and probes. Translated Documents and worked on semester plans.
 ### Requirements
 
 - Task X complete (link PR or issue if possible)
