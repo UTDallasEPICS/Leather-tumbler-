@@ -6,18 +6,19 @@
 _Explanation and increasing resolution of the weekly student engagement._
 
 1. Anthony D - Researched tumbler barrels for purchase.
-2. Team member 2 - 50% on task Z
-3. …
+2. Emma E/ Siddhaarth B - Reasearch material best used for a tumbler
+3. Research
 
 ## Project Progress
-Researched the barrel and probes. Translated Documents and worked on semester plans.
+- Researched the barrel and probes, and motors.
+- Translated Documents and worked on semester plans.
+- Figure out the gear or pulley math needed to know, in order to spin the tumbler
 ### Requirements
 
-- Task X complete (link PR or issue if possible)
-- Task Y complete
-- 50% on Task Z
+- Order Main barrel/tumbler by next week
+ https://eagle.justrite.com/lab-pack-open-head-poly-drum-14-gallon-plastic-lever-lock-black-1610blk
 
 ### General Comments
 
-- Partner communication in shambles
-- Work progressing smoothly
+- Familiar relationship with sponsor
+- Ideas are generating
