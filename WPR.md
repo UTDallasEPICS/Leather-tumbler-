@@ -5,9 +5,9 @@
 
 _Explanation and increasing resolution of the weekly student engagement._
 
-1. Anthony D - Researched tumbler barrels for purchase.
-2. Emma E/ Siddhaarth B - Reasearch material best used for a tumbler
-3. Research
+1. Anthony  - Researched tumbler barrels for purchase.
+2. Emma / Siddhaarth  - Reasearch material best used for a tumbler
+3. Jaideep / Melvin / Harsha - Researched Places to buy Tumbler
 
 ## Project Progress
 - Researched the barrel and probes, and motors.
