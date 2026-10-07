@@ -3,143 +3,88 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Activity, BarChart3, FileText, Grid3X3, Menu, Settings, UserRound, Wifi, X, Wrench } from "lucide-react"
+import { BarChart3, CircleHelp, FileText, House, LayoutGrid, Menu, Settings, UserRound, Wifi, Wrench, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useDashboard } from "@/lib/dashboard-context"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 
 const navItems = [
-  { href: "/", label: "Metrics", icon: Activity },
-  { href: "/setup", label: "Setup", icon: Wrench },
+  { href: "/", label: "Home", icon: House },
+  { href: "/group?mode=all", label: "All tumblers", icon: LayoutGrid, match: "/group" },
+  { href: "/setup", label: "Setup guide", icon: Wrench },
   { href: "/logs", label: "Logs", icon: FileText },
   { href: "/configure", label: "Configure", icon: Settings },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/settings", label: "Connection", icon: Wifi },
   { href: "/account", label: "Account", icon: UserRound },
+  { href: "/help", label: "Help", icon: CircleHelp },
 ]
 
 export function MobileSidebar() {
   const pathname = usePathname()
-  const { status, connectionStatus, logs, cycles } = useDashboard()
+  const { connectionStatus, logs } = useDashboard()
   const [open, setOpen] = useState(false)
 
   const connectionDot =
     connectionStatus === "connected"
-      ? "bg-primary"
+      ? "bg-success"
       : connectionStatus === "connecting"
         ? "bg-chart-3"
-        : "bg-destructive"
+        : "bg-primary"
 
-  const currentPage = navItems.find((item) => item.href === pathname)
+  const isActive = (item: (typeof navItems)[number]) => pathname === (item.match ?? item.href)
 
   return (
-    <header className="shrink-0 border-b border-border bg-sidebar">
-      <div className="flex items-center justify-between px-4 py-3 pt-[max(env(safe-area-inset-top),0.75rem)]">
-        <div className="flex items-center gap-3">
-          <div className="flex size-7 items-center justify-center overflow-hidden rounded-md border border-sidebar-border bg-white">
-            <Image src="/icon-192.png" alt="DAVA logo" width={28} height={28} className="size-7 object-contain" />
-          </div>
-          <span className="text-sm font-semibold text-sidebar-foreground md:text-base">
-            {currentPage?.label ?? "DAVA"}
+    <header className="relative z-30 shrink-0 bg-background">
+      <div className="flex items-center justify-between px-5 pt-[max(env(safe-area-inset-top),1rem)] pb-2.5">
+        <Link href="/" aria-label="Go to home page" className="flex h-[38px] items-center gap-2.5">
+          <span className="flex size-[38px] items-center justify-center overflow-hidden rounded-[10px] border border-border bg-white">
+            <Image src="/icon-192.png" alt="DAVA logo" width={38} height={38} className="size-[38px] object-contain" />
           </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className={cn("size-2.5 rounded-full", connectionDot)} />
-          <Badge
-            variant="outline"
-            className="border-sidebar-border text-sidebar-foreground/70 text-[10px] uppercase tracking-wide"
+        </Link>
+        <div className="flex items-center gap-1">
+          <span className="flex items-center gap-1.5 px-2 text-xs font-medium text-muted-foreground capitalize">
+            <span className={cn("size-2.5 rounded-full", connectionDot)} aria-hidden="true" />
+            {connectionStatus}
+          </span>
+          <button
+            type="button"
+            onClick={() => setOpen((o) => !o)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="main-menu"
+            className="grid size-11 place-items-center rounded-xl hover:bg-brown-tint"
           >
-            {status}
-          </Badge>
-          <Button
-            variant="ghost"
-            size="icon-sm"
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle navigation"
-            className="text-sidebar-foreground"
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </Button>
+            {open ? <X className="size-6" /> : <Menu className="size-6" />}
+          </button>
         </div>
       </div>
 
       {open && (
         <>
-          <div
-            className="fixed inset-0 z-40 bg-black/50"
-            onClick={() => setOpen(false)}
-          />
-          <div className="fixed inset-x-0 top-0 z-50 bg-sidebar pt-[env(safe-area-inset-top)] shadow-lg">
-            <div className="flex items-center justify-between border-b border-border px-4 py-3">
-              <div className="flex items-center gap-3">
-                <div className="flex size-7 items-center justify-center overflow-hidden rounded-md border border-sidebar-border bg-white">
-                  <Image src="/icon-192.png" alt="DAVA logo" width={28} height={28} className="size-7 object-contain" />
-                </div>
-                <span className="text-sm font-semibold text-sidebar-foreground">
-                  App Launcher
-                </span>
-              </div>
-              <Button
-                variant="ghost"
-                size="icon-sm"
+          <div className="fixed inset-0 z-40 bg-black/30" onClick={() => setOpen(false)} />
+          <nav
+            id="main-menu"
+            aria-label="Main menu"
+            className="absolute inset-x-3.5 top-full z-50 rounded-[18px] border-[1.5px] border-border bg-background p-2 shadow-[0_14px_30px_rgba(0,0,0,.14)]"
+          >
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
                 onClick={() => setOpen(false)}
-                aria-label="Close navigation"
+                className={cn(
+                  "flex w-full items-center gap-3 rounded-xl px-3 py-3 text-base font-medium hover:bg-brown-tint",
+                  isActive(item) && "bg-brown-tint text-brown-dark",
+                )}
               >
-                <X className="size-5" />
-              </Button>
-            </div>
-            <nav className="p-4">
-              <div className="mb-3 flex items-center gap-2 text-xs uppercase tracking-wide text-sidebar-foreground/60">
-                <Grid3X3 className="size-3.5" />
-                Quick Navigation
-              </div>
-              <div className="grid grid-cols-3 gap-3">
-              {navItems.map((item) => {
-                const isActive = pathname === item.href
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                      "flex min-h-24 flex-col items-center justify-center gap-2 rounded-xl border border-sidebar-border px-2 py-3 text-center transition-colors",
-                      isActive
-                        ? "bg-sidebar-accent text-sidebar-primary"
-                        : "bg-sidebar text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-foreground"
-                    )}
-                  >
-                    <item.icon className="size-5" />
-                    <span className="text-xs font-medium">{item.label}</span>
-                    {item.href === "/logs" && logs.length > 0 && (
-                      <span className="rounded-full bg-primary/20 px-2 py-0.5 text-[10px] tabular-nums text-primary">
-                        {logs.length}
-                      </span>
-                    )}
-                    {item.href === "/" && cycles > 0 && (
-                      <span className="rounded-full bg-chart-3/20 px-2 py-0.5 text-[10px] tabular-nums text-chart-3">
-                        {cycles}
-                      </span>
-                    )}
-                  </Link>
-                )
-              })}
-              </div>
-            </nav>
-
-            <div className="mx-3 border-t border-sidebar-border px-3 py-3">
-              <div className="flex items-center gap-2">
-                <div className={cn("size-2.5 rounded-full", connectionDot)} />
-                <span className="text-xs capitalize text-sidebar-foreground/70">{connectionStatus}</span>
-                <Badge
-                  variant="outline"
-                  className="ml-auto border-sidebar-border text-sidebar-foreground/70 text-xs"
-                >
-                  {status}
-                </Badge>
-              </div>
-            </div>
-          </div>
+                <item.icon className="size-5 text-brown" />
+                {item.label}
+                {item.href === "/logs" && logs.length > 0 && (
+                  <span className="ml-auto rounded-full bg-brown-tint px-2 py-0.5 text-xs text-brown-dark tabular-nums">{logs.length}</span>
+                )}
+              </Link>
+            ))}
+          </nav>
         </>
       )}
     </header>

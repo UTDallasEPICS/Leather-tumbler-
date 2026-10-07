@@ -59,7 +59,7 @@ export function OfflineBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
       {/* Fallback style so offline mode is still visible even if images fail to load */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,oklch(0.58_0.23_27_/_0.22),transparent_42%),radial-gradient(circle_at_80%_30%,oklch(0.62_0.24_27_/_0.18),transparent_38%),linear-gradient(120deg,oklch(0.14_0_0)_0%,oklch(0.11_0_0)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(210,47,47,0.10),transparent_42%),radial-gradient(circle_at_80%_30%,rgba(123,75,42,0.10),transparent_38%),linear-gradient(120deg,#ffffff_0%,#f5ece4_100%)]" />
       {previousIndex !== null && (
         <img
           key={`previous-${previousIndex}`}

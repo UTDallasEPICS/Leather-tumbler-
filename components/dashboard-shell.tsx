@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import { MobileSidebar } from "@/components/mobile-sidebar"
-import { OfflineBackground } from "@/components/offline-background"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -119,7 +118,7 @@ function PinLockScreen({ onUnlock }: { onUnlock: () => void }) {
   }
 
   return (
-    <div className="flex h-dvh items-center justify-center bg-background p-4">
+    <div className="flex h-dvh items-center justify-center bg-page p-4">
       <Card className="w-full max-w-sm">
         <CardHeader className="items-center text-center">
           <div className="mb-2 flex size-12 items-center justify-center overflow-hidden rounded-lg border border-border bg-white">
@@ -254,11 +253,11 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
   if (!isUnlocked) return <PinLockScreen onUnlock={() => setIsUnlocked(true)} />
 
   return (
-    <div className="flex h-dvh overflow-hidden bg-background">
-      <div className="flex flex-1 min-h-0 flex-col overflow-hidden">
+    <div className="flex h-dvh justify-center overflow-hidden bg-page">
+      {/* Phone-width column: fills a phone, sits centred on a laptop. */}
+      <div className="flex min-h-0 w-full max-w-xl flex-col overflow-hidden bg-background md:shadow-[0_0_0_1px_var(--border),0_20px_50px_rgba(0,0,0,0.12)]">
         <MobileSidebar />
-        <main className="relative flex-1 min-h-0 overflow-y-auto p-4 md:p-6 lg:p-8">
-          <OfflineBackground />
+        <main className="relative min-h-0 flex-1 overflow-y-auto px-5 pt-2 pb-9">
           <div className="relative z-10">
             {children}
           </div>

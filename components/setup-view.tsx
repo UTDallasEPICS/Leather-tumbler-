@@ -647,13 +647,13 @@ export function SetupView() {
       </Card>
 
       {currentProcessComplete ? (
-        <Card className="border-green-600/40 bg-green-950/20">
+        <Card className="border-success/40 bg-success/10">
           <CardHeader>
-            <CardTitle className="text-green-300">{currentProcess.name} results</CardTitle>
+            <CardTitle className="text-success">{currentProcess.name} results</CardTitle>
             <CardDescription>Phase complete. Confirm outcomes before moving on.</CardDescription>
           </CardHeader>
           <CardContent>
-            <ul className="list-disc space-y-1 pl-5 text-sm text-green-100/90">
+            <ul className="list-disc space-y-1 pl-5 text-sm text-foreground/80">
               {currentProcess.results.map((result) => (
                 <li key={result}>{result}</li>
               ))}

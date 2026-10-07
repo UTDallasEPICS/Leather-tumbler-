@@ -1,15 +1,17 @@
 
 //basic layout stuff for each element in the app.
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Bricolage_Grotesque, Figtree } from 'next/font/google'
 import { DashboardProvider } from '@/lib/dashboard-context'
+import { TumblersProvider } from '@/lib/tumblers'
 import { DashboardShell } from '@/components/dashboard-shell'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ServiceWorkerRegister } from '@/components/sw-register'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+// Self-hosted at build time by next/font, so the PWA renders the same on an offline workshop LAN.
+const figtree = Figtree({ subsets: ['latin'], variable: '--font-figtree', display: 'swap' })
+const bricolage = Bricolage_Grotesque({ subsets: ['latin'], variable: '--font-bricolage', display: 'swap' })
 
 export const metadata: Metadata = {
   title: 'DAVA Leather Tumbler',
@@ -22,7 +24,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#1a1a2e',
+  themeColor: '#ffffff',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -36,22 +38,24 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${figtree.variable} ${bricolage.variable}`} suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#1a1a2e" />
+        <meta name="theme-color" content="#ffffff" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
         <link rel="apple-touch-icon" href="/icon-512.png" />
         <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className="font-sans antialiased">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
           <DashboardProvider>
-            <DashboardShell>
-              {children}
-            </DashboardShell>
+            <TumblersProvider>
+              <DashboardShell>
+                {children}
+              </DashboardShell>
+            </TumblersProvider>
           </DashboardProvider>
         </ThemeProvider>
         <ServiceWorkerRegister />

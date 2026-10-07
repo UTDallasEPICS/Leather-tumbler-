@@ -15,7 +15,7 @@ import { PushNotifications } from '@capacitor/push-notifications'
 
 const genId = (): string =>
   typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
-    ? genId()
+    ? crypto.randomUUID()
     : `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`
 
 export interface LogEntry {
@@ -52,6 +52,7 @@ interface DashboardState {
   notificationLogs: NotificationLog[]
   config: Config
   isRunning: boolean
+  demoMode: boolean
   start: () => Promise<void> | void
   stop: () => Promise<void> | void
   resetCycles: () => void
@@ -82,6 +83,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [notificationLogs, setNotificationLogs] = useState<NotificationLog[]>([])
   const [config, setConfig] = useState<Config>({ heatLimit: 50, phLowLimit: 5, phHighLimit: 10, numCycles: 10 })
   const [isRunning, setIsRunning] = useState(false)
+  const [demoMode, setDemoMode] = useState(false)
   const [heatWarningActive, setHeatWarningActive] = useState(false)
   const [phWarningActive, setPhWarningActive] = useState(false)
   const [isAppVisible, setIsAppVisible] = useState(true)
@@ -508,14 +510,14 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
       return
     }
     wsRef.current = ws
-    ws.onopen = () => { setConnectionStatus("connected"); reconnectAttemptRef.current = 0 }
+    ws.onopen = () => { setConnectionStatus("connected"); reconnectAttemptRef.current = 0; void api.syncDeviceTime().catch(() => {}) }
     ws.onmessage = (event) => { try { handleMessage(JSON.parse(event.data)) } catch {}}
     ws.onclose = () => { setConnectionStatus("disconnected"); if (getSettings().demoMode) return; const delay = Math.min(RECONNECT_BASE_DELAY * Math.pow(2, reconnectAttemptRef.current), RECONNECT_MAX_DELAY); reconnectAttemptRef.current += 1; reconnectTimeoutRef.current = setTimeout(connect, delay) }
   }, [handleMessage])
 
-  const reconnect = useCallback(() => { reconnectAttemptRef.current = 0; if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current); stopDemo(); if (getSettings().demoMode) startDemo(); else connect() }, [connect, startDemo, stopDemo])
+  const reconnect = useCallback(() => { reconnectAttemptRef.current = 0; if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current); stopDemo(); const demo = getSettings().demoMode; setDemoMode(demo); if (demo) startDemo(); else connect() }, [connect, startDemo, stopDemo])
 
-  useEffect(() => { if (getSettings().demoMode) startDemo(); else connect(); return () => { stopDemo(); if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current); if (wsRef.current) wsRef.current.close() } }, [connect, startDemo, stopDemo])
+  useEffect(() => { const demo = getSettings().demoMode; setDemoMode(demo); if (demo) startDemo(); else connect(); return () => { stopDemo(); if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current); if (wsRef.current) wsRef.current.close() } }, [connect, startDemo, stopDemo])
 
   // Hydrate log history once from REST (live readings stream arrives over /ws).
   useEffect(() => {
@@ -676,7 +678,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   return (
     <DashboardContext.Provider
       value={{
-        status, connectionStatus, heat, ph, cycles, logs, notificationLogs, config, isRunning,
+        status, connectionStatus, heat, ph, cycles, logs, notificationLogs, config, isRunning, demoMode,
         start, stop, resetCycles, clearLogs, clearNotificationLogs, updateConfig, reconnect,
         shellyDirectOn, shellyDirectOff,
       }}

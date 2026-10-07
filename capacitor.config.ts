@@ -5,12 +5,12 @@ const config: CapacitorConfig = {
   appName: 'DAVA Leather Tumbler',
   webDir: 'out',
   android: {
-    backgroundColor: '#1a1a2e',
+    backgroundColor: '#ffffff',
   },
   plugins: {
     StatusBar: {
       overlaysWebView: true,
-      style: 'DARK',
+      style: 'LIGHT',
       backgroundColor: '#00000000',
     },
   },

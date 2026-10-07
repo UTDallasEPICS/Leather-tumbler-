@@ -1,5 +1,5 @@
-import { MetricsView } from "@/components/metrics-view"
+import { HomeView } from "@/components/tumbler/home-view"
 
-export default function MetricsPage() {
-  return <MetricsView />
+export default function HomePage() {
+  return <HomeView />
 }
