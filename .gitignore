@@ -12,3 +12,6 @@ out/
 
 # Build artifacts & local data
 *.db
+# ESP32 firmware build output and local secrets
+firmware/.pio/
+firmware/include/secrets.h
