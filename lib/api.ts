@@ -102,6 +102,11 @@ export function getRelayStatus(): Promise<RelayStatusDTO> {
   return request("/system/relay-status", { method: "GET" })
 }
 
+// The tumbler controller has no internet in hotspot mode, so the phone tells it the time.
+export function syncDeviceTime(): Promise<{ success: boolean }> {
+  return request("/system/time", { method: "POST", body: JSON.stringify({ epochMs: Date.now() }) })
+}
+
 export function getSystemState(): Promise<SystemStateDTO> {
   return request("/system/state", { method: "GET" })
 }

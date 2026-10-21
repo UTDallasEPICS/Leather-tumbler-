@@ -1,6 +1,6 @@
 # UTDallas EPICS DAVA Leather Tumbler Project
 
-Controller for a Leather Tumbler rig. A Raspberry Pi reads a DS18B20 temperature probe and an ADS1115-fed pH sensor, drives a Shelly Pro 2 relay, and exposes a FastAPI backend. A Next.js staticcally exported PWA that is served from the same Pi, which is opened on a phone or tablet on the workshop LAN.
+Controller for a Leather Tumbler rig. An ESP32 reads a DS18B20 temperature probe and an ADS1115-fed pH sensor, drives the motor (Shelly relay, GPIO relay or PWM H-bridge), and exposes a REST + WebSocket API. The Next.js app, installed as the Android APK on a phone or tablet, talks to it over Wi-Fi. (The original Raspberry Pi + FastAPI backend is kept in `backend/` as a legacy dev server; see below.)
 
 #**Our Goal**
 
@@ -14,7 +14,30 @@ Firstly the homepage presents the user with a direct control button to the tumbl
 
 There is code written for for using Firebase cloud messaging for the login method, thats it everything else local.
 
-## Architecture
+## ESP32 controller (current)
+
+```
+Phone (Android app, bundled UI)
+   │  http://<controller>:8765/api/*     REST
+   │  ws://<controller>:8765/ws          broadcast WebSocket
+   ▼
+ESP32 firmware (firmware/)
+   ├── DS18B20      (1-Wire, GPIO4)
+   ├── ADS1115 pH   (I2C, SDA 21 / SCL 22, addr 0x48)
+   ├── Motor drive  (Shelly Pro 2 over Wi-Fi | GPIO relay | PWM H-bridge, chosen in setup)
+   └── Flash        (settings, cycles, recovery phone; readings kept in RAM)
+```
+
+It serves the **same API on the same port** as the old backend, so the app needs no changes beyond
+pointing **Connection → Server IP** at the controller. Build, flash, wiring and first-boot setup are in
+[firmware/README.md](firmware/README.md). Two network modes: join an existing Wi-Fi, or run as the
+hotspot itself (address `10.3.141.1`, the same subnet the old RaspAP setup used, so the Shelly at
+`10.3.141.50` keeps working).
+
+The ESP32 does not host the web app. Use the Android APK (`npm run build && npx cap sync android`,
+then `./gradlew installDebug` in `android/`), which already contains the UI.
+
+## Legacy architecture: Raspberry Pi backend (`backend/`)
 
 ```
 Phone browser
@@ -143,7 +166,8 @@ Should print `{"type":"system_state","active":false,"cycles":0}`.
 - [app/](app/) — Next.js app router pages (dashboard, settings, account, configure, analytics, logs)
 - [components/](components/) — React components, shadcn/ui
 - [lib/](lib/) — frontend state and helpers ([dashboard-context.tsx](lib/dashboard-context.tsx), [settings.ts](lib/settings.ts), [api.ts](lib/api.ts), [pin-auth.ts](lib/pin-auth.ts))
-- [backend/](backend/) — FastAPI app ([app.py](backend/app.py), [main.py](backend/main.py)), sensor readers, relay controller, OTP service, [setup.sh](backend/setup.sh), [requirements.txt](backend/requirements.txt)
+- [firmware/](firmware/) — ESP32 controller firmware (PlatformIO): sensors, motor drive, Wi-Fi, REST + WebSocket API
+- [backend/](backend/) — legacy Raspberry Pi / laptop dev server: FastAPI app ([app.py](backend/app.py), [main.py](backend/main.py)), sensor readers, relay controller, OTP service, [setup.sh](backend/setup.sh), [requirements.txt](backend/requirements.txt)
 - [android/](android/) — Capacitor Android wrapper, only relevant if you want a native APK
 - `out/` — static-export build artifact (generated, not in git)
 - [public/](public/) — static assets served by Next/PWA, plus the generated `sw.js`
@@ -151,4 +175,5 @@ Should print `{"type":"system_state","active":false,"cycles":0}`.
 ## Stack
 
 Frontend: Next.js 16 (webpack, `output: 'export'`), React 19, Tailwind v4, shadcn/Radix, `next-pwa@5.6`, Recharts/Chart.js, Capacitor.
-Backend: Python 3.13, FastAPI, uvicorn, aiosqlite, httpx, `adafruit-circuitpython-ads1x15`, `lgpio`, RaspAp.
+Controller: ESP32 (Arduino framework, PlatformIO), ESPAsyncWebServer, ArduinoJson.
+Legacy backend: Python 3.13, FastAPI, uvicorn, aiosqlite, httpx, `adafruit-circuitpython-ads1x15`, `lgpio`, RaspAp.

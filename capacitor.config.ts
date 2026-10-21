@@ -5,12 +5,15 @@ const config: CapacitorConfig = {
   appName: 'DAVA Leather Tumbler',
   webDir: 'out',
   android: {
-    backgroundColor: '#1a1a2e',
+    backgroundColor: '#ffffff',
+    // The app is served from https://localhost but talks to the tumbler controller over plain
+    // http:// and ws:// on the LAN. Without this the web view blocks those as "mixed content".
+    allowMixedContent: true,
   },
   plugins: {
     StatusBar: {
       overlaysWebView: true,
-      style: 'DARK',
+      style: 'LIGHT',
       backgroundColor: '#00000000',
     },
   },

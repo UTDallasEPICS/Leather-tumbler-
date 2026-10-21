@@ -207,7 +207,7 @@ export function SettingsView() {
         <CardHeader>
           <CardTitle>Server</CardTitle>
           <CardDescription>
-            Raspberry Pi WebSocket server address
+            Tumbler controller (ESP32) address
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -221,7 +221,7 @@ export function SettingsView() {
                   <Label htmlFor="server-ip" className="text-sm font-medium text-foreground">
                     Server IP
                   </Label>
-                  <p className="text-xs text-muted-foreground">IP address of the Raspberry Pi</p>
+                  <p className="text-xs text-muted-foreground">IP address of the tumbler controller</p>
                 </div>
               </div>
               <Input
@@ -268,7 +268,7 @@ export function SettingsView() {
         <CardHeader>
           <CardTitle>Shelly Pro 2</CardTitle>
           <CardDescription>
-            Direct relay control as fallback when Pi is unreachable
+            Direct relay control as fallback when the controller is unreachable
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -321,7 +321,7 @@ export function SettingsView() {
               <div>
                 <p className="text-sm font-medium text-foreground">Enable Direct Control</p>
                 <p className="text-xs text-muted-foreground">
-                  Fallback to direct Shelly HTTP when Pi is offline
+                  Fallback to direct Shelly HTTP when the controller is offline
                 </p>
               </div>
               <Switch

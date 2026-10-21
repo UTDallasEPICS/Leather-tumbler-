@@ -3,45 +3,105 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Tumbler app palette: warm paper, leather red and brown, tan stitching. */
 :root {
-  --background: oklch(0.1 0 0);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.14 0 0);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.14 0 0);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.58 0.23 27);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.2 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.2 0 0);
-  --muted-foreground: oklch(0.74 0 0);
-  --accent: oklch(0.25 0.05 27);
-  --accent-foreground: oklch(0.98 0 0);
-  --destructive: oklch(0.58 0.23 27);
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.3 0 0);
-  --input: oklch(0.3 0 0);
-  --ring: oklch(0.58 0.23 27);
-  --chart-1: oklch(0.62 0.24 27);
-  --chart-2: oklch(0.52 0.2 27);
-  --chart-3: oklch(0.82 0.03 27);
-  --chart-4: oklch(0.72 0 0);
-  --chart-5: oklch(0.38 0 0);
+  --page: #ece8e4;
+  --background: #ffffff;
+  --foreground: #1e1e1e;
+  --card: #ffffff;
+  --card-foreground: #1e1e1e;
+  --popover: #ffffff;
+  --popover-foreground: #1e1e1e;
+  --primary: #d22f2f;
+  --primary-foreground: #ffffff;
+  --secondary: #f5ece4;
+  --secondary-foreground: #5e3820;
+  --muted: #f5ece4;
+  --muted-foreground: #6b6560;
+  --accent: #f5ece4;
+  --accent-foreground: #5e3820;
+  --destructive: #d22f2f;
+  --destructive-foreground: #ffffff;
+  --border: #e6dfd9;
+  --input: #e6dfd9;
+  --ring: #7b4b2a;
+  --chart-1: #d22f2f;
+  --chart-2: #7b4b2a;
+  --chart-3: #c9a27e;
+  --chart-4: #6b6560;
+  --chart-5: #1e1e1e;
   --radius: 0.625rem;
-  --sidebar: oklch(0.08 0 0);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.58 0.23 27);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.2 0.03 27);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.28 0 0);
-  --sidebar-ring: oklch(0.58 0.23 27);
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1e1e1e;
+  --sidebar-primary: #d22f2f;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f5ece4;
+  --sidebar-accent-foreground: #5e3820;
+  --sidebar-border: #e6dfd9;
+  --sidebar-ring: #7b4b2a;
+
+  /* brand extras used by the tumbler screens */
+  --red-dark: #a92424;
+  --red-tint: #fbe9e7;
+  --brown: #7b4b2a;
+  --brown-foreground: #ffffff;
+  --brown-dark: #5e3820;
+  --brown-tint: #f5ece4;
+  --tan: #c9a27e;
+  --success: #2e9e5b;
+}
+
+/* Dark mode: warm charcoal with the same leather accents, lightened so they hold up on dark. */
+.dark {
+  --page: #0d0b0a;
+  --background: #161311;
+  --foreground: #f3ede7;
+  --card: #1e1a17;
+  --card-foreground: #f3ede7;
+  --popover: #1e1a17;
+  --popover-foreground: #f3ede7;
+  --primary: #e04642;
+  --primary-foreground: #ffffff;
+  --secondary: #2b231d;
+  --secondary-foreground: #e8d2b8;
+  --muted: #2b231d;
+  --muted-foreground: #a99f95;
+  --accent: #2b231d;
+  --accent-foreground: #e8d2b8;
+  --destructive: #e04642;
+  --destructive-foreground: #ffffff;
+  --border: #352e28;
+  --input: #3a322c;
+  --ring: #c4935f;
+  --chart-1: #e04642;
+  --chart-2: #c4935f;
+  --chart-3: #8a6a4c;
+  --chart-4: #a99f95;
+  --chart-5: #f3ede7;
+  --sidebar: #161311;
+  --sidebar-foreground: #f3ede7;
+  --sidebar-primary: #e04642;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #2b231d;
+  --sidebar-accent-foreground: #e8d2b8;
+  --sidebar-border: #352e28;
+  --sidebar-ring: #c4935f;
+
+  --red-dark: #ec5a55;
+  --red-tint: #3a1f1e;
+  --brown: #c4935f;
+  --brown-foreground: #1a120b;
+  --brown-dark: #e8d2b8;
+  --brown-tint: #2b231d;
+  --tan: #8a6a4c;
+  --success: #3fbf73;
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: var(--font-source-serif), Georgia, 'Times New Roman', serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --color-page: var(--page);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -66,6 +126,14 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-red-dark: var(--red-dark);
+  --color-red-tint: var(--red-tint);
+  --color-brown: var(--brown);
+  --color-brown-foreground: var(--brown-foreground);
+  --color-brown-dark: var(--brown-dark);
+  --color-brown-tint: var(--brown-tint);
+  --color-tan: var(--tan);
+  --color-success: var(--success);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -85,8 +153,26 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-page text-foreground;
   }
+  :focus-visible {
+    outline: 3px solid var(--brown);
+    outline-offset: 2px;
+  }
+}
+
+/* The leather detail: a dashed "stitch" line just inside a tile's edge. */
+.stitch {
+  position: relative;
+}
+.stitch::after {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1.5px dashed currentColor;
+  border-radius: 17px;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 @keyframes offlineFadeIn {
@@ -95,5 +181,11 @@
   }
   to {
     opacity: 0.24;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
   }
 }
