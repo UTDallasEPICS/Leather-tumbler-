@@ -3,7 +3,7 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { BarChart3, CircleHelp, FileText, House, LayoutGrid, Menu, Settings, UserRound, Wifi, Wrench, X } from "lucide-react"
+import { BarChart3, CircleHelp, House, LayoutGrid, Menu, Settings, UserRound, Wifi, Wrench, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useDashboard } from "@/lib/dashboard-context"
 import { ThemeSwitch } from "@/components/theme-switch"
@@ -12,9 +12,8 @@ const navItems = [
   { href: "/", label: "Home", icon: House },
   { href: "/group?mode=all", label: "All tumblers", icon: LayoutGrid, match: "/group" },
   { href: "/setup", label: "Setup guide", icon: Wrench },
-  { href: "/logs", label: "Logs", icon: FileText },
+  { href: "/analytics", label: "Analytics & logs", icon: BarChart3 },
   { href: "/configure", label: "Configure", icon: Settings },
-  { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/settings", label: "Connection", icon: Wifi },
   { href: "/account", label: "Account", icon: UserRound },
   { href: "/help", label: "Help", icon: CircleHelp },
@@ -80,7 +79,7 @@ export function MobileSidebar() {
               >
                 <item.icon className="size-5 text-brown" />
                 {item.label}
-                {item.href === "/logs" && logs.length > 0 && (
+                {item.href === "/analytics" && logs.length > 0 && (
                   <span className="ml-auto rounded-full bg-brown-tint px-2 py-0.5 text-xs text-brown-dark tabular-nums">{logs.length}</span>
                 )}
               </Link>

@@ -13,7 +13,7 @@ const ITEMS: [string, string][] = [
   ],
   [
     "Compare your tumblers",
-    "Tap the temperature or pH square on Home to see every tumbler ranked by that reading. Tumblers that aren't running have no live reading.",
+    "Tap the temperature or pH card on Home to see every tumbler ranked by that reading. Tumblers that aren't running have no live reading.",
   ],
   [
     "Start and stop",

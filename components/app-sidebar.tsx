@@ -3,16 +3,15 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Activity, FileText, Settings, BarChart3, Wifi } from "lucide-react"
+import { Activity, Settings, BarChart3, Wifi } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useDashboard } from "@/lib/dashboard-context"
 import { Badge } from "@/components/ui/badge"
 
 const navItems = [
   { href: "/", label: "Metrics", icon: Activity },
-  { href: "/logs", label: "Logs", icon: FileText },
+  { href: "/analytics", label: "Analytics & logs", icon: BarChart3 },
   { href: "/configure", label: "Configure", icon: Settings },
-  { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/settings", label: "Connection", icon: Wifi },
 ]
 
@@ -52,7 +51,7 @@ export function AppSidebar() {
             >
               <item.icon className="size-4" />
               {item.label}
-              {item.href === "/logs" && logs.length > 0 && (
+              {item.href === "/analytics" && logs.length > 0 && (
                 <span className="ml-auto rounded-full bg-primary/20 px-2 py-0.5 text-xs tabular-nums text-primary">
                   {logs.length}
                 </span>

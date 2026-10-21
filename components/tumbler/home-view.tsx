@@ -1,20 +1,12 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import Link from "next/link"
 import { ChevronRight, Droplets, LayoutGrid, Thermometer } from "lucide-react"
 import { averageOf, tumblerMeta, useTumblers } from "@/lib/tumblers"
-import { PageTitle, SectionTitle, Sub, TumblerRow } from "@/components/tumbler/parts"
+import { SectionTitle, Sub, TumblerRow } from "@/components/tumbler/parts"
 
 export function HomeView() {
   const { tumblers } = useTumblers()
-  const [hello, setHello] = useState("Hello")
-
-  // Time of day is read after mount so the static page and the browser agree on first paint.
-  useEffect(() => {
-    const h = new Date().getHours()
-    setHello(h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening")
-  }, [])
 
   const onlineCount = tumblers.filter((t) => t.online).length
   const live = tumblers.filter((t) => t.running)
@@ -25,7 +17,7 @@ export function HomeView() {
 
   return (
     <div>
-      <PageTitle>{hello}</PageTitle>
+      <h1 className="sr-only">Tumbler dashboard</h1>
       <Sub>
         {onlineCount} of {tumblers.length} {several ? "tumblers are" : "tumbler is"} online.
       </Sub>
@@ -34,39 +26,35 @@ export function HomeView() {
         <Link
           href="/group?mode=temp"
           aria-label="Compare tumblers by temperature"
-          className="stitch flex aspect-square flex-col justify-between rounded-[26px] bg-primary p-[18px] text-left text-white transition-transform active:scale-[.97]"
+          className="stitch grid min-h-[156px] grid-rows-[auto_1fr_auto] gap-2 rounded-[26px] bg-primary p-4 text-white transition-transform active:scale-[.97] sm:min-h-[170px]"
         >
-          <span className="flex items-center gap-2 text-[15px] font-semibold">
-            <Thermometer className="size-5" />
+          <span className="flex items-center gap-1.5 text-[13px] font-semibold sm:text-[15px]">
+            <Thermometer className="size-4 shrink-0 sm:size-5" />
             Temperature
           </span>
-          <span>
-            <span className="font-display block text-[50px] leading-none font-bold tracking-tight">
-              {avgTemp === null ? "—" : avgTemp.toFixed(0)}
-              {avgTemp !== null && <span className="ml-0.5 align-top text-[26px]">°C</span>}
-            </span>
-            <span className="mt-1.5 block text-[13px] opacity-90">{liveNote}</span>
+          <span className="font-display place-self-center text-center text-[44px] leading-none font-bold tracking-tight tabular-nums sm:text-[48px]">
+            {avgTemp === null ? "—" : avgTemp.toFixed(0)}
+            {avgTemp !== null && <span className="ml-0.5 align-top text-[22px]">°C</span>}
           </span>
+          <span className="block text-center text-xs opacity-90 sm:text-[13px]">{liveNote}</span>
         </Link>
 
         <Link
           href="/group?mode=ph"
           aria-label="Compare tumblers by pH"
-          className="stitch flex aspect-square flex-col justify-between rounded-[26px] bg-brown p-[18px] text-left text-brown-foreground transition-transform active:scale-[.97]"
+          className="stitch grid min-h-[156px] grid-rows-[auto_1fr_auto] gap-2 rounded-[26px] bg-brown p-4 text-brown-foreground transition-transform active:scale-[.97] sm:min-h-[170px]"
         >
-          <span className="flex items-center gap-2 text-[15px] font-semibold">
-            <Droplets className="size-5" />
+          <span className="flex items-center gap-1.5 text-[13px] font-semibold sm:text-[15px]">
+            <Droplets className="size-4 shrink-0 sm:size-5" />
             pH level
           </span>
-          <span>
-            <span className="font-display block text-[50px] leading-none font-bold tracking-tight">
-              {avgPh === null ? "—" : avgPh.toFixed(1)}
-            </span>
-            <span className="mt-1.5 block text-[13px] opacity-90">{liveNote}</span>
+          <span className="font-display place-self-center text-center text-[44px] leading-none font-bold tracking-tight tabular-nums sm:text-[48px]">
+            {avgPh === null ? "—" : avgPh.toFixed(1)}
           </span>
+          <span className="block text-center text-xs opacity-90 sm:text-[13px]">{liveNote}</span>
         </Link>
       </div>
-      {several && <p className="mt-2.5 text-center text-[13px] text-muted-foreground">Tap a square to compare all tumblers</p>}
+      {several && <p className="mt-2.5 text-center text-[13px] text-muted-foreground">Tap a card to compare all tumblers</p>}
 
       <SectionTitle>Your tumblers</SectionTitle>
       {several && (
