@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { BarChart3, CircleHelp, FileText, House, LayoutGrid, Menu, Settings, UserRound, Wifi, Wrench, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useDashboard } from "@/lib/dashboard-context"
+import { ThemeSwitch } from "@/components/theme-switch"
 
 const navItems = [
   { href: "/", label: "Home", icon: House },
@@ -84,6 +85,7 @@ export function MobileSidebar() {
                 )}
               </Link>
             ))}
+            <ThemeSwitch />
           </nav>
         </>
       )}

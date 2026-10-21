@@ -38,11 +38,11 @@ export default function AnalyticsPage() {
               <AreaChart data={data}>
                 <defs>
                   <linearGradient id="colorTemp" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#D22F2F" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#D22F2F" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="var(--chart-1)" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="var(--chart-1)" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(30,30,30,0.08)" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
                 <XAxis 
                   dataKey="time" 
                   stroke="#888888" 
@@ -60,13 +60,13 @@ export default function AnalyticsPage() {
                   domain={['auto', 'auto']}
                 />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #E6DFD9', borderRadius: '8px' }}
-                  itemStyle={{ color: '#D22F2F' }}
+                  contentStyle={{ backgroundColor: 'var(--card)', color: 'var(--card-foreground)', border: '1px solid var(--border)', borderRadius: '8px' }}
+                  itemStyle={{ color: 'var(--chart-1)' }}
                 />
                 <Area 
                   type="monotone" 
                   dataKey="temp" 
-                  stroke="#D22F2F" 
+                  stroke="var(--chart-1)" 
                   strokeWidth={2}
                   fillOpacity={1} 
                   fill="url(#colorTemp)" 
@@ -92,11 +92,11 @@ export default function AnalyticsPage() {
               <AreaChart data={data}>
                 <defs>
                   <linearGradient id="colorPh" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#7B4B2A" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#7B4B2A" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="var(--chart-2)" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="var(--chart-2)" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(30,30,30,0.08)" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
                 <XAxis
                   dataKey="time"
                   stroke="#888888"
@@ -114,13 +114,13 @@ export default function AnalyticsPage() {
                   domain={[4, 11]}
                 />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #E6DFD9', borderRadius: '8px' }}
-                  itemStyle={{ color: '#7B4B2A' }}
+                  contentStyle={{ backgroundColor: 'var(--card)', color: 'var(--card-foreground)', border: '1px solid var(--border)', borderRadius: '8px' }}
+                  itemStyle={{ color: 'var(--chart-2)' }}
                 />
                 <Area
                   type="monotone"
                   dataKey="ph"
-                  stroke="#7B4B2A"
+                  stroke="var(--chart-2)"
                   strokeWidth={2}
                   fillOpacity={1}
                   fill="url(#colorPh)"

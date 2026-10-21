@@ -68,7 +68,7 @@ export function DemoSetup({ t }: { t: TumblerInfo }) {
                   type="button"
                   aria-label={`Lower ${f.label}`}
                   onClick={() => step(f.k, -1)}
-                  className="size-11 rounded-full border-[1.5px] border-tan bg-white text-[22px] leading-none font-semibold text-brown-dark hover:bg-brown hover:text-white"
+                  className="size-11 rounded-full border-[1.5px] border-tan bg-background text-[22px] leading-none font-semibold text-brown-dark hover:bg-brown hover:text-brown-foreground"
                 >
                   −
                 </button>
@@ -84,7 +84,7 @@ export function DemoSetup({ t }: { t: TumblerInfo }) {
                   type="button"
                   aria-label={`Raise ${f.label}`}
                   onClick={() => step(f.k, 1)}
-                  className="size-11 rounded-full border-[1.5px] border-tan bg-white text-[22px] leading-none font-semibold text-brown-dark hover:bg-brown hover:text-white"
+                  className="size-11 rounded-full border-[1.5px] border-tan bg-background text-[22px] leading-none font-semibold text-brown-dark hover:bg-brown hover:text-brown-foreground"
                 >
                   +
                 </button>
@@ -98,7 +98,7 @@ export function DemoSetup({ t }: { t: TumblerInfo }) {
         Use recommended settings
       </button>
 
-      <div className="my-4 rounded-[20px] border-[1.5px] border-border bg-white p-4" aria-live="polite">
+      <div className="my-4 rounded-[20px] border-[1.5px] border-border bg-card p-4" aria-live="polite">
         <div className="font-semibold">{all ? "All three settings chosen" : `${chosen} of 3 settings chosen`}</div>
         <div className="mt-1 text-[13px] text-muted-foreground">
           {all ? "Starting brings this demo tumbler online." : "Choose all three to start."}

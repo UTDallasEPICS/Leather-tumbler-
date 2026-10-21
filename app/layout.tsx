@@ -1,17 +1,19 @@
 
 //basic layout stuff for each element in the app.
 import type { Metadata, Viewport } from 'next'
-import { Bricolage_Grotesque, Figtree } from 'next/font/google'
+import { Inter, Source_Serif_4 } from 'next/font/google'
 import { DashboardProvider } from '@/lib/dashboard-context'
 import { TumblersProvider } from '@/lib/tumblers'
+import { SetupProvider } from '@/lib/setup-state'
 import { DashboardShell } from '@/components/dashboard-shell'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ServiceWorkerRegister } from '@/components/sw-register'
 import './globals.css'
 
 // Self-hosted at build time by next/font, so the PWA renders the same on an offline workshop LAN.
-const figtree = Figtree({ subsets: ['latin'], variable: '--font-figtree', display: 'swap' })
-const bricolage = Bricolage_Grotesque({ subsets: ['latin'], variable: '--font-bricolage', display: 'swap' })
+// Formal pairing: a serif for headings and large figures, a neutral sans for everything else.
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' })
+const sourceSerif = Source_Serif_4({ subsets: ['latin'], variable: '--font-source-serif', display: 'swap' })
 
 export const metadata: Metadata = {
   title: 'DAVA Leather Tumbler',
@@ -24,7 +26,10 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#ffffff',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#161311' },
+  ],
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -38,9 +43,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${figtree.variable} ${bricolage.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${sourceSerif.variable}`} suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#ffffff" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
@@ -49,12 +53,14 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className="font-sans antialiased">
-        <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false} disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <DashboardProvider>
             <TumblersProvider>
-              <DashboardShell>
-                {children}
-              </DashboardShell>
+              <SetupProvider>
+                <DashboardShell>
+                  {children}
+                </DashboardShell>
+              </SetupProvider>
             </TumblersProvider>
           </DashboardProvider>
         </ThemeProvider>

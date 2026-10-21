@@ -44,15 +44,62 @@
   --red-dark: #a92424;
   --red-tint: #fbe9e7;
   --brown: #7b4b2a;
+  --brown-foreground: #ffffff;
   --brown-dark: #5e3820;
   --brown-tint: #f5ece4;
   --tan: #c9a27e;
   --success: #2e9e5b;
 }
 
+/* Dark mode: warm charcoal with the same leather accents, lightened so they hold up on dark. */
+.dark {
+  --page: #0d0b0a;
+  --background: #161311;
+  --foreground: #f3ede7;
+  --card: #1e1a17;
+  --card-foreground: #f3ede7;
+  --popover: #1e1a17;
+  --popover-foreground: #f3ede7;
+  --primary: #e04642;
+  --primary-foreground: #ffffff;
+  --secondary: #2b231d;
+  --secondary-foreground: #e8d2b8;
+  --muted: #2b231d;
+  --muted-foreground: #a99f95;
+  --accent: #2b231d;
+  --accent-foreground: #e8d2b8;
+  --destructive: #e04642;
+  --destructive-foreground: #ffffff;
+  --border: #352e28;
+  --input: #3a322c;
+  --ring: #c4935f;
+  --chart-1: #e04642;
+  --chart-2: #c4935f;
+  --chart-3: #8a6a4c;
+  --chart-4: #a99f95;
+  --chart-5: #f3ede7;
+  --sidebar: #161311;
+  --sidebar-foreground: #f3ede7;
+  --sidebar-primary: #e04642;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #2b231d;
+  --sidebar-accent-foreground: #e8d2b8;
+  --sidebar-border: #352e28;
+  --sidebar-ring: #c4935f;
+
+  --red-dark: #ec5a55;
+  --red-tint: #3a1f1e;
+  --brown: #c4935f;
+  --brown-foreground: #1a120b;
+  --brown-dark: #e8d2b8;
+  --brown-tint: #2b231d;
+  --tan: #8a6a4c;
+  --success: #3fbf73;
+}
+
 @theme inline {
-  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-display: var(--font-bricolage), var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: var(--font-source-serif), Georgia, 'Times New Roman', serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --color-page: var(--page);
   --color-background: var(--background);
@@ -82,6 +129,7 @@
   --color-red-dark: var(--red-dark);
   --color-red-tint: var(--red-tint);
   --color-brown: var(--brown);
+  --color-brown-foreground: var(--brown-foreground);
   --color-brown-dark: var(--brown-dark);
   --color-brown-tint: var(--brown-tint);
   --color-tan: var(--tan);

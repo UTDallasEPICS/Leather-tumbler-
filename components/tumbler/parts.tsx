@@ -79,7 +79,7 @@ export function CtaButton({
         ctaBase,
         variant === "solid"
           ? "bg-primary text-primary-foreground hover:bg-red-dark"
-          : "border-2 border-primary bg-white text-primary hover:bg-red-tint",
+          : "border-2 border-primary bg-background text-primary hover:bg-red-tint",
         className,
       )}
       {...props}

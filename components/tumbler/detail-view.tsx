@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { RefreshCcw } from "lucide-react"
+import Link from "next/link"
+import { ChevronRight, ListChecks, RefreshCcw } from "lucide-react"
 import { useDashboard } from "@/lib/dashboard-context"
 import { phPct, tempPct, useTumblers, type TumblerInfo } from "@/lib/tumblers"
 import {
@@ -112,6 +113,20 @@ export function DetailView({ t }: { t: TumblerInfo }) {
           Reset cycles
         </button>
       )}
+
+      <Link
+        href={`/setup?id=${t.id}`}
+        className="mt-4 flex items-center gap-3 rounded-[18px] border-[1.5px] border-border p-3.5 transition-colors hover:border-brown hover:bg-brown-tint"
+      >
+        <span className="grid size-10 shrink-0 place-items-center rounded-full bg-brown-tint text-brown">
+          <ListChecks className="size-5" />
+        </span>
+        <span className="flex-1">
+          <span className="block font-semibold">Setup guide</span>
+          <span className="block text-sm text-muted-foreground">Steps and timers for {t.name}</span>
+        </span>
+        <ChevronRight className="size-[18px] text-muted-foreground" />
+      </Link>
 
       <div className="mt-6 mb-1 border-t-2 border-dashed border-tan" />
       <SectionTitle className="mt-[18px]">Last few minutes</SectionTitle>

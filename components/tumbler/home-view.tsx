@@ -52,7 +52,7 @@ export function HomeView() {
         <Link
           href="/group?mode=ph"
           aria-label="Compare tumblers by pH"
-          className="stitch flex aspect-square flex-col justify-between rounded-[26px] bg-brown p-[18px] text-left text-white transition-transform active:scale-[.97]"
+          className="stitch flex aspect-square flex-col justify-between rounded-[26px] bg-brown p-[18px] text-left text-brown-foreground transition-transform active:scale-[.97]"
         >
           <span className="flex items-center gap-2 text-[15px] font-semibold">
             <Droplets className="size-5" />
