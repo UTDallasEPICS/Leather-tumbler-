@@ -121,7 +121,7 @@ python3 -m venv "${SCRIPT_DIR}/venv"
 # shellcheck source=/dev/null
 source "${SCRIPT_DIR}/venv/bin/activate"
 pip install --upgrade pip
-pip install -r "${SCRIPT_DIR}/requirements.txt"
+pip install -r "${SCRIPT_DIR}/requirements-hardware.txt"
 deactivate
 
 # --------------------------------------------------
@@ -223,6 +223,8 @@ Wants=network-online.target
 Type=simple
 User=$(whoami)
 WorkingDirectory=${SCRIPT_DIR}
+EnvironmentFile=${SCRIPT_DIR}/.env.auth
+UMask=0077
 ExecStart=${SCRIPT_DIR}/venv/bin/python ${SCRIPT_DIR}/main.py --config ${SCRIPT_DIR}/config.json
 Restart=always
 RestartSec=5
@@ -234,7 +236,12 @@ SVC
 
 sudo systemctl daemon-reload
 sudo systemctl enable "$SERVICE_NAME"
-sudo systemctl restart "$SERVICE_NAME"
+if [ -f "${SCRIPT_DIR}/.env.auth" ]; then
+    sudo systemctl restart "$SERVICE_NAME"
+else
+    echo "Authentication requires .env.auth and a one-time admin seed before startup."
+    echo "Follow docs/security/README.md, then start ${SERVICE_NAME}."
+fi
 if [ "$PWA_ENABLED" -eq 1 ]; then
     sudo systemctl enable "$PWA_SERVICE_NAME"
     sudo systemctl restart "$PWA_SERVICE_NAME"

@@ -2,6 +2,7 @@
 //basic layout stuff for each element in the app.
 import type { Metadata, Viewport } from 'next'
 import { Inter, Source_Serif_4 } from 'next/font/google'
+import { AuthProvider } from '@/lib/auth-context'
 import { DashboardProvider } from '@/lib/dashboard-context'
 import { TumblersProvider } from '@/lib/tumblers'
 import { SetupProvider } from '@/lib/setup-state'
@@ -54,6 +55,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <AuthProvider>
           <DashboardProvider>
             <TumblersProvider>
               <SetupProvider>
@@ -63,6 +65,7 @@ export default function RootLayout({
               </SetupProvider>
             </TumblersProvider>
           </DashboardProvider>
+          </AuthProvider>
         </ThemeProvider>
         <ServiceWorkerRegister />
       </body>

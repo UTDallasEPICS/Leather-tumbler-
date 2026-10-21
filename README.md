@@ -1,5 +1,7 @@
 # UTDallas EPICS DAVA Leather Tumbler Project
 
+**Authentication has changed:** the local PIN gate has been replaced with FastAPI accounts, admin-approved signup, Argon2id passwords and 30-minute JWT sessions. Before starting the backend, follow [authentication setup, audit and verification](docs/security/README.md). The backend requires a signing key and a one-time admin seed. HTTPS/WSS and hardware network isolation are required for deployment.
+
 Controller for a Leather Tumbler rig. An ESP32 reads a DS18B20 temperature probe and an ADS1115-fed pH sensor, drives the motor (Shelly relay, GPIO relay or PWM H-bridge), and exposes a REST + WebSocket API. The Next.js app, installed as the Android APK on a phone or tablet, talks to it over Wi-Fi. (The original Raspberry Pi + FastAPI backend is kept in `backend/` as a legacy dev server; see below.)
 
 #**Our Goal**
@@ -12,7 +14,7 @@ Firstly the homepage presents the user with a direct control button to the tumbl
 
 #Third Party Integrations
 
-There is code written for for using Firebase cloud messaging for the login method, thats it everything else local.
+Authentication is owned by FastAPI and SQLite. Firebase messaging was a notification transport, not a login method; the former public push relay has been retired.
 
 ## ESP32 controller (current)
 
@@ -56,7 +58,7 @@ FastAPI / uvicorn (systemd: sensorhub)
    └── Firebase     (FCM push, used in dev / Capacitor APK)
 ```
 
-REST routes are under `/api/*` (`/system/state`, `/system/start`, `/system/stop`, `/system/reset-cycles`, `/system/clear-logs`, `/system/relay-status`, `/readings/history`, `/recovery/phone`, `/auth/otp/request`, `/auth/otp/verify`). The WebSocket at `/ws` is broadcast-only — the server pushes `system_state` and live sensor frames; client messages are ignored.
+REST routes are under `/api/*` (`/system/state`, `/system/start`, `/system/stop`, `/system/reset-cycles`, `/system/clear-logs`, `/system/relay-status`, `/readings/history`, `/auth/signup`, `/auth/login`, `/auth/logout`, `/auth/me`, `/admin/users`, `/admin/audit`). The WebSocket at `/ws` is broadcast-only — the server pushes `system_state` and live sensor frames; client messages are ignored.
 
 ## First-time Pi setup
 
@@ -110,7 +112,7 @@ pnpm dev
 
 Opens `http://localhost:3000`. `next-pwa` is disabled in dev mode (per [next.config.js](next.config.js)), so no service-worker caching to fight while iterating. Either run the backend locally (`cd backend && python main.py --mock`) or open Settings and point Server IP at your Pi's address.
 
-## Settings, IP, and PIN
+## Settings, connection, and accounts
 
 The Server IP **defaults to whatever hostname the page was loaded from** (see [lib/settings.ts](lib/settings.ts)). When the PWA is served from `http://192.168.4.71:8080`, the default Server IP is `192.168.4.71` — you do not type anything. One thing to clarify the relay fallback only works if the app is ran via a compiled apk as although the PWA is served and recommneded, inorder for the feature to work the app must be individual from the raspberry pi. 
 
@@ -121,12 +123,12 @@ Caveat: any value you Save in Settings is written to `localStorage` under the ke
 
 Other defaults:
 - **Demo Mode** is on by default so the app boots cleanly on first launch with no backend. Toggle it off and Save to use real data.
-- **PIN** is `1234` (see [lib/pin-auth.ts](lib/pin-auth.ts)). Change it under Account.
+- **Accounts:** request signup with your name, email, and password. A sysadmin approves and assigns worker or sysadmin. The old PIN is no longer used. See [authentication setup](docs/security/README.md).
 
 ## External services and credentials
 
-- **Twilio (SMS OTP)** — set under a `twilio` key in `backend/config.json`. Without it, the Forgot-PIN flow falls back to a "mock" delivery that returns the OTP in the response body and shows it in the UI as `Test OTP: 123456`.
-- **Firebase Admin (FCM push)** — used by [app/api/send-fcm/route.ts](app/api/send-fcm/route.ts). Reads `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` from env. The static-export build does not host this route at runtime — it's only live in `pnpm dev` or on a Node host. Push notifications also work natively in the Capacitor APK without this endpoint.
+- **Twilio / PIN recovery:** the insecure mock OTP reset flow has been removed. Account recovery is not yet implemented.
+- **Firebase push:** the unauthenticated Next.js relay is retired (HTTP 410). Local notifications remain; server push requires a future authenticated device-registration design.
 - **Shelly Pro 2** — local HTTP RPC, no credentials. Set the IP in `setup.sh` or leave blank for mock.
 - **Cloudflare Tunnel** — optional, for remote access. `setup.sh` offers to install `cloudflared` and prints tunnel commands like `cloudflared tunnel --url http://localhost:8080 --no-autoupdate`.
 
@@ -165,7 +167,7 @@ Should print `{"type":"system_state","active":false,"cycles":0}`.
 
 - [app/](app/) — Next.js app router pages (dashboard, settings, account, configure, analytics, logs)
 - [components/](components/) — React components, shadcn/ui
-- [lib/](lib/) — frontend state and helpers ([dashboard-context.tsx](lib/dashboard-context.tsx), [settings.ts](lib/settings.ts), [api.ts](lib/api.ts), [pin-auth.ts](lib/pin-auth.ts))
+- [lib/](lib/) — frontend state and helpers ([dashboard-context.tsx](lib/dashboard-context.tsx), [settings.ts](lib/settings.ts), [api.ts](lib/api.ts), [auth-context.tsx](lib/auth-context.tsx))
 - [firmware/](firmware/) — ESP32 controller firmware (PlatformIO): sensors, motor drive, Wi-Fi, REST + WebSocket API
 - [backend/](backend/) — legacy Raspberry Pi / laptop dev server: FastAPI app ([app.py](backend/app.py), [main.py](backend/main.py)), sensor readers, relay controller, OTP service, [setup.sh](backend/setup.sh), [requirements.txt](backend/requirements.txt)
 - [android/](android/) — Capacitor Android wrapper, only relevant if you want a native APK

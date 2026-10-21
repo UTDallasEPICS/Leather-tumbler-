@@ -20,6 +20,7 @@ from schemas.system import (
     SystemState,
 )
 from services.broadcast import Broadcaster
+from security.dependencies import sysadmin
 
 log = logging.getLogger("sensorhub.router.system")
 router = APIRouter(tags=["system"])
@@ -71,7 +72,7 @@ async def reset_cycle_count(
     return SystemActionResponse(success=True, state=SystemState(**state))
 
 
-@router.post("/clear-logs", response_model=ClearLogsResponse)
+@router.post("/clear-logs", response_model=ClearLogsResponse, dependencies=[Depends(sysadmin)])
 async def clear_logs(
     db: aiosqlite.Connection = Depends(get_db),
     broadcaster: Broadcaster = Depends(get_broadcaster),

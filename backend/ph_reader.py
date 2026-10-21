@@ -78,6 +78,6 @@ class PhReader:
             return None
 
     def _mock_read(self) -> float:
-        drift = random.uniform(-0.1, 0.1)
+        drift = random.uniform(-0.1, 0.1)  # nosec B311: simulated sensor noise, never used for secrets
         self._mock_ph = max(PH_MIN, min(PH_MAX, self._mock_ph + drift))
         return round(self._mock_ph, 2)

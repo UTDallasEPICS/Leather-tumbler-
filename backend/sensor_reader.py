@@ -73,6 +73,6 @@ class DS18B20Reader:
 
     def _mock_read(self) -> float:
         """Generate a simulated temperature with gradual drift."""
-        drift = random.uniform(-0.5, 0.7)  # slight upward bias things that indicate heat. (heating)
+        drift = random.uniform(-0.5, 0.7)  # slight upward bias things that indicate heat. (heating)  # nosec B311: simulated sensor noise, never used for secrets
         self._mock_temp = max(15.0, min(70.0, self._mock_temp + drift))
         return round(self._mock_temp, 2)

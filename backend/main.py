@@ -29,7 +29,7 @@ def main() -> None:
     args = parser.parse_args()
 
     cfg = load_config(args.config)
-    host = args.host or cfg.get("server_host", "0.0.0.0")
+    host = args.host or cfg.get("server_host", "127.0.0.1")
     port = args.port or cfg.get("server_port", 8765)
 
     app = create_app(
@@ -39,7 +39,7 @@ def main() -> None:
         db_path=args.db,
     )
 
-    uvicorn.run(app, host=host, port=port, log_config=None)
+    uvicorn.run(app, host=host, port=port, log_config=None, proxy_headers=False)
 
 
 if __name__ == "__main__":

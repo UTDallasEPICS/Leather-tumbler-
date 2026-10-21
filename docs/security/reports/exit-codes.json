@@ -1,0 +1,11 @@
+{
+  "pytest": 0,
+  "bandit": 1,
+  "semgrep": 0,
+  "pip-audit": 0,
+  "schemathesis_anonymous": 0,
+  "schemathesis_authenticated": 0,
+  "typescript": 0,
+  "browser": 0,
+  "argon2_benchmark": 0
+}

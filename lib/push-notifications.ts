@@ -30,7 +30,6 @@ export async function addPushListeners(
   if (Capacitor.getPlatform() === 'web') return;
 
   await PushNotifications.addListener('registration', (token) => {
-    console.log('Push registration success, token: ' + token.value);
     onToken(token.value);
   });
 

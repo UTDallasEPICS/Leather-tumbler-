@@ -1,33 +1,41 @@
-"""WebSocket broadcaster: owns the connected-client set and fan-out helper."""
+"""Authorize every outgoing frame against current DB status and revocation."""
 
-import logging
-from fastapi import WebSocket
-
-log = logging.getLogger("sensorhub.broadcast")
+from fastapi import WebSocket, HTTPException
+from starlette.concurrency import run_in_threadpool
 
 
 class Broadcaster:
-    def __init__(self) -> None:
-        self._clients: set[WebSocket] = set()
+    def __init__(self, auth):
+        self.auth = auth
+        self._clients: dict[WebSocket, str] = {}
 
-    def add(self, ws: WebSocket) -> None:
-        self._clients.add(ws)
+    def add(self, ws, token):
+        self._clients[ws] = token
 
-    def remove(self, ws: WebSocket) -> None:
-        self._clients.discard(ws)
+    def remove(self, ws):
+        self._clients.pop(ws, None)
 
     @property
-    def client_count(self) -> int:
+    def client_count(self):
         return len(self._clients)
 
-    async def broadcast(self, message: dict) -> None:
-        if not self._clients:
+    async def send(self, ws, message):
+        try:
+            await run_in_threadpool(self.auth.authenticate, self._clients[ws])
+        except HTTPException:
+            self.remove(ws)
+            await ws.close(code=1008)
             return
-        dead: list[WebSocket] = []
+        await ws.send_json(message)
+
+    async def broadcast(self, message):
         for ws in list(self._clients):
             try:
-                await ws.send_json(message)
+                await self.send(ws, message)
             except Exception:
-                dead.append(ws)
-        for ws in dead:
-            self._clients.discard(ws)
+                # Fail closed on DB or transport errors; never send unchecked data.
+                self.remove(ws)
+                try:
+                    await ws.close(code=1011)
+                except RuntimeError:
+                    continue

@@ -1,0 +1,105 @@
+Schemathesis v4.32.3
+━━━━━━━━━━━━━━━━━━━━
+
+ ✅  Loaded specification from http://127.0.0.1:34223/openapi.json (in 0.31s)
+
+     Base URL:         http://127.0.0.1:34223/
+     Specification:    Open API 3.1.0
+     Operations:       17 selected / 18 total
+
+ ✅  API capabilities:
+
+     Supports NULL byte in headers:                            ✘
+     Accepts backslash and control characters in URL paths:    ✓
+
+ ⏭   Examples (in 0.01s)
+
+     ⏭  17 skipped
+
+ ✅  Coverage (in 2.37s)
+
+     ✅ 17 passed
+
+ ❌  Fuzzing (in 1.49s)
+
+     ✅ 15 passed  ❌  2 failed
+
+=================================== FAILURES ===================================
+_____________________________ POST /api/auth/login _____________________________
+1. Test Case ID: QQaTtb
+
+- ST103 Undocumented status code
+
+    Received: 400
+    Documented: 200, 401, 403, 404, 409, 413, 429, 503, 422
+
+[400] Bad Request:
+
+    `{"detail":"There was an error parsing the body"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d $'B9�\x0b\xee\xa0\x84\x14' http://127.0.0.1:34223/api/auth/login
+
+    st replay QQaTtb
+
+____________________________ POST /api/auth/signup _____________________________
+1. Test Case ID: VPgoqA
+
+- ST103 Undocumented status code
+
+    Received: 400
+    Documented: 202, 401, 403, 404, 409, 413, 429, 503, 422
+
+[400] Bad Request:
+
+    `{"detail":"There was an error parsing the body"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d $'�Z�\x07�' http://127.0.0.1:34223/api/auth/signup
+
+    st replay VPgoqA
+
+=================================== WARNINGS ===================================
+
+Authentication failed: 1 operation returned only 401/403 responses
+
+403 Forbidden (1 operation):
+  - PATCH /api/admin/users/{user_id}/status
+
+💡 Ensure valid authentication credentials are set via `--auth` or `-H`
+
+Missing test data: 1 operation repeatedly returned 404 Not Found, preventing tests from reaching your API's core logic
+
+  - POST /api/admin/users/{user_id}/reject
+
+💡 Add a link from POST /api/auth/login, or supply the identifiers it returns in your config file
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 17/18
+  Tested: 17
+
+Test Phases:
+  ⏭  Examples
+  ✅ Coverage
+  ❌ Fuzzing
+  ⏭  Stateful (disabled)
+
+Failures:
+  ❌ ST103 Undocumented status code: 2
+
+For more information, run `st explain ST103`.
+
+Warnings:
+  ⚠️ Authentication failed: 1 operation returned only 401/403 responses
+  ⚠️ Missing test data: 1 operation repeatedly returned 404 responses
+
+Test cases:
+  457 generated, 2 found 2 unique failures, 24 skipped
+
+Seed: 9106
+
+======================= 2 failures, 2 warnings in 3.95s ========================

@@ -30,22 +30,7 @@ async def init_db(db_path: str = "sensorhub.db") -> aiosqlite.Connection:
             cycles INTEGER NOT NULL DEFAULT 0
         );
 
-        CREATE TABLE IF NOT EXISTS recovery_config (
-            id INTEGER PRIMARY KEY CHECK (id = 1),
-            phone TEXT NOT NULL DEFAULT ''
-        );
-
-        CREATE TABLE IF NOT EXISTS otp_codes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            phone TEXT NOT NULL,
-            code TEXT NOT NULL,
-            expires_at TEXT NOT NULL,
-            consumed INTEGER NOT NULL DEFAULT 0,
-            created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
-        );
-
         INSERT OR IGNORE INTO system_state (id, active, cycles) VALUES (1, 0, 0);
-        INSERT OR IGNORE INTO recovery_config (id, phone) VALUES (1, '');
     """)
     await db.commit()
     return db
@@ -123,59 +108,4 @@ async def clear_readings(db: aiosqlite.Connection) -> None:
     """Delete all temperature and pH readings."""
     await db.execute("DELETE FROM readings")
     await db.execute("DELETE FROM ph_readings")
-    await db.commit()
-
-
-async def set_recovery_phone(db: aiosqlite.Connection, phone: str) -> None:
-    """Set the registered recovery phone number."""
-    await db.execute("UPDATE recovery_config SET phone = ? WHERE id = 1", (phone,))
-    await db.commit()
-
-
-async def get_recovery_phone(db: aiosqlite.Connection) -> str:
-    """Get the registered recovery phone number."""
-    cursor = await db.execute("SELECT phone FROM recovery_config WHERE id = 1")
-    row = await cursor.fetchone()
-    return (row[0] if row and row[0] else "").strip()
-
-
-async def create_otp(db: aiosqlite.Connection, phone: str, code: str, expires_at: str) -> None:
-    """Create a new OTP code entry."""
-    await db.execute(
-        "INSERT INTO otp_codes (phone, code, expires_at, consumed) VALUES (?, ?, ?, 0)",
-        (phone, code, expires_at),
-    )
-    await db.commit()
-
-
-async def verify_and_consume_otp(db: aiosqlite.Connection, phone: str, code: str, now_iso: str) -> bool:
-    """Verify a valid OTP and mark it consumed if found."""
-    cursor = await db.execute(
-        """
-        SELECT id
-        FROM otp_codes
-        WHERE phone = ?
-          AND code = ?
-          AND consumed = 0
-          AND expires_at > ?
-        ORDER BY id DESC
-        LIMIT 1
-        """,
-        (phone, code, now_iso),
-    )
-    row = await cursor.fetchone()
-    if not row:
-        return False
-
-    await db.execute("UPDATE otp_codes SET consumed = 1 WHERE id = ?", (row[0],))
-    await db.commit()
-    return True
-
-
-async def cleanup_old_otps(db: aiosqlite.Connection, now_iso: str) -> None:
-    """Delete expired and consumed OTP entries."""
-    await db.execute(
-        "DELETE FROM otp_codes WHERE consumed = 1 OR expires_at <= ?",
-        (now_iso,),
-    )
     await db.commit()

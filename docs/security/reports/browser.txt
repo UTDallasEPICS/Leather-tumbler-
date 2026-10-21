@@ -1,0 +1,3 @@
+PASS: signup creates pending account; pending login blocked
+PASS: sysadmin approval, audit UI, signout, no persistent JWT
+PASS: approved worker signs in without admin controls; no browser errors

@@ -1,105 +1,103 @@
-"""PIN-reset OTP: request + verify."""
+"""Password authentication and sysadmin-controlled account lifecycle."""
 
-import logging
-from datetime import datetime, timedelta
-
-from fastapi import APIRouter, Depends
-from fastapi.responses import JSONResponse
-import aiosqlite
-
-from db import (
-    cleanup_old_otps,
-    create_otp,
-    get_recovery_phone,
-    verify_and_consume_otp,
+from uuid import UUID
+from fastapi import APIRouter, Depends, Request, Response
+from schemas.auth import (
+    AuditOut,
+    LoginIn,
+    MessageOut,
+    RoleIn,
+    SignupIn,
+    StatusIn,
+    TokenOut,
+    UserOut,
 )
-from deps import get_db, get_otp_service
-from schemas.auth import OtpRequestIn, OtpRequestOut, OtpVerifyIn, OtpVerifyOut
-from services.otp import OtpService
-from services.phone import is_valid_phone, normalize_phone, phones_match
+from security.dependencies import current_user, service, sysadmin
+from security.service import AuthService
 
-log = logging.getLogger("sensorhub.router.auth")
-router = APIRouter(tags=["auth"])
+router = APIRouter(tags=["authentication"])
+admin_router = APIRouter(tags=["administration"], dependencies=[Depends(sysadmin)])
 
 
-def _error(status: int, message: str) -> JSONResponse:
-    return JSONResponse(
-        status_code=status,
-        content=OtpRequestOut(success=False, message=message).model_dump(),
+@router.post("/signup", response_model=MessageOut, status_code=202)
+def signup(body: SignupIn, request: Request, auth: AuthService = Depends(service)):
+    auth.signup(
+        str(body.email),
+        body.name,
+        body.password.get_secret_value(),
+        request.client.host if request.client else "unknown",
+    )
+    return {
+        "message": "If eligible, your request will be reviewed by an administrator."
+    }
+
+
+@router.post("/login", response_model=TokenOut)
+def login(body: LoginIn, request: Request, auth: AuthService = Depends(service)):
+    return auth.login(
+        str(body.email),
+        body.password.get_secret_value(),
+        request.client.host if request.client else "unknown",
     )
 
 
-@router.post("/otp/request")
-async def request_otp(
-    body: OtpRequestIn,
-    db: aiosqlite.Connection = Depends(get_db),
-    otp_service: OtpService = Depends(get_otp_service),
+@router.get("/me", response_model=UserOut)
+def me(principal=Depends(current_user)):
+    return principal["user"]
+
+
+@router.post("/logout", status_code=204)
+def logout(principal=Depends(current_user), auth: AuthService = Depends(service)):
+    auth.logout(principal["token"])
+    return Response(status_code=204)
+
+
+@admin_router.get("/users", response_model=list[UserOut])
+def users(principal=Depends(sysadmin), auth: AuthService = Depends(service)):
+    return auth.list_users(principal["token"])
+
+
+@admin_router.post("/users/{user_id}/approve", response_model=UserOut)
+def approve(
+    user_id: UUID,
+    body: RoleIn,
+    principal=Depends(sysadmin),
+    auth: AuthService = Depends(service),
 ):
-    phone = normalize_phone(body.phone)
-    if not is_valid_phone(phone):
-        return _error(400, "Invalid phone number.")
-
-    registered_phone = await get_recovery_phone(db)
-    if not registered_phone:
-        return _error(400, "No recovery phone registered. Set it in Account first.")
-
-    if not phones_match(phone, registered_phone):
-        return _error(400, "Phone number is not registered.")
-
-    code = otp_service.generate_code()
-    expires_at = (
-        datetime.now() + timedelta(seconds=otp_service.code_ttl_seconds)
-    ).isoformat(timespec="seconds")
-    await create_otp(db, phone, code, expires_at)
-    await cleanup_old_otps(db, datetime.now().isoformat(timespec="seconds"))
-
-    debug_code = None
-    delivery = "sms"
-    if otp_service.use_mock_mode:
-        delivery = "mock"
-        debug_code = code
-    else:
-        try:
-            sent = await otp_service.send_otp_sms(phone, code)
-            if not sent:
-                return _error(
-                    500,
-                    "Twilio mode is enabled but credentials are missing.",
-                )
-        except Exception:
-            log.exception("Failed to send OTP SMS")
-            return _error(502, "Failed to send OTP SMS. Check SMS provider config.")
-
-    if delivery == "mock":
-        log.warning("OTP SMS provider not configured. Mock OTP for %s is %s", phone, code)
-
-    return OtpRequestOut(
-        success=True,
-        message="OTP sent.",
-        delivery=delivery,
-        debugCode=debug_code,
-    )
+    return auth.change_user(principal["token"], str(user_id), "approve", role=body.role)
 
 
-@router.post("/otp/verify")
-async def verify_otp(
-    body: OtpVerifyIn,
-    db: aiosqlite.Connection = Depends(get_db),
+@admin_router.post("/users/{user_id}/reject", response_model=UserOut)
+def reject(
+    user_id: UUID, principal=Depends(sysadmin), auth: AuthService = Depends(service)
 ):
-    phone = normalize_phone(body.phone)
-    otp_code = body.otp.strip()
-    if not phone or not otp_code:
-        return JSONResponse(
-            status_code=400,
-            content=OtpVerifyOut(
-                success=False, message="Phone and OTP are required."
-            ).model_dump(),
-        )
+    return auth.change_user(principal["token"], str(user_id), "reject")
 
-    ok = await verify_and_consume_otp(
-        db, phone, otp_code, datetime.now().isoformat(timespec="seconds")
+
+@admin_router.patch("/users/{user_id}/role", response_model=UserOut)
+def change_role(
+    user_id: UUID,
+    body: RoleIn,
+    principal=Depends(sysadmin),
+    auth: AuthService = Depends(service),
+):
+    return auth.change_user(
+        principal["token"], str(user_id), "role_change", role=body.role
     )
-    return OtpVerifyOut(
-        success=ok,
-        message="OTP verified." if ok else "Invalid or expired OTP.",
+
+
+@admin_router.patch("/users/{user_id}/status", response_model=UserOut)
+def change_status(
+    user_id: UUID,
+    body: StatusIn,
+    principal=Depends(sysadmin),
+    auth: AuthService = Depends(service),
+):
+    return auth.change_user(
+        principal["token"], str(user_id), "status_change", status=body.status
     )
+
+
+@admin_router.get("/audit", response_model=list[AuditOut])
+def audit(principal=Depends(sysadmin), auth: AuthService = Depends(service)):
+    return auth.audit_log(principal["token"])

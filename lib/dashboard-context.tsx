@@ -1,7 +1,8 @@
 "use client"
 
 import React, { createContext, useContext, useState, useRef, useCallback, useEffect } from "react"
-import { getSettings, getWebSocketUrl } from "@/lib/settings"
+import { getAccessToken } from "@/lib/session"
+import { getApiBaseUrl, getSettings, getWebSocketUrl } from "@/lib/settings"
 import { getSendFcmUrl } from "@/lib/push-api"
 import * as api from "@/lib/api"
 import {
@@ -235,7 +236,6 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
         
         addPushListeners(
           (token) => {
-            console.log("FCM Token registered:", token)
             setFcmToken(token)
             localStorage.setItem("fcm_token", token)
           },
@@ -510,7 +510,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
       return
     }
     wsRef.current = ws
-    ws.onopen = () => { setConnectionStatus("connected"); reconnectAttemptRef.current = 0; void api.syncDeviceTime().catch(() => {}) }
+    ws.onopen = () => { const token = getAccessToken(getApiBaseUrl()); if (!token) { ws.close(); return }; ws.send(`Bearer ${token}`); setConnectionStatus("connected"); reconnectAttemptRef.current = 0 }
     ws.onmessage = (event) => { try { handleMessage(JSON.parse(event.data)) } catch {}}
     ws.onclose = () => { setConnectionStatus("disconnected"); if (getSettings().demoMode) return; const delay = Math.min(RECONNECT_BASE_DELAY * Math.pow(2, reconnectAttemptRef.current), RECONNECT_MAX_DELAY); reconnectAttemptRef.current += 1; reconnectTimeoutRef.current = setTimeout(connect, delay) }
   }, [handleMessage])
@@ -566,23 +566,9 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     }
   }, [cycles, isRunning, config.numCycles, notifyUser])
 
-  const shellyDirectOn = useCallback(async (): Promise<boolean> => {
-    const settings = getSettings(); if (!settings.shellyIp) return false
-    try {
-      const resp = await fetch(`http://${settings.shellyIp}/rpc/Switch.Set?id=0&on=true`, { signal: AbortSignal.timeout(5000) })
-      if (resp.ok) { setIsRunning(true); setStatus("Forward") }
-      return resp.ok
-    } catch { return false }
-  }, [])
-
-  const shellyDirectOff = useCallback(async (): Promise<boolean> => {
-    const settings = getSettings(); if (!settings.shellyIp) return false
-    try {
-      const resp = await fetch(`http://${settings.shellyIp}/rpc/Switch.Set?id=0&on=false`, { signal: AbortSignal.timeout(5000) })
-      if (resp.ok) { setIsRunning(false); setStatus("Disconnected"); setHeat(0) }
-      return resp.ok
-    } catch { return false }
-  }, [])
+  // Direct browser-to-relay commands would bypass server authorization.
+  const shellyDirectOn = useCallback(async (): Promise<boolean> => false, [])
+  const shellyDirectOff = useCallback(async (): Promise<boolean> => false, [])
 
   const start = useCallback(async () => {
     overheatWarnedRef.current = false

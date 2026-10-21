@@ -1,0 +1,31 @@
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[manager]	WARNING	Test in comment: simulated is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: sensor is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: noise is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: never is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: used is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: for is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: secrets is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: bearer is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: is is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: a is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: protocol is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: name is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: not is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: a is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: credential is not a test name or id, ignoring
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/security/service.py:201
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/security/service.py:203
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/security/service.py:204
+[tester]	WARNING	nosec encountered (B105), but no failed test on file backend/security/service.py:202
+[manager]	WARNING	Test in comment: simulated is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: sensor is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: noise is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: never is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: used is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: for is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: secrets is not a test name or id, ignoring
+[json]	INFO	JSON output written to file: docs/security/reports/bandit.json

@@ -1,0 +1,86 @@
+Schemathesis v4.32.3
+━━━━━━━━━━━━━━━━━━━━
+
+ ✅  Loaded specification from http://127.0.0.1:37109/openapi.json (in 0.31s)
+
+     Base URL:         http://127.0.0.1:37109/
+     Specification:    Open API 3.1.0
+     Operations:       18 selected / 18 total
+
+ ✅  API capabilities:
+
+     Supports NULL byte in headers:                            ✘
+     Accepts backslash and control characters in URL paths:    ✓
+
+ 🚫  Auth: POST /api/auth/signup failed: 422
+ {"detail":[{"loc":["body","email"],"msg":"value is not a valid email address:
+ The part after the; continuing without authentication
+
+ ⏭   Examples (in 0.02s)
+
+     ⏭  18 skipped
+
+ ✅  Coverage (in 2.93s)
+
+     ✅ 18 passed
+
+ ✅  Fuzzing (in 3.63s)
+
+     ✅ 18 passed
+
+=================================== WARNINGS ===================================
+
+Authentication failed: 15 operations returned only 401/403 responses
+
+401 Unauthorized (15 operations):
+  - GET /api/admin/audit
+  - GET /api/admin/users
+  - GET /api/auth/me
+  - GET /api/readings/history
+  - GET /api/system/relay-status
+  - GET /api/system/state
+  - PATCH /api/admin/users/{user_id}/role
+  - PATCH /api/admin/users/{user_id}/status
+  - POST /api/admin/users/{user_id}/approve
+  - POST /api/admin/users/{user_id}/reject
+  - POST /api/auth/logout
+  - POST /api/system/clear-logs
+  - POST /api/system/reset-cycles
+  - POST /api/system/start
+  - POST /api/system/stop
+
+💡 POST /api/auth/signup and POST /api/auth/login look like a sign-up and login flow. Register an account, then add to schemathesis.toml:
+
+    [auth.dynamic.openapi.HTTPBearer]
+    path = "/api/auth/login"
+    payload = { email = "${LOGIN_EMAIL}", password = "${LOGIN_PASSWORD}" }
+    extract_selector = "/access_token"
+
+Schema validation mismatch: 1 operation mostly rejected generated data due to validation errors, indicating schema constraints don't match API validation
+
+  - POST /api/auth/login
+
+💡 Check your schema constraints - API validation may be stricter than documented
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 18/18
+  Tested: 18
+
+Test Phases:
+  ⏭  Examples
+  ✅ Coverage
+  ✅ Fuzzing
+  ⏭  Stateful (disabled)
+
+Warnings:
+  ⚠️ Authentication failed: 15 operations returned only 401/403 responses
+  ⚠️ Schema validation mismatch: 1 operation mostly rejected generated data
+
+Test cases:
+  666 generated, 666 passed
+
+Seed: 9106
+
+============================= 2 warnings in 6.73s ==============================

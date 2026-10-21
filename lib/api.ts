@@ -1,4 +1,5 @@
 import { getApiBaseUrl } from "@/lib/settings"
+import { getAccessToken } from "@/lib/session"
 
 export interface SystemStateDTO {
   active: boolean
@@ -37,48 +38,30 @@ export interface HistoryResponse {
   ph: PhReadingDTO[]
 }
 
-export interface RecoveryPhoneResponse {
-  success: boolean
-  phone: string
-}
-
-export interface RegisterPhoneResponse {
-  success: boolean
-  message: string
-  phone?: string
-}
-
-export interface OtpRequestResponse {
-  success: boolean
-  message: string
-  delivery?: "sms" | "mock"
-  debugCode?: string | null
-}
-
-export interface OtpVerifyResponse {
-  success: boolean
-  message: string
-}
-
 const DEFAULT_TIMEOUT_MS = 10_000
 
-async function request<T>(
+export async function request<T>(
   path: string,
   init: RequestInit & { timeoutMs?: number } = {}
 ): Promise<T> {
   const { timeoutMs = DEFAULT_TIMEOUT_MS, ...rest } = init
   const url = `${getApiBaseUrl()}${path}`
+  const token = getAccessToken(getApiBaseUrl())
   const response = await fetch(url, {
     ...rest,
     signal: AbortSignal.timeout(timeoutMs),
     headers: {
       "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(rest.headers || {}),
     },
   })
-  if (!response.ok && response.status >= 500) {
-    throw new Error(`Server error ${response.status} for ${path}`)
+  if (!response.ok) {
+    if (response.status === 401 && token) window.dispatchEvent(new Event("auth-expired"))
+    const error = await response.json().catch(() => ({}))
+    throw new Error(typeof error.detail === "string" ? error.detail : `Request failed (${response.status})`)
   }
+  if (response.status === 204) return undefined as T
   return (await response.json()) as T
 }
 
@@ -113,29 +96,4 @@ export function getSystemState(): Promise<SystemStateDTO> {
 
 export function getHistory(limit = 100): Promise<HistoryResponse> {
   return request(`/readings/history?limit=${limit}`, { method: "GET" })
-}
-
-export function getRecoveryPhone(): Promise<RecoveryPhoneResponse> {
-  return request("/recovery/phone", { method: "GET" })
-}
-
-export function registerRecoveryPhone(phone: string): Promise<RegisterPhoneResponse> {
-  return request("/recovery/phone", {
-    method: "PUT",
-    body: JSON.stringify({ phone }),
-  })
-}
-
-export function requestPinResetOtp(phone: string): Promise<OtpRequestResponse> {
-  return request("/auth/otp/request", {
-    method: "POST",
-    body: JSON.stringify({ phone }),
-  })
-}
-
-export function verifyPinResetOtp(phone: string, otp: string): Promise<OtpVerifyResponse> {
-  return request("/auth/otp/verify", {
-    method: "POST",
-    body: JSON.stringify({ phone, otp }),
-  })
 }

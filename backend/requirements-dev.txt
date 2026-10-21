@@ -1,0 +1,8 @@
+-r requirements.txt
+pytest==9.1.1
+pytest-asyncio==1.4.0
+time-machine==3.5.1
+asgi-lifespan==2.1.0
+bandit==1.9.4
+pip-audit==2.10.1
+schemathesis==4.32.3

@@ -15,3 +15,16 @@ out/
 # ESP32 firmware build output and local secrets
 firmware/.pio/
 firmware/include/secrets.h
+
+# Authentication secrets, Python environments, generated test data
+.env
+.env.auth
+.venv/
+__pycache__/
+.pytest_cache/
+.hypothesis/
+*.db-wal
+*.db-shm
+*.sqlite3
+
+.schemathesis/

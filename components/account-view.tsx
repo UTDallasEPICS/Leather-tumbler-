@@ -1,216 +1,57 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { KeyRound, Save, Smartphone } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+import { useCallback, useEffect, useState } from "react"
+import { useAuth, type AuthUser } from "@/lib/auth-context"
+import { request } from "@/lib/api"
 import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { getStoredPin, isValidPin, updateStoredPin } from "@/lib/pin-auth"
-import { getRecoveryPhone, registerRecoveryPhone } from "@/lib/api"
+import { PageTitle, Sub } from "@/components/tumbler/parts"
+
+interface Audit { id:number; actor_id:string|null; target_id:string; action:string; before_state:string; after_state:string; created_at:number }
 
 export function AccountView() {
-  const [oldPin, setOldPin] = useState("")
-  const [newPin, setNewPin] = useState("")
-  const [confirmPin, setConfirmPin] = useState("")
-  const [recoveryPhone, setRecoveryPhone] = useState("")
-  const [recoveryStatus, setRecoveryStatus] = useState("")
-  const [isSavingPhone, setIsSavingPhone] = useState(false)
-  const [isLoadingPhone, setIsLoadingPhone] = useState(false)
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState("")
-
-  const clearFeedback = () => {
-    setError("")
-    setSuccess("")
-  }
-
-  useEffect(() => {
-    const loadRecoveryPhone = async () => {
-      try {
-        setIsLoadingPhone(true)
-        const response = await getRecoveryPhone()
-        if (response.success && typeof response.phone === "string") {
-          setRecoveryPhone(response.phone)
-        }
-      } catch {
-        setRecoveryStatus("Could not load recovery phone from server.")
-      } finally {
-        setIsLoadingPhone(false)
-      }
-    }
-
-    void loadRecoveryPhone()
-  }, [])
-
-  const handleSavePin = () => {
-    clearFeedback()
-
-    if (!isValidPin(oldPin) || !isValidPin(newPin) || !isValidPin(confirmPin)) {
-      setError("Each PIN must be exactly 4 digits.")
-      return
-    }
-
-    if (oldPin !== getStoredPin()) {
-      setError("Incorrect old PIN.")
-      return
-    }
-
-    if (newPin !== confirmPin) {
-      setError("New PIN entries do not match.")
-      return
-    }
-
-    if (newPin === oldPin) {
-      setError("New PIN must be different from old PIN.")
-      return
-    }
-
-    updateStoredPin(newPin)
-    setOldPin("")
-    setNewPin("")
-    setConfirmPin("")
-    setSuccess("PIN changed successfully.")
-  }
-
-  const handleSaveRecoveryPhone = async () => {
-    setRecoveryStatus("")
-    const normalized = recoveryPhone.trim()
-    if (!normalized) {
-      setRecoveryStatus("Enter a phone number first.")
-      return
-    }
-
-    setIsSavingPhone(true)
+  const { user, logout } = useAuth()
+  const [users,setUsers] = useState<AuthUser[]>([])
+  const [audit,setAudit] = useState<Audit[]>([])
+  const [error,setError] = useState("")
+  const [busy,setBusy] = useState(false)
+  const refresh = useCallback(async () => {
+    if (user.role !== "sysadmin") { setUsers([]); setAudit([]); return }
+    const [accounts,events] = await Promise.all([request<AuthUser[]>("/admin/users"),request<Audit[]>("/admin/audit")])
+    setUsers(accounts); setAudit(events)
+  },[user.role])
+  useEffect(()=>{void refresh().catch(err=>setError(err.message))},[refresh])
+  const change = async (account:AuthUser, action:string, body?:object) => {
+    setBusy(true); setError("")
     try {
-      const response = await registerRecoveryPhone(normalized)
-      if (response.success) {
-        const returnedPhone = typeof response.phone === "string" ? response.phone : normalized
-        setRecoveryPhone(returnedPhone)
-        setRecoveryStatus("Recovery phone registered.")
-      } else {
-        setRecoveryStatus(response.message || "Failed to register phone.")
-      }
-    } catch (err) {
-      setRecoveryStatus(err instanceof Error ? err.message : "Failed to register phone.")
-    } finally {
-      setIsSavingPhone(false)
-    }
+      await request(`/admin/users/${account.id}/${action}`,{method:["role","status"].includes(action)?"PATCH":"POST", ...(body ? {body:JSON.stringify(body)} : {})})
+      await refresh()
+    } catch(err) {setError(err instanceof Error?err.message:"Request failed")}
+    finally {setBusy(false)}
   }
-
-  return (
-    <div className="mx-auto w-full max-w-2xl space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">Account</h1>
-        <p className="text-sm text-muted-foreground">Manage app access PIN</p>
-      </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Smartphone className="size-4" />
-            Recovery Phone
-          </CardTitle>
-          <CardDescription>
-            Register the SMS number allowed to request Forgot PIN OTP.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="recovery-phone">Phone Number</Label>
-            <Input
-              id="recovery-phone"
-              type="tel"
-              placeholder="+1 (469) 996 6569 or +52 55 1234 5678"
-              value={recoveryPhone}
-              onChange={(e) => setRecoveryPhone(e.target.value)}
-            />
-            <p className="text-xs text-muted-foreground">
-              Use full international format with country code.
-            </p>
-          </div>
-          {recoveryStatus && <p className="text-sm text-muted-foreground">{recoveryStatus}</p>}
-          <Button className="gap-2" onClick={handleSaveRecoveryPhone} disabled={isSavingPhone || isLoadingPhone}>
-            <Save className="size-4" />
-            {isSavingPhone ? "Saving..." : "Save Recovery Phone"}
-          </Button>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <KeyRound className="size-4" />
-            Change PIN
-          </CardTitle>
-          <CardDescription>
-            Enter old PIN, choose a new 4-digit PIN, and confirm it.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="old-pin">Old PIN</Label>
-            <Input
-              id="old-pin"
-              type="password"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              maxLength={4}
-              placeholder="Enter old PIN"
-              value={oldPin}
-              onChange={(e) => {
-                clearFeedback()
-                setOldPin(e.target.value.replace(/\D/g, "").slice(0, 4))
-              }}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="new-pin">New PIN</Label>
-            <Input
-              id="new-pin"
-              type="password"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              maxLength={4}
-              placeholder="Enter new PIN"
-              value={newPin}
-              onChange={(e) => {
-                clearFeedback()
-                setNewPin(e.target.value.replace(/\D/g, "").slice(0, 4))
-              }}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="confirm-pin">Retype New PIN</Label>
-            <Input
-              id="confirm-pin"
-              type="password"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              maxLength={4}
-              placeholder="Retype new PIN"
-              value={confirmPin}
-              onChange={(e) => {
-                clearFeedback()
-                setConfirmPin(e.target.value.replace(/\D/g, "").slice(0, 4))
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") handleSavePin()
-              }}
-            />
-          </div>
-
-          {error && <p className="text-sm text-destructive">{error}</p>}
-          {success && <p className="text-sm text-primary">{success}</p>}
-
-          <Button className="gap-2" onClick={handleSavePin}>
-            <Save className="size-4" />
-            Update PIN
-          </Button>
-        </CardContent>
-      </Card>
-    </div>
-  )
+  return <div className="space-y-5">
+    <div><PageTitle>Account</PageTitle><Sub>{user.name} · {user.email}</Sub><p className="mt-2 text-sm capitalize">{user.role}</p></div>
+    <Button variant="outline" onClick={()=>{void logout().catch(err=>setError(err.message))}}>Sign out</Button>
+    {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+    {user.role === "sysadmin" && <>
+      <div className="flex items-center justify-between"><h2 className="font-display text-xl font-bold">Account approvals</h2><Button variant="ghost" onClick={()=>{void refresh().catch(err=>setError(err.message))}}>Refresh</Button></div>
+      <p className="text-sm text-muted-foreground">Review the applicant’s identity before assigning access. Pending and rejected accounts cannot sign in.</p>
+      {users.map(account=><section key={account.id} className="space-y-3 rounded-xl border border-border p-4">
+        <div><h3 className="font-semibold">{account.name}</h3><p className="break-all text-sm text-muted-foreground">{account.email}</p><p className="mt-1 text-xs capitalize">{account.status}{account.role ? ` · ${account.role}` : ""}</p></div>
+        {account.status === "pending" ? <div className="flex flex-wrap gap-2">
+          <Button size="sm" disabled={busy} onClick={()=>change(account,"approve",{role:"worker"})}>Approve as worker</Button>
+          <Button size="sm" variant="outline" disabled={busy} onClick={()=>change(account,"approve",{role:"sysadmin"})}>Approve as sysadmin</Button>
+          <Button size="sm" variant="outline" disabled={busy} onClick={()=>change(account,"reject")}>Reject</Button>
+        </div> : ["active","suspended"].includes(account.status) && <div className="flex flex-wrap gap-2">
+          <Button size="sm" variant="outline" disabled={busy} onClick={()=>change(account,"role",{role:account.role==="worker"?"sysadmin":"worker"})}>Make {account.role==="worker"?"sysadmin":"worker"}</Button>
+          <Button size="sm" variant="outline" disabled={busy} onClick={()=>change(account,"status",{status:account.status==="active"?"suspended":"active"})}>{account.status==="active"?"Suspend":"Reactivate"}</Button>
+        </div>}
+      </section>)}
+      <h2 className="font-display text-xl font-bold">Access audit</h2>
+      <div className="max-h-80 overflow-y-auto space-y-3 rounded-xl border border-border p-4">{audit.map(event=><div key={event.id} className="border-b border-border pb-3 text-xs">
+        <p className="font-semibold">{event.action.replaceAll("_"," ")} · {new Date(event.created_at*1000).toLocaleString()}</p>
+        <p className="break-all text-muted-foreground">Actor: {event.actor_id ?? "Local bootstrap / signup"}<br/>Account: {event.target_id}</p>
+        <p className="break-all">{event.before_state} → {event.after_state}</p>
+      </div>)}</div>
+    </>}
+  </div>
 }

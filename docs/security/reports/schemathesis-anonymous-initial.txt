@@ -1,0 +1,139 @@
+Schemathesis v4.32.3
+━━━━━━━━━━━━━━━━━━━━
+
+ ✅  Loaded specification from http://127.0.0.1:34223/openapi.json (in 0.87s)
+
+     Base URL:         http://127.0.0.1:34223/
+     Specification:    Open API 3.1.0
+     Operations:       18 selected / 18 total
+
+ ✅  API capabilities:
+
+     Supports NULL byte in headers:                            ✘
+     Accepts backslash and control characters in URL paths:    ✓
+
+ 🚫  Auth: POST /api/auth/signup failed: 422
+ {"detail":[{"loc":["body","email"],"msg":"value is not a valid email address:
+ The part after the; continuing without authentication
+
+ ⏭   Examples (in 0.02s)
+
+     ⏭  18 skipped
+
+ ✅  Coverage (in 4.52s)
+
+     ✅ 18 passed
+
+ ❌  Fuzzing (in 3.25s)
+
+     ✅ 15 passed  ❌  3 failed
+
+=================================== FAILURES ===================================
+___________________ POST /api/admin/users/{user_id}/approve ____________________
+1. Test Case ID: QGBodG
+
+- ST103 Undocumented status code
+
+    Received: 400
+    Documented: 200, 401, 403, 404, 409, 413, 429, 503, 422
+
+[400] Bad Request:
+
+    `{"detail":"There was an error parsing the body"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '��' http://127.0.0.1:34223/api/admin/users/-script.pyw/approve
+
+    st replay QGBodG
+
+_____________________________ POST /api/auth/login _____________________________
+1. Test Case ID: D78cuk
+
+- ST103 Undocumented status code
+
+    Received: 400
+    Documented: 200, 401, 403, 404, 409, 413, 429, 503, 422
+
+[400] Bad Request:
+
+    `{"detail":"There was an error parsing the body"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d $'B9�\x0b\xee\xa0\x84\x14' http://127.0.0.1:34223/api/auth/login
+
+    st replay D78cuk
+
+____________________________ POST /api/auth/signup _____________________________
+1. Test Case ID: MSGgUy
+
+- ST103 Undocumented status code
+
+    Received: 400
+    Documented: 202, 401, 403, 404, 409, 413, 429, 503, 422
+
+[400] Bad Request:
+
+    `{"detail":"There was an error parsing the body"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '�' http://127.0.0.1:34223/api/auth/signup
+
+    st replay MSGgUy
+
+=================================== WARNINGS ===================================
+
+Authentication failed: 15 operations returned only 401/403 responses
+
+401 Unauthorized (15 operations):
+  - GET /api/admin/audit
+  - GET /api/admin/users
+  - GET /api/auth/me
+  - GET /api/readings/history
+  - GET /api/system/relay-status
+  - GET /api/system/state
+  - PATCH /api/admin/users/{user_id}/role
+  - PATCH /api/admin/users/{user_id}/status
+  - POST /api/admin/users/{user_id}/approve
+  - POST /api/admin/users/{user_id}/reject
+  - POST /api/auth/logout
+  - POST /api/system/clear-logs
+  - POST /api/system/reset-cycles
+  - POST /api/system/start
+  - POST /api/system/stop
+
+💡 POST /api/auth/signup and POST /api/auth/login look like a sign-up and login flow. Register an account, then add to schemathesis.toml:
+
+    [auth.dynamic.openapi.HTTPBearer]
+    path = "/api/auth/login"
+    payload = { email = "${LOGIN_EMAIL}", password = "${LOGIN_PASSWORD}" }
+    extract_selector = "/access_token"
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 18/18
+  Tested: 18
+
+Test Phases:
+  ⏭  Examples
+  ✅ Coverage
+  ❌ Fuzzing
+  ⏭  Stateful (disabled)
+
+Failures:
+  ❌ ST103 Undocumented status code: 3
+
+For more information, run `st explain ST103`.
+
+Warnings:
+  ⚠️ Authentication failed: 15 operations returned only 401/403 responses
+
+Test cases:
+  620 generated, 3 found 3 unique failures
+
+Seed: 9106
+
+======================== 3 failures, 1 warning in 9.40s ========================

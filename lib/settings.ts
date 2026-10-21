@@ -44,13 +44,17 @@ export function saveSettings(settings: Settings): void {
 }
 
 export function getWebSocketUrl(): string {
-  const { serverIp, serverPort } = getSettings()
-  return `ws://${serverIp}:${serverPort}/ws`
+  return getApiBaseUrl().replace(/^http/, "ws").replace(/\/api$/, "/ws")
 }
 
 export function getApiBaseUrl(): string {
+  if (typeof window !== "undefined") {
+    const configured = localStorage.getItem("dava-api-origin")
+    if (configured) return `${configured}/api`
+  }
   const { serverIp, serverPort } = getSettings()
-  return `http://${serverIp}:${serverPort}/api`
+  const protocol = typeof window !== "undefined" && window.location.protocol === "https:" ? "https" : "http"
+  return `${protocol}://${serverIp}:${serverPort}/api`
 }
 
 export function getShellyBaseUrl(): string | null {

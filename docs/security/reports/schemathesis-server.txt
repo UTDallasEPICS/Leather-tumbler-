@@ -1,0 +1,1193 @@
+INFO:     Started server process [178652]
+INFO:     Waiting for application startup.
+2026-10-21 18:12:21,006 [INFO] sensor_reader: Sensor running in MOCK mode
+2026-10-21 18:12:21,006 [INFO] ph_reader: pH sensor running in MOCK mode
+2026-10-21 18:12:21,006 [INFO] relay_controller: Relay running in MOCK mode (no Shelly IP configured)
+2026-10-21 18:12:21,006 [INFO] sensorhub: SensorHub ready (mock=True, shelly=none, gpio=4)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:37109 (Press CTRL+C to quit)
+INFO:     127.0.0.1:50250 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50252 - "GET /openapi.json HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     127.0.0.1:50278 - "GET /schemathesis-probe%5C%1B%01 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50280 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "TRACE /api/auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /api/auth/logout HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/auth/logout HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/auth/logout HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/auth/logout HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/auth/logout HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/auth/logout HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/auth/logout HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "TRACE /api/auth/signup HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/auth/signup HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/auth/signup HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/auth/signup HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/auth/signup HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/auth/signup HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/auth/signup HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50284 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /api/system/clear-logs HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/system/clear-logs HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/system/clear-logs HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/system/clear-logs HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/system/clear-logs HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/system/clear-logs HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/system/clear-logs HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /api/system/reset-cycles HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/system/reset-cycles HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/system/reset-cycles HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/system/reset-cycles HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/system/reset-cycles HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/system/reset-cycles HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/system/reset-cycles HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /api/system/start HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/system/start HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/system/start HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/system/start HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/system/start HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/system/start HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/system/start HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /api/system/stop HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/system/stop HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/system/stop HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/system/stop HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/system/stop HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/system/stop HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/system/stop HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /api/admin/audit HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/admin/audit HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/admin/audit HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/admin/audit HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/audit HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/admin/audit HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/admin/audit HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /api/admin/users HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/admin/users HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/admin/users HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/admin/users HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/admin/users HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/admin/users HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /api/auth/me HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/auth/me HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/auth/me HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/auth/me HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/auth/me HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/auth/me HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/auth/me HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/readings/history?limit=100 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /api/readings/history?limit=100 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/readings/history?limit=100 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/readings/history?limit=100 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/readings/history?limit=100 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/readings/history?limit=100 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/readings/history?limit=100 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/readings/history?limit=100 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/readings/history?limit=0 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/readings/history?limit=1001 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/readings/history?limit=null&limit=null HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/readings/history?limit=AAA HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/readings/history?limit=null HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/readings/history?limit=true HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/readings/history?limit=0.5 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/readings/history?limit=999 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/readings/history?limit=1000 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/readings/history?limit=2 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/readings/history?limit=1 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/readings/history?limit=100 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/readings/history?limit=100 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /api/system/relay-status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/system/relay-status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/system/relay-status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/system/relay-status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/system/relay-status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/system/relay-status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/system/relay-status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /api/system/state HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/system/state HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/system/state HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/system/state HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/system/state HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/system/state HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/system/state HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /health HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /health HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /health HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /health HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /health HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /health HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /health HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50284 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/null%2Cnull/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/null/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/true/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/0.5/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/0/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/reject HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/reject HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/reject HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/reject HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/reject HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/reject HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/reject HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/null%2Cnull/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/null/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/true/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/0.5/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/0/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/null%2Cnull/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/null/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/true/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/0.5/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/0/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "TRACE /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "QUERY /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PUT /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "OPTIONS /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "GET /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "DELETE /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/null%2Cnull/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/null/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/true/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/0.5/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/0/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50284 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:50298 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/logout HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history?limit=2827 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history?=null&x%C3%B0%C3%BB=false&x%C3%B0%C3%BB=-1307674368001&m%C3%A4%5DC%F1%81%B4%A4=%0E%0BY%F0%B5%8B%A5%1EO&m%C3%A4%5DC%F1%81%B4%A4=%0D%F1%AC%8D%89%14&m%C3%A4%5DC%F1%81%B4%A4=%C2%A7%C3%BC%7Fb&limit=28 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history?limit=646 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history?m%F2%B1%99%AD%19=&=null&limit=90&%F1%90%B0%BA%C3%B0F_%C2%BB=null HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history?.b%C2%A54I%F1%94%AD%A8%F3%A4%89%8D%3D=%C2%8D%01%C2%A1&.b%C2%A54I%F1%94%AD%A8%F3%A4%89%8D%3D=%C2%9A%C3%85%7F&.b%C2%A54I%F1%94%AD%A8%F3%A4%89%8D%3D=%0A%C3%A5%C3%AB%21%C2%8B%5B%3B%EB%9C%8E&%C3%B8%C2%8B%C3%87%F0%AE%84%A8%C2%85%C3%93%C2%B9%C3%BB%C2%82%15=%22%C2%82%F2%8E%A8%84 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history?%C2%B92%C3%86%15Xc%3ET%2C%C3%AB%1A%5E%1F%C3%8B=6.52809937678489e%2B16&%C2%B92%C3%86%15Xc%3ET%2C%C3%AB%1A%5E%1F%C3%8B=%C3%92%C3%83%03&%C2%B92%C3%86%15Xc%3ET%2C%C3%AB%1A%5E%1F%C3%8B=%3C%C3%88y%F2%A3%AD%90%C2%BF&= HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history?limit=21 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history?limit=772 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history?limit=523 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history?limit=39 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history?limit=105 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history?=null&x%C3%B0%C3%BB=null&x%C3%B0%C3%BB=false&x%C3%B0%C3%BB=-1307674368001&m%C3%A4%5DC%F1%81%B4%A4=%0E%0BY%F0%B5%8B%A5%1EO&m%C3%A4%5DC%F1%81%B4%A4=%0D%F1%AC%8D%89%14&m%C3%A4%5DC%F1%81%B4%A4=%C2%A7%C3%BC%7Fb&limit=28 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/readings/history?=null&x%C3%B0%C3%BB=null&x%C3%B0%C3%BB=false&x%C3%B0%C3%BB=null&limit=28&%0E%0BY%F0%B5%8B%A5%1EO=-523939083631645 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/61de4457-dd0d-13f4-87b6-1fe953f11be1/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/61de4457-dd0d-33f4-87b6-1fe953f11be1/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/413bdccf-2901-1c7c-9eb5-1b8770faf2ee/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/c55ed938-cc79-5c1b-a4f4-dcfc01e45ff8/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/-script.pyw/approve HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/da6bb324-dd40-24cc-a36c-88ed97551b10/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/67474bfe-2512-1ffe-a890-98e456a65d64/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/2baec403-a158-5332-b8c5-0e84d6d587cc/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/%05q%C2%B4e%E2%95%B0%F0%B4%A7%88/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/e3e70682-c209-2cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/e3e70682-c209-4cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/e3e70682-c209-3cac-a29f-6fbed82c07cd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/cd613e30-d8f1-1adf-91b7-584a2265b1f5/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/21636369-8b52-1b4a-97b7-50923ceb3ffd/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/14a03569-d26b-1496-92e5-dfe8cb1855fe/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/7b89296c-6dcb-1c50-8857-7eb1924770d3/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/85750621-02fb-1d4f-b57f-bc5af71a1bfc/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/0fefa5bf-6860-19cb-a7e0-cad56994ef90/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/0fefa5bf-6860-39cb-a7e0-cad56994ef90/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/%22%F0%AD%AD%9D/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/edad0a07-7bfe-3914-8893-72ac2d12c4f0/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/u%F3%B3%93%AED%C3%A7%0F%C3%A2%1A/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/d4ab3e9e-9fc1-526f-a6f7-4f71a49b1993/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/898ecf8d-c2b1-1d56-a84f-98cb99ba89d4/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/c4da537c-1651-5dae-8486-7db30d67b366/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/b64ec1b1-2b9a-3f6a-9ed3-e2f7b74525e0/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/e3e70682-c209-2cac-a29f-6fbed82c07cd/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/e3e70682-c209-4cac-a29f-6fbed82c07cd/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/e3e70682-c209-3cac-a29f-6fbed82c07cd/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/cd613e30-d8f1-1adf-91b7-584a2265b1f5/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/21636369-8b52-1b4a-97b7-50923ceb3ffd/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/14a03569-d26b-1496-92e5-dfe8cb1855fe/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/7b89296c-6dcb-1c50-8857-7eb1924770d3/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/85750621-02fb-1d4f-b57f-bc5af71a1bfc/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/d7f20e07-ed42-12ed-84bb-895c608099f6/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "POST /api/admin/users/41f60be0-7cef-1aa3-aaed-cf4a4599a084/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/6c9c913d-5e7b-1950-adf7-35d7226d8096/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/6c9c913d-5e7b-3950-adf7-35d7226d8096/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/%5Cx%F2%8A%A2%B0%F4%82%BC%B0%F1%89%A7%A4%0B/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/8005bf0e-01ff-32da-967e-414840eb3046/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/e15cc3d0-569b-2f86-b133-030e8aee2619/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/40ac7cb7-e490-36c1-8867-5491efa6ab64/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/w%C3%82/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/bfac159c-a7ec-38f1-b28c-3e914f40fc12/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/b4729183-a9c0-5f31-9586-77653aeee188/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/e3e70682-c209-2cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/e3e70682-c209-4cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/e3e70682-c209-3cac-a29f-6fbed82c07cd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/cd613e30-d8f1-1adf-91b7-584a2265b1f5/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/21636369-8b52-1b4a-97b7-50923ceb3ffd/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/14a03569-d26b-1496-92e5-dfe8cb1855fe/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/7b89296c-6dcb-1c50-8857-7eb1924770d3/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/85750621-02fb-1d4f-b57f-bc5af71a1bfc/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/eeeb6854-fc7d-1dd4-a60c-01908025890b/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/eeeb6854-fc7d-2dd4-a60c-01908025890b/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/ca423015-a7dd-1037-87d0-b43289165f3c/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/%1E%F3%8E%91%80hAz%F3%8F%A6%83%C3%B5%F1%A1%94%98%F3%96%86%B7%C2%93%F4%8D%BA%912%C3%96A/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/0a657e1b-eb2b-29f9-a719-b8a72d8d4b40/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/4119e24e-88e1-56db-b5a4-4f014e67492b/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/94ee6794-0b94-1549-988f-2a8d5aa253fb/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/cd52dc1f-953b-1bbd-bddf-964a402217a5/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/%22P/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/e3e70682-c209-1cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/e3e70682-c209-2cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/e3e70682-c209-4cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/e3e70682-c209-3cac-a29f-6fbed82c07cd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/cd613e30-d8f1-1adf-91b7-584a2265b1f5/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/21636369-8b52-1b4a-97b7-50923ceb3ffd/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/14a03569-d26b-1496-92e5-dfe8cb1855fe/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/7b89296c-6dcb-1c50-8857-7eb1924770d3/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50298 - "PATCH /api/admin/users/85750621-02fb-1d4f-b57f-bc5af71a1bfc/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50310 - "GET /openapi.json HTTP/1.1" 200 OK
+WARNING:  Invalid HTTP request received.
+INFO:     127.0.0.1:50318 - "GET /schemathesis-probe%5C%1B%01 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "TRACE /api/auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "TRACE /api/auth/signup HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/auth/signup HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/auth/signup HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/auth/signup HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/auth/signup HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/auth/signup HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/auth/signup HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "TRACE /api/system/clear-logs HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/system/clear-logs HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/system/clear-logs HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/system/clear-logs HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/system/clear-logs HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/system/clear-logs HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/system/clear-logs HTTP/1.1" 405 Method Not Allowed
+2026-10-21 18:12:30,174 [INFO] sensorhub.router.system: Readings cleared
+INFO:     127.0.0.1:50324 - "POST /api/system/clear-logs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50866 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50882 - "POST /api/system/clear-logs HTTP/1.1" 401 Unauthorized
+2026-10-21 18:12:30,184 [INFO] sensorhub.router.system: Readings cleared
+INFO:     127.0.0.1:50324 - "POST /api/system/clear-logs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "TRACE /api/system/reset-cycles HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/system/reset-cycles HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/system/reset-cycles HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/system/reset-cycles HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/system/reset-cycles HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/system/reset-cycles HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/system/reset-cycles HTTP/1.1" 405 Method Not Allowed
+2026-10-21 18:12:30,215 [INFO] sensorhub.router.system: Cycles reset
+INFO:     127.0.0.1:50324 - "POST /api/system/reset-cycles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50896 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50900 - "POST /api/system/reset-cycles HTTP/1.1" 401 Unauthorized
+2026-10-21 18:12:30,266 [INFO] sensorhub.router.system: Cycles reset
+INFO:     127.0.0.1:50324 - "POST /api/system/reset-cycles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "TRACE /api/system/start HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/system/start HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/system/start HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/system/start HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/system/start HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/system/start HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/system/start HTTP/1.1" 405 Method Not Allowed
+2026-10-21 18:12:30,284 [INFO] relay_controller: Relay ON (mock) — motor started
+2026-10-21 18:12:30,285 [INFO] sensorhub.router.system: System started
+INFO:     127.0.0.1:50324 - "POST /api/system/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50910 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50916 - "POST /api/system/start HTTP/1.1" 401 Unauthorized
+2026-10-21 18:12:30,293 [INFO] relay_controller: Relay ON (mock) — motor started
+2026-10-21 18:12:30,293 [INFO] sensorhub.router.system: System started
+INFO:     127.0.0.1:50324 - "POST /api/system/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "TRACE /api/system/stop HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/system/stop HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/system/stop HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/system/stop HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/system/stop HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/system/stop HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/system/stop HTTP/1.1" 405 Method Not Allowed
+2026-10-21 18:12:30,313 [INFO] relay_controller: Relay OFF (mock) — motor stopped
+2026-10-21 18:12:30,314 [INFO] sensorhub.router.system: System stopped
+INFO:     127.0.0.1:50324 - "POST /api/system/stop HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50932 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50940 - "POST /api/system/stop HTTP/1.1" 401 Unauthorized
+2026-10-21 18:12:30,322 [INFO] relay_controller: Relay OFF (mock) — motor stopped
+2026-10-21 18:12:30,322 [INFO] sensorhub.router.system: System stopped
+INFO:     127.0.0.1:50324 - "POST /api/system/stop HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "TRACE /api/admin/audit HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/admin/audit HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/admin/audit HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "POST /api/admin/audit HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/audit HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/admin/audit HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/admin/audit HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/admin/audit HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50952 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50960 - "GET /api/admin/audit HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "GET /api/admin/audit HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "TRACE /api/admin/users HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/admin/users HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/admin/users HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "POST /api/admin/users HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/admin/users HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/admin/users HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/admin/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50962 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50970 - "GET /api/admin/users HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "GET /api/admin/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "TRACE /api/auth/me HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/auth/me HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/auth/me HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "POST /api/auth/me HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/auth/me HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/auth/me HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/auth/me HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50986 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50994 - "GET /api/auth/me HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "GET /api/auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "GET /api/readings/history?limit=100 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "TRACE /api/readings/history?limit=100 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/readings/history?limit=100 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/readings/history?limit=100 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "POST /api/readings/history?limit=100 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/readings/history?limit=100 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/readings/history?limit=100 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/readings/history?limit=100 HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/readings/history?limit=0 HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "GET /api/readings/history?limit=1001 HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "GET /api/readings/history?limit=null&limit=null HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "GET /api/readings/history?limit=AAA HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "GET /api/readings/history?limit=null HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "GET /api/readings/history?limit=true HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "GET /api/readings/history?limit=0.5 HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "GET /api/readings/history?limit=999 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51008 - "GET /api/readings/history?limit=999 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51012 - "GET /api/readings/history?limit=999 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "GET /api/readings/history?limit=1000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "GET /api/readings/history?limit=2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "GET /api/readings/history?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "GET /api/readings/history?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "GET /api/readings/history?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "TRACE /api/system/relay-status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/system/relay-status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/system/relay-status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "POST /api/system/relay-status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/system/relay-status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/system/relay-status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/system/relay-status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/system/relay-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51022 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51034 - "GET /api/system/relay-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "GET /api/system/relay-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "TRACE /api/system/state HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/system/state HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/system/state HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "POST /api/system/state HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/system/state HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/system/state HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/system/state HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/system/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51050 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51056 - "GET /api/system/state HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "GET /api/system/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "TRACE /health HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /health HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /health HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "POST /health HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /health HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /health HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /health HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "TRACE /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/null%2Cnull/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/null/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/true/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/0.5/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/0/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/reject HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "TRACE /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/reject HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/reject HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/reject HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/reject HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/reject HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/reject HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/reject HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/null%2Cnull/reject HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/null/reject HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/true/reject HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/0.5/reject HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/0/reject HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/reject HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/reject HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "TRACE /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/null%2Cnull/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/null/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/true/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/0.5/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/0/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51068 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51074 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50324 - "TRACE /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "QUERY /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PUT /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "POST /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "OPTIONS /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "GET /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "DELETE /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/null%2Cnull/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/null/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/true/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/0.5/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/0/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:50324 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:51084 - "POST /api/auth/login HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 429 Too Many Requests
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:51084 - "POST /api/auth/signup HTTP/1.1" 422 Unprocessable Entity
+2026-10-21 18:12:31,995 [INFO] sensorhub.router.system: Readings cleared
+INFO:     127.0.0.1:51084 - "POST /api/system/clear-logs HTTP/1.1" 200 OK
+2026-10-21 18:12:32,009 [INFO] sensorhub.router.system: Cycles reset
+INFO:     127.0.0.1:51084 - "POST /api/system/reset-cycles HTTP/1.1" 200 OK
+2026-10-21 18:12:32,023 [INFO] relay_controller: Relay ON (mock) — motor started
+2026-10-21 18:12:32,023 [INFO] sensorhub.router.system: System started
+INFO:     127.0.0.1:51084 - "POST /api/system/start HTTP/1.1" 200 OK
+2026-10-21 18:12:32,035 [INFO] relay_controller: Relay OFF (mock) — motor stopped
+2026-10-21 18:12:32,036 [INFO] sensorhub.router.system: System stopped
+INFO:     127.0.0.1:51084 - "POST /api/system/stop HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/admin/audit HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/admin/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history?limit=165 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history?=%F0%BC%84%A6%C3%8C%C2%86&=%2B%F3%A9%A4%BFA%C2%BB%C3%BE%C3%B1kO%C2%87%C3%B40%C5%8D%C2%AF%5C%F1%8F%80%80&=ZF%C3%BC&0=%F3%BC%93%9B%C3%AD%29y%F3%B5%82%AB%F0%B6%B4%92&0=%C2%82x%C3%B0%C3%BB&0=%1Fk9u%40%C2%89%C3%AF%F2%B4%BB%A1%F0%B2%87%A9%F1%B3%85%BCF%C3%83%0BY%F0%B5%8B%A5%1EO&%C3%9E%C3%93%C3%B8v%F2%8A%AB%AB%F2%BB%B4%A8%C2%91%06%5B%E1%B0%8F=%F0%90%8F%BF%E7%9B%B9%05%5B%C2%BCD%F3%B7%9F%A9%C2%9C&%C3%9E%C3%93%C3%B8v%F2%8A%AB%AB%F2%BB%B4%A8%C2%91%06%5B%E1%B0%8F=%C2%A0%F4%83%88%95%C2%80%C2%9Byr%F2%BB%A5%97&%C3%9E%C3%93%C3%B8v%F2%8A%AB%AB%F2%BB%B4%A8%C2%91%06%5B%E1%B0%8F=%F1%A4%99%81%C2%BC%C3%AAY%C3%AC%C2%ABC4%C2%B6%0E%17&%F3%AE%8F%B7%C2%BB=&%C3%BCZ%C3%B6%C2%BD.= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history?limit=27 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history?%C2%9F%C3%9D%C2%A1%14%C3%9A%C3%9B=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history?limit=176 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history?limit=276 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history?limit=83 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history?limit=-25952 HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "GET /api/readings/history?limit=%C3%AF&limit=%F4%80%AE%95%C2%8C%F1%86%9B%8C%C2%BB%1C%F1%8D%9B%99%C2%87PvI%0C&limit= HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:51084 - "GET /api/readings/history?U%06%0C%C3%93%F3%A4%87%98%EA%80%B5%19%F4%83%B4%B5%F4%86%A8%87%C2%9B.b%C2%A54I%F1%94%AD%A8%F3%A4%89%8D%3D=%C2%8D%01%C2%A1&U%06%0C%C3%93%F3%A4%87%98%EA%80%B5%19%F4%83%B4%B5%F4%86%A8%87%C2%9B.b%C2%A54I%F1%94%AD%A8%F3%A4%89%8D%3D=%C2%9A%C3%85%7F&U%06%0C%C3%93%F3%A4%87%98%EA%80%B5%19%F4%83%B4%B5%F4%86%A8%87%C2%9B.b%C2%A54I%F1%94%AD%A8%F3%A4%89%8D%3D=%0A%C3%A5%C3%AB%21%C2%8B%5B%3B%EB%9C%8E&%C3%B8%C2%8B%C3%87%F0%AE%84%A8%C2%85%C3%93%C2%B9%C3%BB%C2%82%15=%22%C2%82%F2%8E%A8%84 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history?limit=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history?limit=95 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history?limit=1&=null HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/readings/history?=%2C%C3%AB%1A%5E%1F%C3%8B&e%03=&%C2%BFU= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/system/relay-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/system/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/approve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51100 - "POST /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51116 - "POST /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/approve HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/approve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/cc359292-8edb-4434-8807-16786fcf3941/approve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/cc359292-8edb-4434-8807-16786fcf3941/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/cc359292-8edb-4434-8807-16786fcf3941/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/cc359292-8edb-4434-8807-16786fcf3941/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/cc359292-8edb-4434-8807-16786fcf3941/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/cc359292-8edb-4434-8807-16786fcf3941/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/approve HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/reject HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/reject HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/reject HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/cc359292-8edb-4434-8807-16786fcf3941/reject HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/reject HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/cc359292-8edb-4434-8807-16786fcf3941/reject HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/c037d029-4571-1d4f-a472-363ffa569edd/reject HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/reject HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/reject HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/reject HTTP/1.1" 409 Conflict
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/c037d029-4571-2d4f-a472-363ffa569edd/reject HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/c037d029-4571-4d4f-a472-363ffa569edd/reject HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/c037d029-4571-3d4f-a472-363ffa569edd/reject HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/f32df79f-7eab-1ad3-a99b-3f005d5792ce/reject HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/7e1265f9-96e4-138b-95f4-b73a6e3b48fe/reject HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/c7460b20-6673-1e6d-bd10-3a4232cea782/reject HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/15fc5f2b-896c-188c-b57a-ebf6aeaea722/reject HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/8f1c3fbb-88ad-184f-85f9-0b9d50722e6e/reject HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/411cc448-10cf-1262-9394-fae9ea004b1f/reject HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51084 - "POST /api/admin/users/1c6e528f-ceaf-192a-8d18-a278751caf7b/reject HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/89d11460-2efa-41cf-b6a5-0cf7d5c4a7fe/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/cc359292-8edb-4434-8807-16786fcf3941/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/cc359292-8edb-4434-8807-16786fcf3941/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/cc359292-8edb-4434-8807-16786fcf3941/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/0/role HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/cc359292-8edb-4434-8807-16786fcf3941/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/%2A/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/45180516-58e8-43da-931d-b44fb1617687/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/afb4e1a3-d41f-484d-849e-7df7413fc291/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/cc359292-8edb-4434-8807-16786fcf3941/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/status HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51084 - "PATCH /api/admin/users/b2d0f974-cce8-46ba-ab6c-ccd4b7f64da7/status HTTP/1.1" 403 Forbidden
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [178652]

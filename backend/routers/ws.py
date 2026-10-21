@@ -1,19 +1,13 @@
-"""Broadcast-only WebSocket endpoint.
+"""Browser sends the bearer token in the first frame, never a URL/query string."""
 
-The server pushes live sensor/system events. Client frames are ignored so the
-transport stays one-directional.
-"""
-
-import logging
-
-from fastapi import APIRouter, Depends, WebSocket, WebSocketDisconnect
+import asyncio
+from fastapi import APIRouter, Depends, HTTPException, WebSocket, WebSocketDisconnect
+from starlette.concurrency import run_in_threadpool
 import aiosqlite
-
 from db import get_system_state
 from deps import get_broadcaster, get_db
 from services.broadcast import Broadcaster
 
-log = logging.getLogger("sensorhub.ws")
 router = APIRouter()
 
 
@@ -22,19 +16,32 @@ async def ws_broadcast(
     ws: WebSocket,
     broadcaster: Broadcaster = Depends(get_broadcaster),
     db: aiosqlite.Connection = Depends(get_db),
-) -> None:
+):
+    origin = ws.headers.get("origin")
+    if origin and origin not in ws.app.state.auth.settings.origins:
+        await ws.close(code=1008)
+        return
     await ws.accept()
-    broadcaster.add(ws)
-    log.info("Client connected (%d total)", broadcaster.client_count)
-
     try:
+        frame = await asyncio.wait_for(ws.receive_text(), timeout=5)
+        if not frame.startswith("Bearer ") or len(frame) > 4103:
+            await ws.close(code=1008)
+            return
+        token = frame[7:]
+        await run_in_threadpool(ws.app.state.auth.authenticate, token)
+        broadcaster.add(ws, token)
         state = await get_system_state(db)
-        await ws.send_json({"type": "system_state", **state})
-
+        await broadcaster.send(ws, {"type": "system_state", **state})
         while True:
-            await ws.receive_text()
+            # Check idle sessions too; no unauthorized frame is ever broadcast.
+            try:
+                await asyncio.wait_for(ws.receive_text(), timeout=1)
+            except asyncio.TimeoutError:
+                pass
+            await run_in_threadpool(ws.app.state.auth.authenticate, token)
+    except (HTTPException, asyncio.TimeoutError):
+        await ws.close(code=1008)
     except WebSocketDisconnect:
         pass
     finally:
         broadcaster.remove(ws)
-        log.info("Client disconnected (%d remaining)", broadcaster.client_count)

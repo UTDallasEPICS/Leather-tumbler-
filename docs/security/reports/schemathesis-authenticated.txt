@@ -1,0 +1,70 @@
+Schemathesis v4.32.3
+━━━━━━━━━━━━━━━━━━━━
+
+ ✅  Loaded specification from http://127.0.0.1:37109/openapi.json (in 0.27s)
+
+     Base URL:         http://127.0.0.1:37109/
+     Specification:    Open API 3.1.0
+     Operations:       17 selected / 18 total
+
+ ✅  API capabilities:
+
+     Supports NULL byte in headers:                            ✘
+     Accepts backslash and control characters in URL paths:    ✓
+
+ ⏭   Examples (in 0.02s)
+
+     ⏭  17 skipped
+
+ ✅  Coverage (in 1.77s)
+
+     ✅ 17 passed
+
+ ✅  Fuzzing (in 2.30s)
+
+     ✅ 17 passed
+
+=================================== WARNINGS ===================================
+
+Authentication failed: 1 operation returned only 401/403 responses
+
+403 Forbidden (1 operation):
+  - PATCH /api/admin/users/{user_id}/status
+
+💡 Ensure valid authentication credentials are set via `--auth` or `-H`
+
+Missing test data: 1 operation repeatedly returned 404 Not Found, preventing tests from reaching your API's core logic
+
+  - POST /api/admin/users/{user_id}/reject
+
+💡 Add a link from POST /api/auth/login, or supply the identifiers it returns in your config file
+
+Schema validation mismatch: 1 operation mostly rejected generated data due to validation errors, indicating schema constraints don't match API validation
+
+  - POST /api/auth/login
+
+💡 Check your schema constraints - API validation may be stricter than documented
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 17/18
+  Tested: 17
+
+Test Phases:
+  ⏭  Examples
+  ✅ Coverage
+  ✅ Fuzzing
+  ⏭  Stateful (disabled)
+
+Warnings:
+  ⚠️ Authentication failed: 1 operation returned only 401/403 responses
+  ⚠️ Missing test data: 1 operation repeatedly returned 404 responses
+  ⚠️ Schema validation mismatch: 1 operation mostly rejected generated data
+
+Test cases:
+  489 generated, 489 passed, 24 skipped
+
+Seed: 9106
+
+============================= 3 warnings in 4.17s ==============================

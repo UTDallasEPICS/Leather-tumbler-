@@ -1,0 +1,70 @@
+{
+  "host": "Linux-7.2.5-3-omarchy-x86_64-with-glibc2.44",
+  "cpu_count": 24,
+  "argon2_cffi": "25.1.0",
+  "selected": {
+    "memory_kib": 65536,
+    "time_cost": 3,
+    "parallelism": 4
+  },
+  "rationale": "RFC 9106 SECOND RECOMMENDED: 64 MiB per hash, two concurrent hashes per process (128 MiB working memory budget). Rebenchmark on the deployment Pi; this is the development host.",
+  "results": [
+    {
+      "memory_kib": 65536,
+      "time_cost": 3,
+      "parallelism": 4,
+      "salt_bytes": 16,
+      "hash_bytes": 32,
+      "median_ms": 72.43,
+      "max_ms": 75.2,
+      "two_concurrent_median_ms": 74.28,
+      "samples_ms": [
+        72.11362599991844,
+        73.5480359999201,
+        74.5475069998065,
+        75.20230599948263,
+        72.03079099963361,
+        72.42570699963835,
+        69.68508499994641
+      ]
+    },
+    {
+      "memory_kib": 65536,
+      "time_cost": 4,
+      "parallelism": 4,
+      "salt_bytes": 16,
+      "hash_bytes": 32,
+      "median_ms": 93.09,
+      "max_ms": 94.07,
+      "two_concurrent_median_ms": 99.75,
+      "samples_ms": [
+        92.6128390001395,
+        94.07232699959422,
+        92.68084599989379,
+        93.08547000000544,
+        93.65370700015774,
+        93.96863399979338,
+        92.67269100018893
+      ]
+    },
+    {
+      "memory_kib": 131072,
+      "time_cost": 3,
+      "parallelism": 4,
+      "salt_bytes": 16,
+      "hash_bytes": 32,
+      "median_ms": 108.6,
+      "max_ms": 138.36,
+      "two_concurrent_median_ms": 112.29,
+      "samples_ms": [
+        138.35893500072416,
+        129.34501399922738,
+        113.2447489999322,
+        108.59681599959004,
+        106.63338099948305,
+        107.83068999990064,
+        106.74180199930561
+      ]
+    }
+  ]
+}
