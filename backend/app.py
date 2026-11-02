@@ -1,6 +1,6 @@
 """FastAPI application factory.
 
-Owns all long-lived resources (DB, sensors, relay, OTP service, WS broadcaster)
+Owns all long-lived resources (DB, sensors, relay, OTP service, WS broadcaster, run sensor totals)
 via a lifespan context manager. Routers under `/api/*` handle request/response;
 `/ws` is a broadcast-only WebSocket stream for live sensor events.
 """
@@ -16,10 +16,11 @@ from config import load_config
 from db import init_db, set_system_active
 from ph_reader import PhReader
 from relay_controller import RelayController
-from routers import auth, readings, recovery, system, ws
+from routers import auth, readings, recovery, runs, system, ws
 from sensor_reader import DS18B20Reader
 from services.broadcast import Broadcaster
 from services.otp import OtpService
+from services.run_sensors import RunSensors
 from services.sensor_loop import run_sensor_loop
 
 logging.basicConfig(
@@ -47,6 +48,7 @@ def _build_lifespan(settings: dict):
             otp_cfg=cfg.get("otp", {}),
         )
         app.state.broadcaster = Broadcaster()
+        app.state.run_sensors = RunSensors()
 
         await set_system_active(app.state.db, False)
 
@@ -61,6 +63,7 @@ def _build_lifespan(settings: dict):
                 app.state.sensor,
                 app.state.ph_sensor,
                 app.state.broadcaster,
+                app.state.run_sensors,
             )
         )
 
@@ -70,6 +73,7 @@ def _build_lifespan(settings: dict):
             task.cancel()
             with suppress(asyncio.CancelledError):
                 await task
+            await app.state.run_sensors.flush(app.state.db, app.state.broadcaster)
             await app.state.db.close()
 
     return lifespan
@@ -99,6 +103,7 @@ def create_app(
     app.include_router(readings.router, prefix="/api/readings")
     app.include_router(recovery.router, prefix="/api/recovery")
     app.include_router(auth.router, prefix="/api/auth")
+    app.include_router(runs.router, prefix="/api/runs")
     app.include_router(ws.router)
 
     return app

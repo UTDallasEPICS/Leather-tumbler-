@@ -4,7 +4,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter, Source_Serif_4 } from 'next/font/google'
 import { DashboardProvider } from '@/lib/dashboard-context'
 import { TumblersProvider } from '@/lib/tumblers'
-import { SetupProvider } from '@/lib/setup-state'
+import { RunsProvider } from '@/lib/runs'
 import { DashboardShell } from '@/components/dashboard-shell'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ServiceWorkerRegister } from '@/components/sw-register'
@@ -56,11 +56,11 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <DashboardProvider>
             <TumblersProvider>
-              <SetupProvider>
+              <RunsProvider>
                 <DashboardShell>
                   {children}
                 </DashboardShell>
-              </SetupProvider>
+              </RunsProvider>
             </TumblersProvider>
           </DashboardProvider>
         </ThemeProvider>

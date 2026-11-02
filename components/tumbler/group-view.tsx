@@ -2,10 +2,8 @@
 
 import { useSearchParams } from "next/navigation"
 import { useDashboard } from "@/lib/dashboard-context"
-import { phPct, tempPct, tumblerMeta, useTumblers, type TumblerInfo } from "@/lib/tumblers"
+import { phPct, sortForCompare, tempPct, tumblerMeta, useTumblers, type CompareMode as Mode } from "@/lib/tumblers"
 import { BackLink, PageTitle, Sub, TumblerRow } from "@/components/tumbler/parts"
-
-type Mode = "temp" | "ph" | "all"
 
 const TITLES: Record<Mode, string> = { temp: "Temperature", ph: "pH level", all: "All tumblers" }
 const SUBS: Record<Mode, string> = {
@@ -20,11 +18,7 @@ export function GroupView() {
   const { tumblers } = useTumblers()
   const { config } = useDashboard()
 
-  // online with a reading first, then online without one, then offline
-  const rank = (t: TumblerInfo) => (!t.online ? 2 : mode !== "all" && t[mode] === null ? 1 : 0)
-  const list = [...tumblers].sort(
-    (a, b) => rank(a) - rank(b) || (mode === "all" ? a.id - b.id : (b[mode] ?? 0) - (a[mode] ?? 0)),
-  )
+  const list = sortForCompare(tumblers, mode)
 
   return (
     <div>

@@ -1,4 +1,4 @@
-"""System control: start/stop relay, reset cycles, clear logs, state, relay status."""
+"""System control: start/stop relay, reset cycles, clear logs, state, relay status, info."""
 
 import logging
 from fastapi import APIRouter, Depends
@@ -7,6 +7,7 @@ import aiosqlite
 
 from db import (
     clear_readings,
+    get_controller_id,
     get_system_state,
     reset_cycles as db_reset_cycles,
     set_system_active,
@@ -80,6 +81,12 @@ async def clear_logs(
     await broadcaster.broadcast({"type": "logs_cleared"})
     log.info("Readings cleared")
     return ClearLogsResponse(success=True)
+
+
+@router.get("/info")
+async def system_info(db: aiosqlite.Connection = Depends(get_db)) -> dict:
+    # the server's clock is the computer's, so it is always set
+    return {"controllerId": await get_controller_id(db), "firmware": "python-backend", "timeSynced": True}
 
 
 @router.get("/relay-status", response_model=RelayStatus)

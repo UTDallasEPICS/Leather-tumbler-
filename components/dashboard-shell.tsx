@@ -1,8 +1,12 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import Image from "next/image"
+import { usePathname } from "next/navigation"
+import { useIsDesktop } from "@/hooks/use-desktop"
+import { cn } from "@/lib/utils"
 import { MobileSidebar } from "@/components/mobile-sidebar"
+import { DesktopSidebar } from "@/components/desktop-sidebar"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -238,9 +242,13 @@ function PinLockScreen({ onUnlock }: { onUnlock: () => void }) {
   )
 }
 
+const WIDE_PAGES = ["/", "/analytics", "/run"]
+
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   const [isReady, setIsReady] = useState(false)
   const [isUnlocked, setIsUnlocked] = useState(false)
+  const isDesktop = useIsDesktop()
+  const pathname = usePathname()
 
   useEffect(() => {
     // Ensure a valid PIN exists and force auth gate on app load.
@@ -251,6 +259,21 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
 
   if (!isReady) return null
   if (!isUnlocked) return <PinLockScreen onUnlock={() => setIsUnlocked(true)} />
+
+  if (isDesktop) {
+    return (
+      <div className="flex h-dvh overflow-hidden bg-page">
+        {/* the menu reads ?id= to highlight the open tumbler; a static export needs a Suspense boundary for that */}
+        <Suspense fallback={null}>
+          <DesktopSidebar />
+        </Suspense>
+        <main className="my-2 mr-2 min-h-0 flex-1 overflow-y-auto rounded-[20px] border border-border bg-background">
+          {/* the dashboard, analytics and runs spread out; the other screens keep a readable column */}
+          <div className={cn("mx-auto px-8 pt-7 pb-12", WIDE_PAGES.includes(pathname) ? "max-w-6xl" : "max-w-2xl")}>{children}</div>
+        </main>
+      </div>
+    )
+  }
 
   return (
     <div className="flex h-dvh justify-center overflow-hidden bg-page">

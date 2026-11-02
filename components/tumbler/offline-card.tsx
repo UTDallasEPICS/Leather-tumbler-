@@ -7,6 +7,7 @@ import { useDashboard } from "@/lib/dashboard-context"
 import { getSettings } from "@/lib/settings"
 import type { TumblerInfo } from "@/lib/tumblers"
 import { BackLink, CtaButton, PageTitle, StatusDot, Sub } from "@/components/tumbler/parts"
+import { RunCard } from "@/components/run/run-entry"
 
 /** Shown for the real tumbler while the app can't reach the backend. Keeps the relay fallback reachable. */
 export function OfflineCard({ t }: { t: TumblerInfo }) {
@@ -30,6 +31,9 @@ export function OfflineCard({ t }: { t: TumblerInfo }) {
         <StatusDot online={false} />
         <span>{connecting ? "Connecting…" : "Offline"}</span>
       </div>
+
+      {/* a run's steps and timers live in the app, so they can carry on while the tumbler is unreachable */}
+      <RunCard t={t} activeOnly />
 
       <div className="mt-6 rounded-[20px] bg-brown-tint p-[18px]">
         <p className="font-semibold">{connecting ? "Looking for the tumbler…" : "The app can't reach the tumbler"}</p>

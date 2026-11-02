@@ -1,20 +1,22 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import Link from "next/link"
 import { ChevronRight, Droplets, LayoutGrid, Thermometer } from "lucide-react"
+import { useIsDesktop } from "@/hooks/use-desktop"
+import { useRuns } from "@/lib/runs"
 import { averageOf, tumblerMeta, useTumblers } from "@/lib/tumblers"
-import { PageTitle, SectionTitle, Sub, TumblerRow } from "@/components/tumbler/parts"
+import { PageTitle, SectionTitle, Sub, TumblerRow, useGreeting } from "@/components/tumbler/parts"
+import { DesktopHome } from "@/components/tumbler/desktop-home"
+import { runShort } from "@/components/run/run-entry"
 
 export function HomeView() {
-  const { tumblers } = useTumblers()
-  const [hello, setHello] = useState("Hello")
+  return useIsDesktop() ? <DesktopHome /> : <PhoneHome />
+}
 
-  // Time of day is read after mount so the static page and the browser agree on first paint.
-  useEffect(() => {
-    const h = new Date().getHours()
-    setHello(h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening")
-  }, [])
+function PhoneHome() {
+  const { tumblers } = useTumblers()
+  const { activeRun } = useRuns()
+  const hello = useGreeting()
 
   const onlineCount = tumblers.filter((t) => t.online).length
   const live = tumblers.filter((t) => t.running)
@@ -84,9 +86,11 @@ export function HomeView() {
           <ChevronRight className="size-[18px] text-muted-foreground" />
         </Link>
       )}
-      {tumblers.map((t) => (
-        <TumblerRow key={t.id} t={t} meta={tumblerMeta(t)} chevron />
-      ))}
+      {tumblers.map((t) => {
+        const run = activeRun(t.id)
+        const meta = run ? `${!t.online ? "Offline" : t.running ? "Running" : "Stopped"} · ${runShort(run)}` : tumblerMeta(t)
+        return <TumblerRow key={t.id} t={t} meta={meta} chevron />
+      })}
     </div>
   )
 }

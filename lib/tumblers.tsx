@@ -59,6 +59,16 @@ export function averageOf(list: TumblerInfo[], key: "temp" | "ph"): number | nul
   return values.length ? values.reduce((a, b) => a + b, 0) / values.length : null
 }
 
+export type CompareMode = "temp" | "ph" | "all"
+
+/** Online with a reading first, then online without one, then offline. Within each: highest reading first, or by id for "all". */
+export function sortForCompare(list: TumblerInfo[], mode: CompareMode): TumblerInfo[] {
+  const rank = (t: TumblerInfo) => (!t.online ? 2 : mode !== "all" && t[mode] === null ? 1 : 0)
+  return [...list].sort(
+    (a, b) => rank(a) - rank(b) || (mode === "all" ? a.id - b.id : (b[mode] ?? 0) - (a[mode] ?? 0)),
+  )
+}
+
 export function tumblerMeta(t: TumblerInfo): string {
   if (!t.online) return t.isReal ? "Offline · can't reach it" : "Offline · needs setup"
   if (t.running) return `Running · ${t.cycles} of ${t.cycleTarget} cycles`

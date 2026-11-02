@@ -25,7 +25,7 @@ ESP32 firmware (firmware/)
    ├── DS18B20      (1-Wire, GPIO4)
    ├── ADS1115 pH   (I2C, SDA 21 / SCL 22, addr 0x48)
    ├── Motor drive  (Shelly Pro 2 over Wi-Fi | GPIO relay | PWM H-bridge, chosen in setup)
-   └── Flash        (settings, cycles, recovery phone; readings kept in RAM)
+   └── Flash        (settings, cycles, recovery phone, run history; readings kept in RAM)
 ```
 
 It serves the **same API on the same port** as the old backend, so the app needs no changes beyond
@@ -36,6 +36,30 @@ hotspot itself (address `10.3.141.1`, the same subnet the old RaspAP setup used,
 
 The ESP32 does not host the web app. Use the Android APK (`npm run build && npx cap sync android`,
 then `./gradlew installDebug` in `android/`), which already contains the UI.
+
+## Runs
+
+A run is one batch of hides taken through the recipe, step by step. Real runs are kept on the
+controller (the ESP32, or the Python backend in development), so every phone and computer pointed at
+it shares the same runs, history and suggestions, and the one-run-per-tumbler rule holds across
+devices. The controller also adds up the drum's temperature and pH for each stage while the drum turns,
+whether or not an app is open.
+
+Each device keeps a copy, so the app opens straight away and keeps working when the controller can't be
+reached. Changes made offline are sent when it's back; if another device changed the same run in the
+meantime, both sets of changes are kept. If two devices start a run on the same tumbler while offline,
+the first to reach the controller wins and the other is kept in the history as overridden, with a
+note on screen. The line under a run says where it stands:
+
+| Line | Meaning |
+|---|---|
+| Saved on the tumbler | up to date |
+| Offline · changes will sync | changes made here are waiting for the controller |
+| Updated on another device | someone else just changed it |
+| Saved on this device only | the controller's firmware predates shared runs: flash the current firmware and the app moves the runs over by itself |
+
+Demo Mode runs (and the made-up history behind its suggestions) stay on the device and never reach a
+controller. The API both servers implement is described at the top of [lib/runs-api.ts](lib/runs-api.ts).
 
 ## Legacy architecture: Raspberry Pi backend (`backend/`)
 
@@ -163,7 +187,7 @@ Should print `{"type":"system_state","active":false,"cycles":0}`.
 
 ## Repo map
 
-- [app/](app/) — Next.js app router pages (dashboard, settings, account, configure, analytics, logs)
+- [app/](app/) — Next.js app router pages (dashboard, settings, account, configure, analytics; `/logs` redirects to analytics, which now holds the readings table)
 - [components/](components/) — React components, shadcn/ui
 - [lib/](lib/) — frontend state and helpers ([dashboard-context.tsx](lib/dashboard-context.tsx), [settings.ts](lib/settings.ts), [api.ts](lib/api.ts), [pin-auth.ts](lib/pin-auth.ts))
 - [firmware/](firmware/) — ESP32 controller firmware (PlatformIO): sensors, motor drive, Wi-Fi, REST + WebSocket API

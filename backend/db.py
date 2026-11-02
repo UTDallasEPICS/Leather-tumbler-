@@ -1,7 +1,13 @@
 """SQLite database operations for SensorHub."""
 
+import json
+import uuid
+
 import aiosqlite
 from datetime import datetime
+
+# Finished runs kept; the oldest beyond this are deleted (the firmware keeps the same number).
+RUNS_KEPT = 200
 
 
 async def init_db(db_path: str = "sensorhub.db") -> aiosqlite.Connection:
@@ -44,9 +50,33 @@ async def init_db(db_path: str = "sensorhub.db") -> aiosqlite.Connection:
             created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
         );
 
+        -- Runs: one JSON document each (see lib/runs-api.ts in the app). The columns copy the few
+        -- fields the server reads, so lookups don't have to parse every document.
+        CREATE TABLE IF NOT EXISTS runs (
+            id TEXT PRIMARY KEY,
+            tumbler_id INTEGER NOT NULL,
+            status TEXT NOT NULL,
+            rev INTEGER NOT NULL,
+            seq INTEGER NOT NULL,
+            started_at INTEGER,
+            ended_at INTEGER,
+            stage_id TEXT,
+            doc TEXT NOT NULL
+        );
+        CREATE INDEX IF NOT EXISTS runs_seq ON runs(seq);
+
+        CREATE TABLE IF NOT EXISTS meta (
+            key TEXT PRIMARY KEY,
+            value TEXT NOT NULL
+        );
+
         INSERT OR IGNORE INTO system_state (id, active, cycles) VALUES (1, 0, 0);
         INSERT OR IGNORE INTO recovery_config (id, phone) VALUES (1, '');
     """)
+    await db.execute(
+        "INSERT OR IGNORE INTO meta (key, value) VALUES ('controller_id', ?)",
+        (f"py-{uuid.uuid4().hex[:12]}",),
+    )
     await db.commit()
     return db
 
@@ -179,3 +209,95 @@ async def cleanup_old_otps(db: aiosqlite.Connection, now_iso: str) -> None:
         (now_iso,),
     )
     await db.commit()
+
+
+async def get_controller_id(db: aiosqlite.Connection) -> str:
+    """Stable id for this server, so the app never mixes two controllers' runs."""
+    cursor = await db.execute("SELECT value FROM meta WHERE key = 'controller_id'")
+    row = await cursor.fetchone()
+    return row[0]
+
+
+# ---- runs -----------------------------------------------------------------------------------------
+
+
+def _row_to_run(row) -> dict:
+    return json.loads(row["doc"])
+
+
+async def get_run(db: aiosqlite.Connection, run_id: str) -> dict | None:
+    cursor = await db.execute("SELECT doc FROM runs WHERE id = ?", (run_id,))
+    row = await cursor.fetchone()
+    return _row_to_run(row) if row else None
+
+
+async def get_active_run(db: aiosqlite.Connection, tumbler_id: int) -> dict | None:
+    cursor = await db.execute(
+        "SELECT doc FROM runs WHERE tumbler_id = ? AND status = 'active' LIMIT 1", (tumbler_id,)
+    )
+    row = await cursor.fetchone()
+    return _row_to_run(row) if row else None
+
+
+async def get_active_runs(db: aiosqlite.Connection) -> list[dict]:
+    cursor = await db.execute("SELECT doc FROM runs WHERE status = 'active'")
+    return [_row_to_run(r) for r in await cursor.fetchall()]
+
+
+async def runs_since(db: aiosqlite.Connection, since: int, limit: int) -> tuple[int, list[dict], bool]:
+    """Runs changed after `since`, oldest change first; the seq they cover; and whether more are left."""
+    # read the latest seq first: a write landing between the two queries is then left for the next call
+    # instead of being skipped
+    latest = await latest_seq(db)
+    cursor = await db.execute(
+        "SELECT doc FROM runs WHERE seq > ? AND seq <= ? ORDER BY seq ASC LIMIT ?", (since, latest, limit)
+    )
+    runs = [_row_to_run(r) for r in await cursor.fetchall()]
+    more = len(runs) == limit and runs[-1]["seq"] < latest
+    return (runs[-1]["seq"] if more else latest), runs, more
+
+
+async def latest_seq(db: aiosqlite.Connection) -> int:
+    cursor = await db.execute("SELECT COALESCE(MAX(seq), 0) FROM runs")
+    return (await cursor.fetchone())[0]
+
+
+async def write_run(db: aiosqlite.Connection, doc: dict) -> dict:
+    """Store a run document as given (the caller has set rev, updatedAt and sensors); assigns the next seq."""
+    doc = {**doc, "seq": await latest_seq(db) + 1}
+    await db.execute(
+        """
+        INSERT INTO runs (id, tumbler_id, status, rev, seq, started_at, ended_at, stage_id, doc)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            tumbler_id = excluded.tumbler_id, status = excluded.status, rev = excluded.rev,
+            seq = excluded.seq, started_at = excluded.started_at, ended_at = excluded.ended_at,
+            stage_id = excluded.stage_id, doc = excluded.doc
+        """,
+        (
+            doc["id"],
+            doc["tumblerId"],
+            doc["status"],
+            doc["rev"],
+            doc["seq"],
+            doc.get("startedAt"),
+            doc.get("endedAt"),
+            doc.get("stageId"),
+            json.dumps(doc, separators=(",", ":")),
+        ),
+    )
+    await _trim_runs(db)
+    await db.commit()
+    return doc
+
+
+async def _trim_runs(db: aiosqlite.Connection) -> None:
+    await db.execute(
+        """
+        DELETE FROM runs WHERE status != 'active' AND id NOT IN (
+            SELECT id FROM runs WHERE status != 'active'
+            ORDER BY COALESCE(ended_at, started_at) DESC LIMIT ?
+        )
+        """,
+        (RUNS_KEPT,),
+    )
