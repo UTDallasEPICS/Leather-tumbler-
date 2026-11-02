@@ -3,6 +3,7 @@
 // Dials, tubes and sparklines for the tumbler detail screen.
 
 import { clampPct } from "@/lib/tumblers"
+import { cn } from "@/lib/utils"
 
 const MAX_RPM = 20
 
@@ -62,9 +63,21 @@ export function RpmGauge({ rpm }: { rpm: number | null }) {
 }
 
 /** Line chart that fits itself to the data, with a minimum span so noise doesn't look like a trend. */
-export function Sparkline({ values, color, minSpan }: { values: number[]; color: string; minSpan: number }) {
+export function Sparkline({
+  values,
+  color,
+  minSpan,
+  className,
+}: {
+  values: number[]
+  color: string
+  minSpan: number
+  className?: string
+}) {
   if (values.length < 2) {
-    return <div className="mt-1.5 grid h-16 place-items-center text-sm text-muted-foreground">Waiting for readings…</div>
+    return (
+      <div className={cn("mt-1.5 grid h-16 place-items-center text-sm text-muted-foreground", className)}>Waiting for readings…</div>
+    )
   }
   const w = 300
   const h = 64
@@ -76,7 +89,7 @@ export function Sparkline({ values, color, minSpan }: { values: number[]; color:
     (v, i) => `${((i / (values.length - 1)) * w).toFixed(1)},${(h - 4 - ((v - lo) / span) * (h - 8)).toFixed(1)}`,
   )
   return (
-    <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" aria-hidden="true" className="mt-1.5 block h-16 w-full">
+    <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" aria-hidden="true" className={cn("mt-1.5 block h-16 w-full", className)}>
       <polygon points={`0,${h} ${pts.join(" ")} ${w},${h}`} fill={color} opacity={0.12} />
       <polyline
         points={pts.join(" ")}

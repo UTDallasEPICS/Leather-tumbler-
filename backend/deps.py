@@ -5,6 +5,7 @@ import aiosqlite
 
 from relay_controller import RelayController
 from services.broadcast import Broadcaster
+from services.run_sensors import RunSensors
 
 
 def get_db(conn: HTTPConnection) -> aiosqlite.Connection:
@@ -17,3 +18,7 @@ def get_relay(conn: HTTPConnection) -> RelayController:
 
 def get_broadcaster(conn: HTTPConnection) -> Broadcaster:
     return conn.app.state.broadcaster
+
+
+def get_run_sensors(conn: HTTPConnection) -> RunSensors:
+    return conn.app.state.run_sensors

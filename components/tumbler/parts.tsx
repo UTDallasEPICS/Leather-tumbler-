@@ -2,10 +2,22 @@
 
 // Small building blocks shared by the tumbler screens (home, group, detail, setup, help).
 
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { clampPct, type TumblerInfo } from "@/lib/tumblers"
+
+/** "Good morning" / "Good afternoon" / "Good evening". */
+export function useGreeting() {
+  const [hello, setHello] = useState("Hello")
+  // Time of day is read after mount so the static page and the browser agree on first paint.
+  useEffect(() => {
+    const h = new Date().getHours()
+    setHello(h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening")
+  }, [])
+  return hello
+}
 
 export function DrumIcon({ className }: { className?: string }) {
   return (

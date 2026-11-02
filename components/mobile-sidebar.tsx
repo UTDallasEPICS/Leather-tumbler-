@@ -3,16 +3,16 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { BarChart3, CircleHelp, House, LayoutGrid, Menu, Settings, UserRound, Wifi, Wrench, X } from "lucide-react"
+import { BarChart3, CircleHelp, House, LayoutGrid, Menu, Settings, UserRound, Wifi, X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { eventLevel } from "@/lib/analytics"
 import { useDashboard } from "@/lib/dashboard-context"
 import { ThemeSwitch } from "@/components/theme-switch"
 
 const navItems = [
   { href: "/", label: "Home", icon: House },
   { href: "/group?mode=all", label: "All tumblers", icon: LayoutGrid, match: "/group" },
-  { href: "/setup", label: "Setup guide", icon: Wrench },
-  { href: "/analytics", label: "Analytics & logs", icon: BarChart3 },
+  { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/configure", label: "Configure", icon: Settings },
   { href: "/settings", label: "Connection", icon: Wifi },
   { href: "/account", label: "Account", icon: UserRound },
@@ -21,7 +21,8 @@ const navItems = [
 
 export function MobileSidebar() {
   const pathname = usePathname()
-  const { connectionStatus, logs } = useDashboard()
+  const { connectionStatus, notificationLogs } = useDashboard()
+  const alerts = notificationLogs.filter((e) => eventLevel(e) !== "ok").length
   const [open, setOpen] = useState(false)
 
   const connectionDot =
@@ -79,8 +80,8 @@ export function MobileSidebar() {
               >
                 <item.icon className="size-5 text-brown" />
                 {item.label}
-                {item.href === "/analytics" && logs.length > 0 && (
-                  <span className="ml-auto rounded-full bg-brown-tint px-2 py-0.5 text-xs text-brown-dark tabular-nums">{logs.length}</span>
+                {item.href === "/analytics" && alerts > 0 && (
+                  <span className="ml-auto rounded-full bg-brown-tint px-2 py-0.5 text-xs text-brown-dark tabular-nums">{alerts}</span>
                 )}
               </Link>
             ))}

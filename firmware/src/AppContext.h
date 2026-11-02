@@ -5,6 +5,7 @@
 #include "core/Clock.h"
 #include "core/Config.h"
 #include "core/ReadingStore.h"
+#include "core/RunStore.h"
 #include "core/SystemState.h"
 #include "services/OtpService.h"
 #include "services/RecoveryStore.h"
@@ -17,4 +18,5 @@ struct AppContext {
   Hardware& hw;
   OtpService& otp;
   RecoveryStore& recovery;
+  RunStore& runs;
 };

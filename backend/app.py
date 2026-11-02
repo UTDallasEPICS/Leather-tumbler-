@@ -1,6 +1,7 @@
 """FastAPI application factory.
 
-Owns all long-lived resources (DB, sensors, relay, authentication, WS broadcaster)
+Owns all long-lived resources (DB, sensors, relay, authentication, WS broadcaster,
+run sensor totals)
 via a lifespan context manager. Routers under `/api/*` handle request/response;
 `/ws` is a broadcast-only WebSocket stream for live sensor events.
 """
@@ -18,9 +19,10 @@ from config import load_config
 from db import init_db, set_system_active
 from ph_reader import PhReader
 from relay_controller import RelayController
-from routers import auth, readings, system, ws
+from routers import auth, readings, runs, system, ws
 from sensor_reader import DS18B20Reader
 from services.broadcast import Broadcaster
+from services.run_sensors import RunSensors
 from security.config import AuthSettings
 from security.service import AuthService
 from security.dependencies import current_user
@@ -56,6 +58,7 @@ def _build_lifespan(settings: dict):
         app.state.ph_sensor = PhReader(mock=mock)
         app.state.relay = RelayController(shelly_ip=shelly_ip)
         app.state.broadcaster = Broadcaster(app.state.auth)
+        app.state.run_sensors = RunSensors()
 
         await set_system_active(app.state.db, False)
 
@@ -72,6 +75,7 @@ def _build_lifespan(settings: dict):
                 app.state.sensor,
                 app.state.ph_sensor,
                 app.state.broadcaster,
+                app.state.run_sensors,
             )
         )
 
@@ -85,6 +89,7 @@ def _build_lifespan(settings: dict):
             task.cancel()
             with suppress(asyncio.CancelledError):
                 await task
+            await app.state.run_sensors.flush(app.state.db, app.state.broadcaster)
             await app.state.db.close()
 
     return lifespan
@@ -142,7 +147,7 @@ def create_app(
     app.add_middleware(
         CORSMiddleware,
         allow_origins=list(auth_settings.origins),
-        allow_methods=["GET", "POST", "PATCH", "OPTIONS"],
+        allow_methods=["GET", "POST", "PUT", "PATCH", "OPTIONS"],
         allow_headers=["Authorization", "Content-Type"],
     )
 
@@ -154,6 +159,9 @@ def create_app(
     )
     app.include_router(auth.admin_router, prefix="/api/admin")
     app.include_router(auth.router, prefix="/api/auth")
+    app.include_router(
+        runs.router, prefix="/api/runs", dependencies=[Depends(current_user)]
+    )
     app.include_router(ws.router)
 
     return app
