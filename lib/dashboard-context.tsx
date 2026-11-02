@@ -507,7 +507,10 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   // --- Real WebSocket / Connect logic remains same...
   const connect = useCallback(() => {
     if (getSettings().demoMode) return
-    if (wsRef.current) wsRef.current.close()
+    // drop the old socket before closing it, so its onclose doesn't schedule a reconnect of its own
+    const old = wsRef.current
+    wsRef.current = null
+    old?.close()
     const wsUrl = getWebSocketUrl()
     setConnectionStatus("connecting")
     let ws: WebSocket
@@ -523,12 +526,12 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     wsRef.current = ws
     ws.onopen = () => { setConnectionStatus("connected"); reconnectAttemptRef.current = 0; void api.syncDeviceTime().catch(() => {}) }
     ws.onmessage = (event) => { try { handleMessage(JSON.parse(event.data)) } catch {}}
-    ws.onclose = () => { setConnectionStatus("disconnected"); if (getSettings().demoMode) return; const delay = Math.min(RECONNECT_BASE_DELAY * Math.pow(2, reconnectAttemptRef.current), RECONNECT_MAX_DELAY); reconnectAttemptRef.current += 1; reconnectTimeoutRef.current = setTimeout(connect, delay) }
+    ws.onclose = () => { if (wsRef.current !== ws) return; setConnectionStatus("disconnected"); if (getSettings().demoMode) return; const delay = Math.min(RECONNECT_BASE_DELAY * Math.pow(2, reconnectAttemptRef.current), RECONNECT_MAX_DELAY); reconnectAttemptRef.current += 1; reconnectTimeoutRef.current = setTimeout(connect, delay) }
   }, [handleMessage])
 
   const reconnect = useCallback(() => { reconnectAttemptRef.current = 0; if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current); stopDemo(); const demo = getSettings().demoMode; setDemoMode(demo); if (demo) startDemo(); else connect() }, [connect, startDemo, stopDemo])
 
-  useEffect(() => { const demo = getSettings().demoMode; setDemoMode(demo); if (demo) startDemo(); else connect(); return () => { stopDemo(); if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current); if (wsRef.current) wsRef.current.close() } }, [connect, startDemo, stopDemo])
+  useEffect(() => { const demo = getSettings().demoMode; setDemoMode(demo); if (demo) startDemo(); else connect(); return () => { stopDemo(); if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current); const ws = wsRef.current; wsRef.current = null; ws?.close() } }, [connect, startDemo, stopDemo])
 
   // Hydrate log history once from REST (live readings stream arrives over /ws).
   useEffect(() => {
