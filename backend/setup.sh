@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # SensorHub - Raspberry Pi setup script.
 # Installs dependencies, configures hardware, creates services, and can
-# optionally set up PWA serving and Cloudflare demo tunnels.
+# optionally set up PWA serving and ngrok remote access (setup_ngrok.sh).
 set -euo pipefail
 
 RED='\033[0;31m'
@@ -14,6 +14,7 @@ NC='\033[0m'
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SERVICE_NAME="sensorhub"
 PWA_SERVICE_NAME="sensorhub-pwa"
+NGROK_SERVICE_NAME="sensorhub-ngrok"
 CONFIG_FILE="/boot/firmware/config.txt"
 
 echo -e "${BOLD}${CYAN}"
@@ -28,10 +29,13 @@ echo -e "${NC}"
 echo -e "${YELLOW}Stopping any existing SensorHub services for a clean re-install...${NC}"
 sudo systemctl stop "$SERVICE_NAME" 2>/dev/null || true
 sudo systemctl stop "$PWA_SERVICE_NAME" 2>/dev/null || true
+sudo systemctl stop "$NGROK_SERVICE_NAME" 2>/dev/null || true
 sudo systemctl disable "$SERVICE_NAME" 2>/dev/null || true
 sudo systemctl disable "$PWA_SERVICE_NAME" 2>/dev/null || true
+sudo systemctl disable "$NGROK_SERVICE_NAME" 2>/dev/null || true
 sudo rm -f "/etc/systemd/system/${SERVICE_NAME}.service"
 sudo rm -f "/etc/systemd/system/${PWA_SERVICE_NAME}.service"
+sudo rm -f "/etc/systemd/system/${NGROK_SERVICE_NAME}.service"
 sudo systemctl daemon-reload
 
 # --------------------------------------------------
@@ -248,32 +252,18 @@ if [ "$PWA_ENABLED" -eq 1 ]; then
 fi
 
 # --------------------------------------------------
-# 11. Optional Cloudflare tunnel helper
+# 11. Optional ngrok remote access
 # --------------------------------------------------
+# config.json was rewritten above, so remote access has to be re-applied.
 echo ""
-echo -e "${BOLD}[10/10] Optional Cloudflare tunnel helper${NC}"
-if [ "$PWA_ENABLED" -eq 1 ]; then
-    read -rp "Set up temporary Cloudflare tunnel commands now? [y/N]: " SETUP_TUNNEL
-    if [[ "$SETUP_TUNNEL" =~ ^[Yy]$ ]]; then
-        if ! command -v cloudflared &>/dev/null; then
-            echo "Installing cloudflared..."
-            curl -fsSL "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb" -o /tmp/cloudflared.deb
-            sudo dpkg -i /tmp/cloudflared.deb || true
-            rm -f /tmp/cloudflared.deb
-        fi
-
-        if command -v cloudflared &>/dev/null; then
-            echo -e "${GREEN}Cloudflared is installed.${NC}"
-            echo "To run PWA tunnel:"
-            echo "  cloudflared tunnel --url http://localhost:${PWA_PORT} --no-autoupdate"
-            echo "To run backend tunnel:"
-            echo "  cloudflared tunnel --url http://localhost:${SERVER_PORT} --no-autoupdate"
-        else
-            echo -e "${YELLOW}cloudflared installation failed. You can install it later and run tunnel commands manually.${NC}"
-        fi
+echo -e "${BOLD}[10/10] Optional remote access (ngrok)${NC}"
+if [ -f "${SCRIPT_DIR}/.env.auth" ] && [ -f "${SCRIPT_DIR}/../out/index.html" ]; then
+    read -rp "Publish the site through ngrok now? [y/N]: " SETUP_NGROK
+    if [[ "$SETUP_NGROK" =~ ^[Yy]$ ]]; then
+        bash "${SCRIPT_DIR}/setup_ngrok.sh" || echo -e "${YELLOW}ngrok setup did not finish. Re-run: bash ${SCRIPT_DIR}/setup_ngrok.sh${NC}"
     fi
 else
-    echo -e "${YELLOW}Skipped (PWA service not enabled).${NC}"
+    echo -e "${YELLOW}Skipped: needs .env.auth and a built out/. Later run: bash ${SCRIPT_DIR}/setup_ngrok.sh${NC}"
 fi
 
 # --------------------------------------------------

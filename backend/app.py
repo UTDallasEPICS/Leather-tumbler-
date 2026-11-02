@@ -29,6 +29,7 @@ from security.dependencies import current_user
 from security.middleware import SecurityMiddleware
 from security.notifications import notification_loop
 from services.sensor_loop import run_sensor_loop
+from web import ExportedSite
 
 logging.basicConfig(
     level=logging.INFO,
@@ -101,6 +102,7 @@ def create_app(
     shelly_ip: str | None = None,
     db_path: str = "sensorhub.db",
     auth_settings: AuthSettings | None = None,
+    web_dir: str | None = None,
 ) -> FastAPI:
     auth_settings = auth_settings or AuthSettings.from_env()
     settings = {
@@ -163,5 +165,9 @@ def create_app(
         runs.router, prefix="/api/runs", dependencies=[Depends(current_user)]
     )
     app.include_router(ws.router)
+
+    if web_dir:
+        # Last, so every API route above takes precedence over a page path.
+        app.mount("/", ExportedSite(web_dir), name="site")
 
     return app

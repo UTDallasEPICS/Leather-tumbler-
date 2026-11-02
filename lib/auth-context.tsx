@@ -7,6 +7,7 @@ import { clearAccessToken, setAccessToken } from "@/lib/session"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { PasswordInput } from "@/components/password-input"
 
 export interface AuthUser {
   id: string; email: string; name: string
@@ -21,6 +22,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [email, setEmail] = useState("")
   const [name, setName] = useState("")
   const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [origin, setOrigin] = useState("")
   const [error, setError] = useState("")
   const [notice, setNotice] = useState("")
@@ -28,7 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => { setOrigin(getApiBaseUrl().replace(/\/api$/, "")) }, [])
   useEffect(() => {
-    const expired = () => { clearAccessToken(); setUser(null); setPassword(""); setNotice("Your session ended. Please sign in again.") }
+    const expired = () => { clearAccessToken(); setUser(null); setPassword(""); setConfirmPassword(""); setNotice("Your session ended. Please sign in again.") }
     window.addEventListener("auth-expired", expired)
     return () => window.removeEventListener("auth-expired", expired)
   }, [])
@@ -45,11 +47,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     clearAccessToken()
     setUser(null)
     setPassword("")
+    setConfirmPassword("")
   }
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault(); setError(""); setNotice(""); setBusy(true)
     try {
+      if (signup && password !== confirmPassword) {
+        throw new Error("Passwords do not match. Please re-enter your password.")
+      }
       const url = new URL(origin)
       const local = ["localhost", "127.0.0.1", "[::1]"].includes(url.hostname)
       if (url.username || url.password || (url.protocol !== "https:" && !(url.protocol === "http:" && local))) {
@@ -58,7 +64,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem("dava-api-origin", url.origin)
       if (signup) {
         const result = await request<{message:string}>("/auth/signup", {method:"POST", body:JSON.stringify({email,name,password})})
-        setNotice(result.message); setSignup(false); setPassword("")
+        setNotice(result.message); setSignup(false); setPassword(""); setConfirmPassword("")
       } else {
         const result = await request<{access_token:string; user:AuthUser}>("/auth/login", {method:"POST", body:JSON.stringify({email,password})})
         setAccessToken(result.access_token, getApiBaseUrl()); setUser(result.user); setPassword("")
@@ -75,12 +81,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         <p className="text-sm text-muted-foreground">{signup ? "An administrator must approve your account before you can sign in." : "Use your approved email and password."}</p>
         {signup && <div className="space-y-2"><Label htmlFor="auth-name">Name</Label><Input id="auth-name" autoComplete="name" value={name} onChange={e=>setName(e.target.value)} maxLength={100} required /></div>}
         <div className="space-y-2"><Label htmlFor="auth-email">Email</Label><Input id="auth-email" type="email" autoComplete="username" value={email} onChange={e=>setEmail(e.target.value)} maxLength={254} required /></div>
-        <div className="space-y-2"><Label htmlFor="auth-password">Password</Label><Input id="auth-password" type="password" autoComplete={signup ? "new-password" : "current-password"} value={password} onChange={e=>setPassword(e.target.value)} minLength={signup ? 15 : 1} maxLength={128} required />{signup && <p className="text-xs text-muted-foreground">Use 15–128 characters. Spaces are welcome.</p>}</div>
+        <div className="space-y-2"><Label htmlFor="auth-password">Password</Label><PasswordInput key={signup ? "signup-password" : "login-password"} id="auth-password" autoComplete={signup ? "new-password" : "current-password"} value={password} onChange={e=>setPassword(e.target.value)} minLength={signup ? 15 : 1} maxLength={128} disabled={busy} required />{signup && <p className="text-xs text-muted-foreground">Use 15–128 characters. Spaces are welcome.</p>}</div>
+        {signup && <div className="space-y-2"><Label htmlFor="auth-confirm-password">Confirm password</Label><PasswordInput id="auth-confirm-password" autoComplete="new-password" value={confirmPassword} onChange={e=>setConfirmPassword(e.target.value)} minLength={15} maxLength={128} disabled={busy} required /></div>}
         <details><summary className="cursor-pointer text-sm text-muted-foreground">Server connection</summary><Label className="mt-3" htmlFor="auth-server">Server address</Label><Input id="auth-server" type="url" value={origin} onChange={e=>setOrigin(e.target.value)} className="mt-2" /></details>
         {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
         {notice && <p role="status" className="text-sm text-muted-foreground">{notice}</p>}
         <Button type="submit" disabled={busy} className="w-full">{busy ? "Please wait…" : signup ? "Request approval" : "Sign in"}</Button>
-        <Button type="button" variant="ghost" className="w-full" onClick={()=>{setSignup(!signup);setError("");setNotice("");setPassword("")}}>{signup ? "Back to sign in" : "Request an account"}</Button>
+        <Button type="button" variant="ghost" className="w-full" disabled={busy} onClick={()=>{setSignup(!signup);setError("");setNotice("");setPassword("");setConfirmPassword("")}}>{signup ? "Back to sign in" : "Request an account"}</Button>
       </form>
     </main>
   )

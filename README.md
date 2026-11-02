@@ -102,7 +102,7 @@ The script is **idempotent** — it stops, disables, and removes any prior `sens
 5. Write `backend/config.json`, create `backend/venv`, install `backend/requirements.txt`.
 6. Probe hardware: DS18B20 (reads a temperature), ADS1115 at `0x48`, Shelly RPC.
 7. Optionally create the PWA static service (`python3 -m http.server 8080 --directory ../out`). **Say y here** if you want phones to open the app.
-8. Optionally install `cloudflared` and print remote-tunnel commands. (Purely demo purposes only, will cause issues with internal data routing so UI wont work sometimes)
+8. Optionally publish the site through ngrok by running `setup_ngrok.sh` (see [Remote access with ngrok](#remote-access-with-ngrok)). Because this step rewrites `config.json`, answer y again whenever you re-run `setup.sh`.
 
 Reboot if 1-Wire didn't pick up the sensor on the probe step (`sudo reboot`).
 
@@ -127,6 +127,43 @@ rsync -avz --delete out/ tumbler@<pi-ip>:~/Downloads/Leather-tumbler-/out/
 ```
 
 `sensorhub-pwa` serves `out/` directly with no caching, so no service restart is needed for a frontend-only change. For backend changes, rsync the changed files under `backend/` and `sudo systemctl restart sensorhub`.
+
+## Remote access with ngrok
+
+Publishes the Pi backend at your ngrok domain over HTTPS (for example `https://something.ngrok-free.app`), so the app works away from the Tumbler-Iot hotspot. The backend serves the built site, `/api` and `/ws` all on port 8765, and a `sensorhub-ngrok` systemd service tunnels that one port. Traffic goes through ngrok's servers, so check this is allowed before you use it.
+
+Before you start, you need:
+- the Pi backend set up with `setup.sh`
+- `.env.auth` and a seeded admin ([authentication setup](docs/security/README.md))
+- `out/` built and rsynced to the Pi
+- ethernet internet on the Pi
+- a free ngrok account: copy your authtoken and claim your free static domain under **Domains** in the ngrok dashboard
+
+```
+cd ~/Downloads/Leather-tumbler-/backend
+bash setup_ngrok.sh
+```
+
+The script will:
+1. install the ngrok agent
+2. save your authtoken
+3. set `web_dir` and `trust_proxy` in `config.json`
+4. add `https://<your-domain>` to `AUTH_ORIGINS` in `.env.auth`
+5. restart `sensorhub` and start `sensorhub-ngrok`
+
+It is safe to re-run.
+
+Then open the domain and sign in. On the free plan, ngrok shows a warning page on the first visit; click **Visit Site**. Turn Demo Mode off in Settings. Pages served over HTTPS use their own address as the API automatically, so you don't need to enter a server address.
+
+- **Only the Pi backend may be tunnelled, never the ESP32.** The ESP32's start and stop endpoints have no login.
+- `trust_proxy` takes the visitor's IP from ngrok's `X-Forwarded-For` header, so the login rate limit counts each visitor separately. It only trusts the header on connections from the Pi itself.
+- After a frontend redeploy (rsync `out/`), the change is live straight away. Phones may need their site data cleared, the same as on the LAN.
+
+```
+journalctl -u sensorhub-ngrok -f
+sudo systemctl stop sensorhub-ngrok        # take the site offline
+sudo systemctl disable sensorhub-ngrok     # keep it off after reboot
+```
 
 ## Local development
 
@@ -154,7 +191,7 @@ Other defaults:
 - **Twilio / PIN recovery:** the insecure mock OTP reset flow has been removed. Account recovery is not yet implemented.
 - **Firebase push:** the unauthenticated Next.js relay is retired (HTTP 410). Local notifications remain; server push requires a future authenticated device-registration design.
 - **Shelly Pro 2** — local HTTP RPC, no credentials. Set the IP in `setup.sh` or leave blank for mock.
-- **Cloudflare Tunnel** — optional, for remote access. `setup.sh` offers to install `cloudflared` and prints tunnel commands like `cloudflared tunnel --url http://localhost:8080 --no-autoupdate`.
+- **ngrok** — optional, for remote access. Authtoken is stored by the ngrok agent in `~/.config/ngrok/ngrok.yml` on the Pi. See [Remote access with ngrok](#remote-access-with-ngrok).
 
 ## Common issues
 

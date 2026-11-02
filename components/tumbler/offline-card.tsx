@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Power } from "lucide-react"
 import { useDashboard } from "@/lib/dashboard-context"
-import { getSettings } from "@/lib/settings"
+import { getApiBaseUrl, getSettings } from "@/lib/settings"
 import type { TumblerInfo } from "@/lib/tumblers"
 import { BackLink, CtaButton, PageTitle, StatusDot, Sub } from "@/components/tumbler/parts"
 import { RunCard } from "@/components/run/run-entry"
@@ -17,7 +17,7 @@ export function OfflineCard({ t }: { t: TumblerInfo }) {
 
   useEffect(() => {
     const s = getSettings()
-    setTarget(`${s.serverIp}:${s.serverPort}`)
+    setTarget(new URL(getApiBaseUrl()).host)
     setDirect(s.shellyDirectEnabled && !!s.shellyIp)
   }, [])
 

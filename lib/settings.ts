@@ -47,10 +47,17 @@ export function getWebSocketUrl(): string {
   return getApiBaseUrl().replace(/^http/, "ws").replace(/\/api$/, "/ws")
 }
 
+const LOCAL_HOSTS = ["localhost", "127.0.0.1", "[::1]"]
+
 export function getApiBaseUrl(): string {
   if (typeof window !== "undefined") {
     const configured = localStorage.getItem("dava-api-origin")
     if (configured) return `${configured}/api`
+    // Served over HTTPS on the default port (an ngrok tunnel to the Pi): the backend
+    // serves the pages too, so the API is on this same origin, not on :8765.
+    // localhost is excluded because that is the Android app's own origin.
+    const { protocol, port, hostname, origin } = window.location
+    if (protocol === "https:" && port === "" && !LOCAL_HOSTS.includes(hostname)) return `${origin}/api`
   }
   const { serverIp, serverPort } = getSettings()
   const protocol = typeof window !== "undefined" && window.location.protocol === "https:" ? "https" : "http"
