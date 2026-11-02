@@ -2,11 +2,19 @@
 
 #include <AsyncJson.h>
 #include <WiFi.h>
+#include <memory>
 #include "../core/Log.h"
 #include "../services/Phone.h"
 #include "WifiService.h"
 
 ApiServer::ApiServer(AppContext& ctx) : c_(ctx), server_(ctx.cfg.port), ws_("/ws") {}
+
+// Which controller this is (from the chip's MAC), so the app never mixes two controllers' runs.
+static String controllerId() {
+  char buf[24];
+  snprintf(buf, sizeof buf, "esp32-%012llx", (unsigned long long)ESP.getEfuseMac());
+  return buf;
+}
 
 // ---------------------------------------------------------------------------------------------
 // helpers
@@ -106,6 +114,7 @@ void ApiServer::begin() {
   routeReadings();
   routeRecovery();
   routeAuth();
+  routeRuns();
   routeStatusPage();
 
   server_.begin();
@@ -190,7 +199,9 @@ void ApiServer::routeSystem() {
 
   server_.on("/api/system/info", HTTP_GET, [this](AsyncWebServerRequest* req) {
     JsonDocument doc;
+    doc["controllerId"] = controllerId();
     doc["firmware"] = DAVA_FW_VERSION;
+    doc["runsAvailable"] = c_.runs.ready();
     doc["hostname"] = c_.cfg.hostname;
     doc["ip"] = deviceIp();
     doc["rssi"] = WiFi.RSSI();
@@ -368,6 +379,185 @@ void ApiServer::routeAuth() {
   });
   verify->setMethod(HTTP_POST);
   server_.addHandler(verify);
+}
+
+// ---------------------------------------------------------------------------------------------
+// /api/runs (shared run history; same JSON and rules as backend/routers/runs.py)
+// ---------------------------------------------------------------------------------------------
+
+namespace {
+
+/** A list of runs sent piece by piece, straight from their files, so 200 runs never sit in RAM at once. */
+struct RunList {
+  String head;
+  std::vector<String> ids;
+  size_t next = 0;
+  bool anyRun = false;
+  uint8_t part = 0;  // 0 head, 1 runs, 2 tail, 3 done
+  String piece;
+  size_t pos = 0;
+
+  bool load(RunStore& store) {
+    pos = 0;
+    if (part == 0) {
+      piece = head;
+      part = 1;
+      return true;
+    }
+    while (part == 1 && next < ids.size()) {
+      String doc;
+      // a run trimmed since the list was made is simply left out
+      if (!store.read(ids[next++], doc)) continue;
+      piece = anyRun ? "," : "";
+      piece += doc;
+      anyRun = true;
+      return true;
+    }
+    if (part == 1) {
+      piece = "]}";
+      part = 2;
+      return true;
+    }
+    return false;
+  }
+
+  size_t fill(RunStore& store, uint8_t* buf, size_t maxLen) {
+    size_t n = 0;
+    while (n < maxLen) {
+      if (pos >= piece.length() && !load(store)) break;
+      size_t take = std::min(maxLen - n, (size_t)(piece.length() - pos));
+      memcpy(buf + n, piece.c_str() + pos, take);
+      n += take;
+      pos += take;
+    }
+    return n;
+  }
+};
+
+}  // namespace
+
+void ApiServer::broadcastRun(const RunChange& change) {
+  char buf[120];
+  snprintf(buf, sizeof buf, "{\"type\":\"run_updated\",\"id\":\"%s\",\"rev\":%u,\"seq\":%u}", change.id.c_str(), (unsigned)change.rev,
+           (unsigned)change.seq);
+  ws_.textAll(buf);
+}
+
+void ApiServer::sendRun(AsyncWebServerRequest* req, int code, JsonVariantConst run) {
+  AsyncResponseStream* res = req->beginResponseStream("application/json");
+  res->setCode(code);
+  res->print("{\"run\":");
+  serializeJson(run, *res);
+  res->printf(",\"serverNow\":%llu}", (unsigned long long)c_.clock.nowMs());
+  req->send(res);
+}
+
+void ApiServer::sendRunError(AsyncWebServerRequest* req, int code, const char* error, const String& stored) {
+  AsyncResponseStream* res = req->beginResponseStream("application/json");
+  res->setCode(code);
+  res->printf("{\"error\":\"%s\"", error);
+  if (stored.length()) {
+    res->print(",\"run\":");
+    res->print(stored);
+  }
+  res->printf(",\"serverNow\":%llu}", (unsigned long long)c_.clock.nowMs());
+  req->send(res);
+}
+
+void ApiServer::replyRun(AsyncWebServerRequest* req, const RunResult& r, JsonVariantConst run, int okCode) {
+  switch (r.code) {
+    case RunWrite::Ok:
+      sendRun(req, okCode, run);
+      broadcastRun(r.change);
+      return;
+    case RunWrite::Bad:
+      return sendRunError(req, 400, r.error);
+    case RunWrite::NotFound:
+      return sendRunError(req, 404, "not_found");
+    case RunWrite::Exists:
+      return sendRunError(req, 409, "exists", r.stored);
+    case RunWrite::ActiveRun:
+      return sendRunError(req, 409, "active_run", r.stored);
+    case RunWrite::Stale:
+      return sendRunError(req, 409, "stale", r.stored);
+    case RunWrite::Final:
+      return sendRunError(req, 409, "final", r.stored);
+    case RunWrite::Storage:
+      return sendRunError(req, 503, "storage");
+  }
+}
+
+void ApiServer::routeRuns() {
+  server_.on("/api/runs", HTTP_GET, [this](AsyncWebServerRequest* req) {
+    if (req->url() != "/api/runs") return sendRunError(req, 404, "not_found");
+    if (!c_.runs.ready()) return sendRunError(req, 503, "storage");
+    uint32_t since = req->hasParam("since") ? strtoul(req->getParam("since")->value().c_str(), nullptr, 10) : 0;
+    long limit = req->hasParam("limit") ? req->getParam("limit")->value().toInt() : 500;
+    limit = constrain(limit, 1L, 1000L);
+
+    auto list = std::make_shared<RunList>();
+    bool more = false;
+    uint32_t seq = c_.runs.changedSince(since, (size_t)limit, list->ids, more);
+    char head[96];
+    snprintf(head, sizeof head, "{\"seq\":%u,\"more\":%s,\"serverNow\":%llu,\"runs\":[", (unsigned)seq, more ? "true" : "false",
+             (unsigned long long)c_.clock.nowMs());
+    list->head = head;
+    req->send(req->beginChunkedResponse("application/json",
+                                        [this, list](uint8_t* buf, size_t maxLen, size_t) { return list->fill(c_.runs, buf, maxLen); }));
+  });
+
+  // POST /api/runs, POST /api/runs/import, POST /api/runs/<id>/override, PUT /api/runs/<id>
+  auto* writes = new AsyncCallbackJsonWebHandler("/api/runs", [this](AsyncWebServerRequest* req, JsonVariant& json) {
+    if (!c_.runs.ready()) return sendRunError(req, 503, "storage");
+    String path = req->url().substring(strlen("/api/runs"));
+    bool post = req->method() == HTTP_POST;
+    uint64_t now = c_.clock.nowMs();
+
+    if (post && path.length() == 0) {
+      JsonObject run = json["run"].as<JsonObject>();
+      return replyRun(req, c_.runs.create(run, now), run, 201);
+    }
+
+    if (post && path == "/import") {
+      JsonArray runs = json["runs"].as<JsonArray>();
+      if (runs.isNull()) return sendRunError(req, 400, "missing runs");
+      JsonDocument out;
+      JsonArray imported = out["imported"].to<JsonArray>();
+      JsonArray skipped = out["skipped"].to<JsonArray>();
+      std::vector<RunChange> changes;
+      c_.runs.import(runs, now, imported, skipped, changes);
+      out["seq"] = c_.runs.latestSeq();
+      out["serverNow"] = now;
+      sendJson(req, 200, out);
+      for (const RunChange& ch : changes) broadcastRun(ch);
+      LOG("runs: imported %u", (unsigned)imported.size());
+      return;
+    }
+
+    if (post && path.startsWith("/") && path.endsWith("/override")) {
+      String id = path.substring(1, path.length() - strlen("/override"));
+      const char* reason = json["reason"] | "";
+      size_t len = strlen(reason);
+      if (len < 1 || len > 200) return sendRunError(req, 400, "bad reason");
+      JsonDocument out;
+      RunResult r = c_.runs.overrideRun(id, reason, now, out);
+      replyRun(req, r, out.as<JsonVariantConst>(), 200);
+      if (r.code == RunWrite::Ok) LOG("runs: %s overridden", id.c_str());
+      return;
+    }
+
+    if (!post && path.startsWith("/") && path.indexOf('/', 1) < 0) {
+      if (!json["baseRev"].is<uint32_t>()) return sendRunError(req, 400, "missing baseRev");
+      JsonObject run = json["run"].as<JsonObject>();
+      return replyRun(req, c_.runs.save(path.substring(1), run, json["baseRev"].as<uint32_t>(), now), run, 200);
+    }
+
+    sendRunError(req, 404, "not_found");
+  });
+  writes->setMethod(HTTP_POST | HTTP_PUT);
+  // a run is at most 32 KB; leave room for the envelope around it
+  writes->setMaxContentLength(RunStore::MAX_DOC_BYTES + 1024);
+  server_.addHandler(writes);
 }
 
 // ---------------------------------------------------------------------------------------------

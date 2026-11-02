@@ -20,6 +20,14 @@ const ITEMS: [string, string][] = [
     "Tap Start on a tumbler's page and confirm that the drum is loaded and the lid is closed. Stop asks you to confirm before the drum slows down.",
   ],
   [
+    "Runs",
+    "Each batch of hides is a run. Tap + on a tumbler's page, enter the hide weight, then follow the recipe step by step, ticking off each product as it goes in. A tumbler takes a new run only once the current one is finished and the leather is out. If a run wasn't logged or something went wrong, Override ends it so a new one can start.",
+  ],
+  [
+    "Suggestions",
+    "Once a tumbler has 5 completed runs, the app warns when its readings drift from what's usual there. From 8 runs it points out what seems to affect pH, temperature and drum speed. Tap Don't show again to silence a suggestion until more runs are logged.",
+  ],
+  [
     "Warnings and emergency stop",
     "The app sounds an alarm when temperature passes 35 °C or pH leaves 6–8. The tumbler is stopped automatically at the heat and pH limits set under Configure, while this app is open.",
   ],

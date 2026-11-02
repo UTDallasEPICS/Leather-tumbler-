@@ -12,6 +12,8 @@ images: {
     unoptimized: true,
   },
   reactStrictMode: true,
+  // dev-only Next.js badge; bottom-left would sit on top of the desktop menu's footer
+  devIndicators: { position: 'bottom-right' },
 });
 
 module.exports = nextConfig;

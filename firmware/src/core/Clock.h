@@ -17,12 +17,25 @@ class Clock {
   bool ntpSynced() const { return sntp_get_sync_status() == SNTP_SYNC_STATUS_COMPLETED; }
 
   // With no internet (hotspot mode) the phone supplies the time instead. Internet time wins.
+  // Once set, another phone a few seconds out doesn't move it: runs are timed in this clock, so
+  // every nudge would shift the countdowns on every device.
   bool setFromClient(uint64_t epochMs) {
     if (ntpSynced() || epochMs < 1700000000000ULL) return false;
+    if (synced()) {
+      int64_t drift = (int64_t)epochMs - (int64_t)nowMs();
+      if (drift > -30000 && drift < 30000) return false;
+    }
     struct timeval tv;
     tv.tv_sec = (time_t)(epochMs / 1000ULL);
     tv.tv_usec = (suseconds_t)((epochMs % 1000ULL) * 1000ULL);
     return settimeofday(&tv, nullptr) == 0;
+  }
+
+  // Milliseconds since 1970 (or since boot, until the clock is set).
+  uint64_t nowMs() const {
+    struct timeval tv;
+    gettimeofday(&tv, nullptr);
+    return (uint64_t)tv.tv_sec * 1000ULL + tv.tv_usec / 1000;
   }
 
   const char* source() const { return ntpSynced() ? "ntp" : (synced() ? "app" : "none"); }

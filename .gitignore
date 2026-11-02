@@ -21,6 +21,7 @@ firmware/include/secrets.h
 .env.auth
 .venv/
 __pycache__/
+*.pyc
 .pytest_cache/
 .hypothesis/
 *.db-wal

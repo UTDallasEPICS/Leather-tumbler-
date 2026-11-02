@@ -5,7 +5,7 @@ import { useTheme } from "next-themes"
 import { Monitor, Moon, Sun } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const OPTIONS = [
+export const THEME_OPTIONS = [
   { value: "light", label: "Light", icon: Sun },
   { value: "dark", label: "Dark", icon: Moon },
   { value: "system", label: "Auto", icon: Monitor },
@@ -23,7 +23,7 @@ export function ThemeSwitch() {
     <div className="mt-1 border-t border-border px-1 pt-2.5 pb-1">
       <div className="px-2 pb-1.5 text-xs font-semibold tracking-wide text-muted-foreground uppercase">Appearance</div>
       <div role="radiogroup" aria-label="Appearance" className="grid grid-cols-3 gap-1 rounded-xl bg-brown-tint p-1">
-        {OPTIONS.map(({ value, label, icon: Icon }) => (
+        {THEME_OPTIONS.map(({ value, label, icon: Icon }) => (
           <button
             key={value}
             type="button"

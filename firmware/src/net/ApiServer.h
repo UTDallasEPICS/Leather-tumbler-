@@ -6,7 +6,9 @@
 //   GET  /api/system/relay-status     GET  /api/readings/history?limit=
 //   GET  /api/recovery/phone          PUT  /api/recovery/phone
 //   POST /api/auth/otp/request        POST /api/auth/otp/verify
-//   WS   /ws   (server push: system_state, temperature, ph, logs_cleared)
+//   GET  /api/runs?since=&limit=      POST /api/runs | /api/runs/import | /api/runs/<id>/override
+//   PUT  /api/runs/<id>               (the contract is at the top of lib/runs-api.ts in the app)
+//   WS   /ws   (server push: system_state, temperature, ph, logs_cleared, run_updated)
 //
 // New and optional (used once the app grows speed/direction controls):
 //   GET /api/system/info   GET /api/system/motor-status
@@ -25,6 +27,7 @@ class ApiServer {
 
   void broadcastState();
   void broadcastReading(const char* type, const Reading& r);
+  void broadcastRun(const RunChange& change);
 
  private:
   void setupCors();
@@ -33,12 +36,17 @@ class ApiServer {
   void routeReadings();
   void routeRecovery();
   void routeAuth();
+  void routeRuns();
   void routeStatusPage();
 
   void handleDrive(AsyncWebServerRequest* req, bool on);
   void fillState(JsonDocument& doc);
   void fillMotor(JsonVariant doc);
   String stateFrame();
+
+  void sendRun(AsyncWebServerRequest* req, int code, JsonVariantConst run);
+  void sendRunError(AsyncWebServerRequest* req, int code, const char* error, const String& stored = String());
+  void replyRun(AsyncWebServerRequest* req, const RunResult& r, JsonVariantConst run, int okCode);
 
   static void sendJson(AsyncWebServerRequest* req, int code, const JsonDocument& doc);
   static void sendMessage(AsyncWebServerRequest* req, int code, bool success, const char* message);

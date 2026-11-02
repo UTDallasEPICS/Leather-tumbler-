@@ -49,6 +49,9 @@ pio device monitor       # serial log, 115200 baud
 
 Optional: copy `include/secrets.example.h` to `include/secrets.h` to bake in Wi-Fi and Twilio defaults.
 
+Runs are kept in the flash's data partition (LittleFS). The first boot after flashing firmware that keeps
+runs formats that partition, which takes a few seconds; it was unused before.
+
 ## First boot
 
 1. With nothing saved the board opens its own setup network **DAVA-Tumbler-Setup** (password `tumbler-setup`).
@@ -74,7 +77,7 @@ src/
   main.cpp              wires the modules together, nothing else
   HardwareFactory.h     config -> drivers (the only place that knows which class to use)
   AppContext.h          shared references handed to the API and sensor loop
-  core/                 Config (flash), Clock (SNTP), SystemState, ReadingStore (ring buffers), Mutex, Log
+  core/                 Config (flash), Clock (SNTP), SystemState, ReadingStore (ring buffers), RunStore (runs in LittleFS), Mutex, Log
   sensors/              ITemperatureSensor / IPhSensor; Ds18b20, Ads1115 pH, mocks
   drive/                IDrive; ShellyDrive, GpioRelayDrive, PwmDirDrive (Cytron), HBridgeDrive (BTS7960), MockDrive
   net/                  WifiService, ApiServer (routes + WebSocket), ConfigPortal (first-boot setup)
@@ -97,15 +100,26 @@ Same as the Python backend (`backend/`):
 | `GET /api/readings/history?limit=` | `{temperature:[...], ph:[...]}`, newest first |
 | `GET` / `PUT /api/recovery/phone` | recovery number |
 | `POST /api/auth/otp/request`, `/verify` | Forgot-PIN codes (mock mode returns the code; Twilio mode texts it) |
-| `WS /ws` | pushes `system_state`, `temperature`, `ph`, `logs_cleared` |
+| `GET /api/runs?since=&limit=` | runs changed since a change number, oldest first |
+| `POST /api/runs`, `PUT /api/runs/<id>` | start a run; save one (409 with the current copy if another device saved first) |
+| `POST /api/runs/<id>/override`, `/api/runs/import` | end a run as overridden; upload a device's runs from before they were shared |
+| `WS /ws` | pushes `system_state`, `temperature`, `ph`, `logs_cleared`, `run_updated` |
 
-New, optional: `POST /api/system/time {epochMs}` (the app sets the clock), `GET /api/system/info` (firmware, IP, sensor and drive status), `GET /api/system/motor-status`,
+The runs routes, their JSON and their rules are written down at the top of [lib/runs-api.ts](../lib/runs-api.ts); the
+Python backend implements the same ones.
+
+New, optional: `POST /api/system/time {epochMs}` (the app sets the clock), `GET /api/system/info` (`controllerId`, firmware, IP, sensor and drive status), `GET /api/system/motor-status`,
 `POST /api/system/speed {percent}`, `POST /api/system/direction {direction}` (PWM drives only: `pwmdir` and `hbridge`).
 
 ## Differences from the Raspberry Pi backend
 
-- **Reading history is kept in RAM** (last 200 of each) and is lost on reboot. Cycles, Wi-Fi, settings and the
-  recovery phone are saved in flash.
+- **Reading history is kept in RAM** (last 200 of each) and is lost on reboot. Cycles, Wi-Fi, settings, the
+  recovery phone and runs are saved in flash.
+- **Runs are files in LittleFS**, one per run, replaced through a temporary file so a power cut keeps the last
+  good copy. The active runs and the newest 200 finished ones are kept (fewer if the flash fills up first).
+  A run's per-stage readings are written every 5 minutes and on every save from an app (the Python backend
+  writes them every minute), so a power cut can lose up to 5 minutes of totals.
+- **Run requests are limited to 32 KB** (a full run is about 6 KB); the app imports old runs a few at a time.
 - **A missing sensor reports nothing.** The Python backend silently switched to simulated values; the
   firmware only simulates when "simulated hardware" is switched on explicitly.
 - **`start` only marks the run active if the drive confirmed it**, and `stop` only marks it stopped if the
@@ -114,6 +128,8 @@ New, optional: `POST /api/system/time {epochMs}` (the app sets the clock), `GET 
 - **Twilio SMS is sent in the background**: the API answers "OTP sent" immediately and a delivery failure
   shows only in the serial log. OTP codes live in RAM and are lost on reboot.
 - **Timestamps** come from internet time when there is any, otherwise from the phone (it sends its clock on connect), and count from boot until one of those arrives.
+  Once a phone has set it, another phone less than 30 s out doesn't move it, because run timers are counted in
+  the controller's time.
 - **The Shelly drive blocks briefly** (about 1.5 s per attempt, two attempts) while the request is handled.
 - The firmware has no SQLite, so history is not persistent, and cycles are still not counted automatically
   (same as before; the counter only changes through the API).

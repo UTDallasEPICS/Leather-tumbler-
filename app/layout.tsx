@@ -5,7 +5,7 @@ import { Inter, Source_Serif_4 } from 'next/font/google'
 import { AuthProvider } from '@/lib/auth-context'
 import { DashboardProvider } from '@/lib/dashboard-context'
 import { TumblersProvider } from '@/lib/tumblers'
-import { SetupProvider } from '@/lib/setup-state'
+import { RunsProvider } from '@/lib/runs'
 import { DashboardShell } from '@/components/dashboard-shell'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ServiceWorkerRegister } from '@/components/sw-register'
@@ -58,11 +58,11 @@ export default function RootLayout({
           <AuthProvider>
           <DashboardProvider>
             <TumblersProvider>
-              <SetupProvider>
+              <RunsProvider>
                 <DashboardShell>
                   {children}
                 </DashboardShell>
-              </SetupProvider>
+              </RunsProvider>
             </TumblersProvider>
           </DashboardProvider>
           </AuthProvider>

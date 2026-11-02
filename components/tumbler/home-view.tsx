@@ -2,11 +2,20 @@
 
 import Link from "next/link"
 import { ChevronRight, Droplets, LayoutGrid, Thermometer } from "lucide-react"
+import { useIsDesktop } from "@/hooks/use-desktop"
+import { useRuns } from "@/lib/runs"
 import { averageOf, tumblerMeta, useTumblers } from "@/lib/tumblers"
 import { SectionTitle, Sub, TumblerRow } from "@/components/tumbler/parts"
+import { DesktopHome } from "@/components/tumbler/desktop-home"
+import { runShort } from "@/components/run/run-entry"
 
 export function HomeView() {
+  return useIsDesktop() ? <DesktopHome /> : <PhoneHome />
+}
+
+function PhoneHome() {
   const { tumblers } = useTumblers()
+  const { activeRun } = useRuns()
 
   const onlineCount = tumblers.filter((t) => t.online).length
   const live = tumblers.filter((t) => t.running)
@@ -72,9 +81,11 @@ export function HomeView() {
           <ChevronRight className="size-[18px] text-muted-foreground" />
         </Link>
       )}
-      {tumblers.map((t) => (
-        <TumblerRow key={t.id} t={t} meta={tumblerMeta(t)} chevron />
-      ))}
+      {tumblers.map((t) => {
+        const run = activeRun(t.id)
+        const meta = run ? `${!t.online ? "Offline" : t.running ? "Running" : "Stopped"} · ${runShort(run)}` : tumblerMeta(t)
+        return <TumblerRow key={t.id} t={t} meta={meta} chevron />
+      })}
     </div>
   )
 }

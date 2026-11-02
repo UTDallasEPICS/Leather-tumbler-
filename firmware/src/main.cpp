@@ -1,7 +1,7 @@
 // DAVA Leather Tumbler controller: replaces the Raspberry Pi backend with a single ESP32.
 //
 // main.cpp only wires modules together:
-//   core/      config, clock, run state, reading history
+//   core/      config, clock, drive state, reading history, runs
 //   sensors/   temperature + pH drivers behind small interfaces
 //   drive/     the motor/relay drivers behind one interface
 //   net/       Wi-Fi, REST + WebSocket API, first-boot setup portal
@@ -26,6 +26,7 @@ static SystemState state;
 static ReadingStore store;
 static OtpService otp;
 static RecoveryStore recovery;
+static RunStore runs;
 static WifiService wifi;
 static Hardware hw;
 
@@ -85,7 +86,8 @@ void setup() {
   hw.drive->stop();
 
   otp.configure(cfg);
-  ctx.reset(new AppContext{cfg, state, store, clk, hw, otp, recovery});
+  runs.begin();
+  ctx.reset(new AppContext{cfg, state, store, clk, hw, otp, recovery, runs});
   api.reset(new ApiServer(*ctx));
   api->begin();
   sensorLoop.reset(new SensorLoop(*ctx, *api));

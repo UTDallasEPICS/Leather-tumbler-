@@ -61,6 +61,8 @@ interface DashboardState {
   clearNotificationLogs: () => void
   updateConfig: (config: Config) => void
   reconnect: () => void
+  /** Calls `fn` with every WebSocket message of this type; returns the unsubscribe. */
+  subscribe: (type: string, fn: (msg: any) => void) => () => void
   shellyDirectOn: () => Promise<boolean>
   shellyDirectOff: () => Promise<boolean>
 }
@@ -69,9 +71,9 @@ const DashboardContext = createContext<DashboardState | null>(null)
 
 const RECONNECT_BASE_DELAY = 1000
 const RECONNECT_MAX_DELAY = 30000
-const OVERHEAT_WARNING_TEMP = 35
-const PH_WARNING_LOW = 6
-const PH_WARNING_HIGH = 8
+export const OVERHEAT_WARNING_TEMP = 35
+export const PH_WARNING_LOW = 6
+export const PH_WARNING_HIGH = 8
 type WarningAudioMode = "none" | "heat" | "ph" | "both"
 
 export function DashboardProvider({ children }: { children: React.ReactNode }) {
@@ -94,6 +96,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const notificationTimerRef = useRef(0)
 
   const wsRef = useRef<WebSocket | null>(null)
+  const listenersRef = useRef(new Map<string, Set<(msg: any) => void>>())
   const reconnectAttemptRef = useRef(0)
   const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const configRef = useRef(config)
@@ -432,7 +435,15 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
         setLogs([])
         break
     }
+    listenersRef.current.get(data.type)?.forEach((fn) => fn(data))
   }, [maybeNotifyOverheat, maybeNotifyPhRange, maybeApplyKillSwitch])
+
+  const subscribe = useCallback((type: string, fn: (msg: any) => void) => {
+    const map = listenersRef.current
+    if (!map.has(type)) map.set(type, new Set())
+    map.get(type)!.add(fn)
+    return () => void map.get(type)?.delete(fn)
+  }, [])
 
   // --- Demo mode ---
 
@@ -496,7 +507,10 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   // --- Real WebSocket / Connect logic remains same...
   const connect = useCallback(() => {
     if (getSettings().demoMode) return
-    if (wsRef.current) wsRef.current.close()
+    // drop the old socket before closing it, so its onclose doesn't schedule a reconnect of its own
+    const old = wsRef.current
+    wsRef.current = null
+    old?.close()
     const wsUrl = getWebSocketUrl()
     setConnectionStatus("connecting")
     let ws: WebSocket
@@ -512,12 +526,12 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     wsRef.current = ws
     ws.onopen = () => { const token = getAccessToken(getApiBaseUrl()); if (!token) { ws.close(); return }; ws.send(`Bearer ${token}`); setConnectionStatus("connected"); reconnectAttemptRef.current = 0 }
     ws.onmessage = (event) => { try { handleMessage(JSON.parse(event.data)) } catch {}}
-    ws.onclose = () => { setConnectionStatus("disconnected"); if (getSettings().demoMode) return; const delay = Math.min(RECONNECT_BASE_DELAY * Math.pow(2, reconnectAttemptRef.current), RECONNECT_MAX_DELAY); reconnectAttemptRef.current += 1; reconnectTimeoutRef.current = setTimeout(connect, delay) }
+    ws.onclose = () => { if (wsRef.current !== ws) return; setConnectionStatus("disconnected"); if (getSettings().demoMode) return; const delay = Math.min(RECONNECT_BASE_DELAY * Math.pow(2, reconnectAttemptRef.current), RECONNECT_MAX_DELAY); reconnectAttemptRef.current += 1; reconnectTimeoutRef.current = setTimeout(connect, delay) }
   }, [handleMessage])
 
   const reconnect = useCallback(() => { reconnectAttemptRef.current = 0; if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current); stopDemo(); const demo = getSettings().demoMode; setDemoMode(demo); if (demo) startDemo(); else connect() }, [connect, startDemo, stopDemo])
 
-  useEffect(() => { const demo = getSettings().demoMode; setDemoMode(demo); if (demo) startDemo(); else connect(); return () => { stopDemo(); if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current); if (wsRef.current) wsRef.current.close() } }, [connect, startDemo, stopDemo])
+  useEffect(() => { const demo = getSettings().demoMode; setDemoMode(demo); if (demo) startDemo(); else connect(); return () => { stopDemo(); if (reconnectTimeoutRef.current) clearTimeout(reconnectTimeoutRef.current); const ws = wsRef.current; wsRef.current = null; ws?.close() } }, [connect, startDemo, stopDemo])
 
   // Hydrate log history once from REST (live readings stream arrives over /ws).
   useEffect(() => {
@@ -665,7 +679,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     <DashboardContext.Provider
       value={{
         status, connectionStatus, heat, ph, cycles, logs, notificationLogs, config, isRunning, demoMode,
-        start, stop, resetCycles, clearLogs, clearNotificationLogs, updateConfig, reconnect,
+        start, stop, resetCycles, clearLogs, clearNotificationLogs, updateConfig, reconnect, subscribe,
         shellyDirectOn, shellyDirectOff,
       }}
     >
