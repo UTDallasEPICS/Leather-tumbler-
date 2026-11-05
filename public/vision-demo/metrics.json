@@ -1,0 +1,274 @@
+{
+ "model": {
+  "name": "PatchCore",
+  "backbone": "wide_resnet50_2",
+  "trainedOn": "MVTec AD leather",
+  "trainImages": 245,
+  "imageSize": [
+   256,
+   256
+  ],
+  "fitSeconds": null,
+  "trainedAt": "2026-11-05T05:08:03.485307+00:00"
+ },
+ "defaultThreshold": 0.5,
+ "test": {
+  "images": 62,
+  "good": 16,
+  "defect": 46,
+  "thresholdPickedOn": 62
+ },
+ "imageAUROC": 1.0,
+ "pixelAUROC": 0.9916847348213196,
+ "inferenceMs": 85.0,
+ "scores": [
+  {
+   "type": "color",
+   "score": 0.9445
+  },
+  {
+   "type": "color",
+   "score": 0.7265
+  },
+  {
+   "type": "color",
+   "score": 0.768
+  },
+  {
+   "type": "color",
+   "score": 0.581
+  },
+  {
+   "type": "color",
+   "score": 0.6673
+  },
+  {
+   "type": "color",
+   "score": 0.6451
+  },
+  {
+   "type": "color",
+   "score": 0.8128
+  },
+  {
+   "type": "color",
+   "score": 0.8533
+  },
+  {
+   "type": "color",
+   "score": 0.7155
+  },
+  {
+   "type": "color",
+   "score": 0.7224
+  },
+  {
+   "type": "color",
+   "score": 0.7332
+  },
+  {
+   "type": "cut",
+   "score": 0.9838
+  },
+  {
+   "type": "cut",
+   "score": 0.9627
+  },
+  {
+   "type": "cut",
+   "score": 0.7347
+  },
+  {
+   "type": "cut",
+   "score": 0.7844
+  },
+  {
+   "type": "cut",
+   "score": 0.7855
+  },
+  {
+   "type": "cut",
+   "score": 0.5964
+  },
+  {
+   "type": "cut",
+   "score": 0.5958
+  },
+  {
+   "type": "cut",
+   "score": 0.6354
+  },
+  {
+   "type": "cut",
+   "score": 0.7855
+  },
+  {
+   "type": "cut",
+   "score": 0.5968
+  },
+  {
+   "type": "cut",
+   "score": 1.0
+  },
+  {
+   "type": "fold",
+   "score": 0.7534
+  },
+  {
+   "type": "fold",
+   "score": 0.8403
+  },
+  {
+   "type": "fold",
+   "score": 0.7232
+  },
+  {
+   "type": "fold",
+   "score": 0.8214
+  },
+  {
+   "type": "fold",
+   "score": 0.8317
+  },
+  {
+   "type": "fold",
+   "score": 0.8189
+  },
+  {
+   "type": "glue",
+   "score": 0.8809
+  },
+  {
+   "type": "glue",
+   "score": 0.5804
+  },
+  {
+   "type": "glue",
+   "score": 1.0
+  },
+  {
+   "type": "glue",
+   "score": 1.0
+  },
+  {
+   "type": "glue",
+   "score": 0.7671
+  },
+  {
+   "type": "glue",
+   "score": 0.9112
+  },
+  {
+   "type": "glue",
+   "score": 1.0
+  },
+  {
+   "type": "glue",
+   "score": 0.7403
+  },
+  {
+   "type": "good",
+   "score": 0.266
+  },
+  {
+   "type": "good",
+   "score": 0.2742
+  },
+  {
+   "type": "good",
+   "score": 0.3014
+  },
+  {
+   "type": "good",
+   "score": 0.2804
+  },
+  {
+   "type": "good",
+   "score": 0.2977
+  },
+  {
+   "type": "good",
+   "score": 0.2828
+  },
+  {
+   "type": "good",
+   "score": 0.294
+  },
+  {
+   "type": "good",
+   "score": 0.2871
+  },
+  {
+   "type": "good",
+   "score": 0.2607
+  },
+  {
+   "type": "good",
+   "score": 0.3199
+  },
+  {
+   "type": "good",
+   "score": 0.2766
+  },
+  {
+   "type": "good",
+   "score": 0.2798
+  },
+  {
+   "type": "good",
+   "score": 0.3125
+  },
+  {
+   "type": "good",
+   "score": 0.2983
+  },
+  {
+   "type": "good",
+   "score": 0.3217
+  },
+  {
+   "type": "good",
+   "score": 0.3247
+  },
+  {
+   "type": "poke",
+   "score": 0.7944
+  },
+  {
+   "type": "poke",
+   "score": 0.8327
+  },
+  {
+   "type": "poke",
+   "score": 0.917
+  },
+  {
+   "type": "poke",
+   "score": 0.8984
+  },
+  {
+   "type": "poke",
+   "score": 0.8909
+  },
+  {
+   "type": "poke",
+   "score": 0.8731
+  },
+  {
+   "type": "poke",
+   "score": 0.9021
+  },
+  {
+   "type": "poke",
+   "score": 0.8837
+  },
+  {
+   "type": "poke",
+   "score": 0.7669
+  },
+  {
+   "type": "poke",
+   "score": 0.8526
+  }
+ ]
+}

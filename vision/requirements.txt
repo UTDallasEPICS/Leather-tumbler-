@@ -1,0 +1,8 @@
+# Inspection server only (service.py + inspector.py). No PyTorch needed, so this also fits a Pi or mini PC.
+onnxruntime>=1.20
+numpy>=1.26
+pillow>=10.1
+opencv-python-headless>=4.8
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9

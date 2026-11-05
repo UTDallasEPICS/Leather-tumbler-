@@ -63,6 +63,17 @@ note on screen. The line under a run says where it stands:
 Demo Mode runs (and the made-up history behind its suggestions) stay on the device and never reach a
 controller. The API both servers implement is described at the top of [lib/runs-api.ts](lib/runs-api.ts).
 
+## Leather inspection (defect model)
+
+The **Inspection** page checks photos of the leather with a defect model. It shows how often the model is
+right, which defects people confirm, and which run readings (stage temperature, pH, drum speed) went with
+more defective hides. The model runs on a laptop or mini PC on the same Wi-Fi (`vision/service.py`, port
+8770), not on the ESP32; set its address under **Connection → Inspection server**. Demo Mode shows real
+model output on public test photos without the server.
+
+Training, the server, current results and how to retrain on our own photos are in
+[vision/README.md](vision/README.md).
+
 ## Legacy architecture: Raspberry Pi backend (`backend/`)
 
 ```
@@ -230,6 +241,7 @@ Should print `{"type":"system_state","active":false,"cycles":0}`.
 - [components/](components/) — React components, shadcn/ui
 - [lib/](lib/) — frontend state and helpers ([dashboard-context.tsx](lib/dashboard-context.tsx), [settings.ts](lib/settings.ts), [api.ts](lib/api.ts), [auth-context.tsx](lib/auth-context.tsx))
 - [firmware/](firmware/) — ESP32 controller firmware (PlatformIO): sensors, motor drive, Wi-Fi, REST + WebSocket API
+- [vision/](vision/) — leather defect model: training (Anomalib PatchCore), evaluation and the inspection server the Inspection page talks to
 - [backend/](backend/) — legacy Raspberry Pi / laptop dev server: FastAPI app ([app.py](backend/app.py), [main.py](backend/main.py)), sensor readers, relay controller, OTP service, [setup.sh](backend/setup.sh), [requirements.txt](backend/requirements.txt)
 - [android/](android/) — Capacitor Android wrapper, only relevant if you want a native APK
 - `out/` — static-export build artifact (generated, not in git)

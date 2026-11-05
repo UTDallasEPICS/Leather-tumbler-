@@ -1,0 +1,128 @@
+[
+ {
+  "id": "color-001",
+  "type": "color",
+  "score": 0.9445,
+  "area": 0.0089
+ },
+ {
+  "id": "color-002",
+  "type": "color",
+  "score": 0.7265,
+  "area": 0.0
+ },
+ {
+  "id": "color-004",
+  "type": "color",
+  "score": 0.581,
+  "area": 0.0
+ },
+ {
+  "id": "cut-018",
+  "type": "cut",
+  "score": 1.0,
+  "area": 0.0199
+ },
+ {
+  "id": "cut-006",
+  "type": "cut",
+  "score": 0.7844,
+  "area": 0.0033
+ },
+ {
+  "id": "cut-010",
+  "type": "cut",
+  "score": 0.5958,
+  "area": 0.0
+ },
+ {
+  "id": "fold-004",
+  "type": "fold",
+  "score": 0.8403,
+  "area": 0.0201
+ },
+ {
+  "id": "fold-011",
+  "type": "fold",
+  "score": 0.8214,
+  "area": 0.004
+ },
+ {
+  "id": "fold-009",
+  "type": "fold",
+  "score": 0.7232,
+  "area": 0.0
+ },
+ {
+  "id": "glue-007",
+  "type": "glue",
+  "score": 1.0,
+  "area": 0.017
+ },
+ {
+  "id": "glue-001",
+  "type": "glue",
+  "score": 0.8809,
+  "area": 0.0075
+ },
+ {
+  "id": "glue-004",
+  "type": "glue",
+  "score": 0.5804,
+  "area": 0.0
+ },
+ {
+  "id": "good-031",
+  "type": "good",
+  "score": 0.3247,
+  "area": 0.0
+ },
+ {
+  "id": "good-024",
+  "type": "good",
+  "score": 0.3125,
+  "area": 0.0
+ },
+ {
+  "id": "good-008",
+  "type": "good",
+  "score": 0.2977,
+  "area": 0.0
+ },
+ {
+  "id": "good-010",
+  "type": "good",
+  "score": 0.2828,
+  "area": 0.0
+ },
+ {
+  "id": "good-022",
+  "type": "good",
+  "score": 0.2766,
+  "area": 0.0
+ },
+ {
+  "id": "good-018",
+  "type": "good",
+  "score": 0.2607,
+  "area": 0.0
+ },
+ {
+  "id": "poke-005",
+  "type": "poke",
+  "score": 0.917,
+  "area": 0.0111
+ },
+ {
+  "id": "poke-013",
+  "type": "poke",
+  "score": 0.8837,
+  "area": 0.0096
+ },
+ {
+  "id": "poke-015",
+  "type": "poke",
+  "score": 0.7669,
+  "area": 0.0024
+ }
+]

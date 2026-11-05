@@ -8,6 +8,9 @@ export interface Settings {
   shellyIp: string
   shellyDirectEnabled: boolean
   demoMode: boolean
+  /** leather inspection server (vision/service.py), usually a laptop on the same Wi-Fi */
+  visionIp: string
+  visionPort: number
 }
 
 function inferServerIp(): string {
@@ -23,6 +26,8 @@ function getDefaults(): Settings {
     shellyIp: "",
     shellyDirectEnabled: false,
     demoMode: true,
+    visionIp: inferServerIp(),
+    visionPort: 8770,
   }
 }
 
@@ -62,6 +67,11 @@ export function getApiBaseUrl(): string {
   const { serverIp, serverPort } = getSettings()
   const protocol = typeof window !== "undefined" && window.location.protocol === "https:" ? "https" : "http"
   return `${protocol}://${serverIp}:${serverPort}/api`
+}
+
+export function getVisionOrigin(): string {
+  const { visionIp, visionPort } = getSettings()
+  return `http://${visionIp}:${visionPort}`
 }
 
 export function getShellyBaseUrl(): string | null {

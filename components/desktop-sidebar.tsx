@@ -14,6 +14,7 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   Rotate3d, // TEMP 3D model
+  ScanSearch,
   Settings,
   UserRound,
   Wifi,
@@ -32,6 +33,7 @@ const mainItems: NavItem[] = [
   { href: "/", label: "Home", icon: House },
   { href: "/group?mode=all", label: "All tumblers", icon: LayoutGrid, match: "/group" },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/inspection", label: "Inspection", icon: ScanSearch },
   { href: "/model", label: "3D model", icon: Rotate3d }, // TEMP 3D model
 ]
 
