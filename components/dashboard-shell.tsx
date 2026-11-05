@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 import { MobileSidebar } from "@/components/mobile-sidebar"
 import { DesktopSidebar } from "@/components/desktop-sidebar"
 
-const WIDE_PAGES = ["/", "/analytics", "/run"]
+const WIDE_PAGES = ["/", "/analytics", "/run", "/inspection"]
 
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   const isDesktop = useIsDesktop()

@@ -13,6 +13,7 @@ import {
   LayoutGrid,
   PanelLeftClose,
   PanelLeftOpen,
+  ScanSearch,
   Settings,
   UserRound,
   Wifi,
@@ -31,6 +32,7 @@ const mainItems: NavItem[] = [
   { href: "/", label: "Home", icon: House },
   { href: "/group?mode=all", label: "All tumblers", icon: LayoutGrid, match: "/group" },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/inspection", label: "Inspection", icon: ScanSearch },
 ]
 
 const settingsItems: NavItem[] = [

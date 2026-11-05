@@ -1,0 +1,6 @@
+# Training and evaluation (train.py, evaluate.py), on top of requirements.txt. CPU PyTorch is enough.
+-r requirements.txt
+anomalib[cpu]==2.7.0
+onnx>=1.16
+onnxscript>=0.5
+scikit-learn>=1.4
