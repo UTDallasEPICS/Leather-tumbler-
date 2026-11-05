@@ -4,6 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { BarChart3, CircleHelp, House, LayoutGrid, Menu, Settings, UserRound, Wifi, X } from "lucide-react"
+import { Rotate3d } from "lucide-react" // TEMP 3D model
 import { cn } from "@/lib/utils"
 import { eventLevel } from "@/lib/analytics"
 import { useDashboard } from "@/lib/dashboard-context"
@@ -13,6 +14,7 @@ const navItems = [
   { href: "/", label: "Home", icon: House },
   { href: "/group?mode=all", label: "All tumblers", icon: LayoutGrid, match: "/group" },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/model", label: "3D model", icon: Rotate3d }, // TEMP 3D model
   { href: "/configure", label: "Configure", icon: Settings },
   { href: "/settings", label: "Connection", icon: Wifi },
   { href: "/account", label: "Account", icon: UserRound },
