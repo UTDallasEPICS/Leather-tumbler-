@@ -1,0 +1,6 @@
+# local Python env, downloaded datasets, our own photos and trained models stay off git
+.venv/
+datasets/
+photos/
+models/
+data/

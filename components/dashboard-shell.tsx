@@ -242,7 +242,7 @@ function PinLockScreen({ onUnlock }: { onUnlock: () => void }) {
   )
 }
 
-const WIDE_PAGES = ["/", "/analytics", "/run"]
+const WIDE_PAGES = ["/", "/analytics", "/run", "/inspection"]
 
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   const [isReady, setIsReady] = useState(false)

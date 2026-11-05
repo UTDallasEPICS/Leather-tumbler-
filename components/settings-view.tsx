@@ -1,7 +1,7 @@
 "use client"
 //This whole thing is for the settings page for ip stuff.
 import { useState, useEffect } from "react"
-import { Save, Server, Wifi, Plug, Power, CheckCircle2, XCircle, FlaskConical, Bell, BellRing, Send } from "lucide-react"
+import { Save, Server, Wifi, Plug, Power, CheckCircle2, XCircle, FlaskConical, Bell, BellRing, Send, ScanSearch } from "lucide-react"
 import { useDashboard } from "@/lib/dashboard-context"
 import { getSettings, saveSettings, type Settings } from "@/lib/settings"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
@@ -24,6 +24,8 @@ export function SettingsView() {
   const [saved, setSaved] = useState(false)
   const [shellyTest, setShellyTest] = useState<TestStatus>("idle")
   const [shellyTestMsg, setShellyTestMsg] = useState("")
+  const [visionTest, setVisionTest] = useState<TestStatus>("idle")
+  const [visionTestMsg, setVisionTestMsg] = useState("")
   const [fcmToken, setFcmToken] = useState<string | null>(null)
   const [isPushRegistering, setIsPushRegistering] = useState(false)
   const [isSendingTest, setIsSendingTest] = useState(false)
@@ -128,7 +130,9 @@ export function SettingsView() {
       local.serverPort !== current.serverPort ||
       local.shellyIp !== current.shellyIp ||
       local.shellyDirectEnabled !== current.shellyDirectEnabled ||
-      local.demoMode !== current.demoMode
+      local.demoMode !== current.demoMode ||
+      local.visionIp !== current.visionIp ||
+      local.visionPort !== current.visionPort
     )
   })()
 
@@ -158,6 +162,24 @@ export function SettingsView() {
     } catch {
       setShellyTest("error")
       setShellyTestMsg("Unreachable")
+    }
+  }
+
+  const handleTestVision = async () => {
+    if (!local.visionIp) return
+    setVisionTest("testing")
+    setVisionTestMsg("")
+    try {
+      const resp = await fetch(`http://${local.visionIp}:${local.visionPort}/api/vision/status`, {
+        signal: AbortSignal.timeout(5000),
+      })
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
+      const s = await resp.json()
+      setVisionTest(s.ready ? "success" : "error")
+      setVisionTestMsg(s.ready ? `Model ready · ${s.counts?.total ?? 0} photos stored` : `Running, but no model loaded`)
+    } catch (e) {
+      setVisionTest("error")
+      setVisionTestMsg(e instanceof Error && e.message.startsWith("HTTP") ? e.message : "Unreachable")
     }
   }
 
@@ -259,6 +281,61 @@ export function SettingsView() {
               <div className={cn("size-2.5 rounded-full", connectionDot)} />
               <span className="text-xs text-muted-foreground capitalize">{connectionStatus}</span>
             </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Leather inspection server */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Inspection server</CardTitle>
+          <CardDescription>
+            Laptop or mini PC running the leather defect model (vision/service.py)
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col gap-3 rounded-lg border border-border bg-accent/30 p-4">
+            <div className="flex items-center gap-3">
+              <div className="flex size-9 items-center justify-center rounded-md bg-primary/20">
+                <ScanSearch className="size-4 text-primary" />
+              </div>
+              <div>
+                <Label htmlFor="vision-ip" className="text-sm font-medium text-foreground">
+                  Address and port
+                </Label>
+                <p className="text-xs text-muted-foreground">Used by the Inspection page; port 8770 unless you changed it</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <Input
+                id="vision-ip"
+                type="text"
+                placeholder="192.168.1.x"
+                value={local.visionIp}
+                onChange={(e) => setLocal((prev) => ({ ...prev, visionIp: e.target.value.trim() }))}
+                className="max-w-[200px]"
+              />
+              <Input
+                aria-label="Inspection server port"
+                type="number"
+                value={local.visionPort}
+                onChange={(e) => setLocal((prev) => ({ ...prev, visionPort: Number(e.target.value) }))}
+                className="w-[96px] tabular-nums"
+              />
+              <Button variant="outline" size="sm" onClick={handleTestVision} disabled={!local.visionIp || visionTest === "testing"}>
+                {visionTest === "testing" ? "Testing..." : "Test"}
+              </Button>
+            </div>
+            {visionTest !== "idle" && visionTest !== "testing" && (
+              <div className="flex items-center gap-1.5 text-xs">
+                {visionTest === "success" ? (
+                  <CheckCircle2 className="size-3.5 text-primary" />
+                ) : (
+                  <XCircle className="size-3.5 text-destructive" />
+                )}
+                <span className={visionTest === "success" ? "text-primary" : "text-destructive"}>{visionTestMsg}</span>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>
